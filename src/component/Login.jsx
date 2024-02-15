@@ -2,7 +2,6 @@ import React from 'react';
 import { Form, Formik, Field } from 'formik';
 import { userValidationLogin } from '../validation/userValidationLogin';
 import './style.css';
-import { postUser } from '../utils/apiRequests';
 import { useSnackbar } from 'notistack';
 import { useNavigate, Link } from 'react-router-dom';
 import { showSuccessSnackbar, showErrorSnackbar } from '../utils/snackBar';
@@ -22,14 +21,6 @@ export default function Register() {
                          validationSchema={userValidationLogin}
                          onSubmit={values => {
                               // values object will contain the form data
-                              postUser(values)
-                                   .then(() => {
-                                        showSuccessSnackbar('Registered Sucessfully', enqueueSnackbar);
-                                        navigate('/user');
-                                   })
-                                   .catch(e => {
-                                        showErrorSnackbar('Error', enqueueSnackbar);
-                                   });
                          }}
                     >
                          {({ errors, touched }) => (

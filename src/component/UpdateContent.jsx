@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { getUser, updateUser } from '../utils/apiRequests';
 import { Form, Formik, Field } from 'formik';
 import { userValidationSchema } from '../validation/userValidationSchema';
 import './style.css';
@@ -36,28 +35,7 @@ const UpdateContent = () => {
      return (
           <div>
                <div className="registration-form" style={{ height: '100vh' }}>
-                    <Formik
-                         initialValues={{ name, age, email }}
-                         validationSchema={userValidationSchema}
-                         onSubmit={values => {
-                              // values object will contain the form data
-                              updateUser(values, id)
-                                   .then(() => {
-                                        showSuccessSnackbar('Updated Successfully Sucessfully');
-                                        navigate('/user');
-                                   })
-                                   .catch(e => {
-                                        enqueueSnackbar('Somerthing went Wrong', {
-                                             variant: 'error',
-                                             autoHideDuration: 1500,
-                                             anchorOrigin: {
-                                                  vertical: 'top',
-                                                  horizontal: 'right',
-                                             },
-                                        });
-                                   });
-                         }}
-                    >
+                    <Formik initialValues={{ name, age, email }} validationSchema={userValidationSchema} onSubmit={values => {}}>
                          {({ errors, touched }) => (
                               <Form>
                                    <div className="social-media">
