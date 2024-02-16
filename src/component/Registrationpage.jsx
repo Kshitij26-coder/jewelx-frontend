@@ -12,6 +12,8 @@ import { userEndpoints } from '../utils/endpoints/userEndpoints';
 import { brandEndpoints } from '../utils/endpoints/BrandEndPoints';
 import Footer from './Footer';
 import roles from '../utils/roles';
+import { subsidiaryEndPoints } from '../utils/endpoints/subsidiaryEndPoints';
+import { getSubsidiariesByIdEndpoint } from '../utils/apis/subsidiaryApiRequests';
 
 export default function Registrationpage() {
      const { enqueueSnackbar } = useSnackbar();
@@ -21,6 +23,7 @@ export default function Registrationpage() {
      //used to dynamically show the brand input feild
      const [showBrandForOwner, setShowBrandForOwner] = useState(false);
      const [brandOptions, setBrandOptions] = useState([]);
+     const [subsidiaryOptions, setSubsidiaryOptions] = useState([]);
 
      /**
       * used to get brand and populate the brand feild
@@ -31,7 +34,24 @@ export default function Registrationpage() {
                setBrandOptions(data);
           } catch (e) {
                console.log(e);
-               showErrorSnackbar('error in populating Brands', enqueueSnackbar);
+          }
+     };
+
+     /**
+      *
+      * @param {Number} id
+      */
+     const getSubsidiaries = async id => {
+          try {
+               const data = await getRequest(
+                    getSubsidiariesByIdEndpoint(subsidiaryEndPoints.GET_SUBSIDIARIES_BY_BRAND, id),
+                    navigate,
+                    enqueueSnackbar,
+               );
+               setSubsidiaryOptions(data);
+               console.log(data);
+          } catch (e) {
+               console.log(e);
           }
      };
 
@@ -40,20 +60,18 @@ export default function Registrationpage() {
       * @param {*} values
       * hanlde the what to do after onSubmit event
       */
-     const onSubmitHandelr = values => {
+     const onSubmitHandelr = async values => {
           try {
                setLoader(true);
-               postRequest(values, userEndpoints.BASE_ROUTE, navigate, enqueueSnackbar);
+               await postRequest(values, userEndpoints.BASE_ROUTE, navigate, enqueueSnackbar);
                showSuccessSnackbar('success', enqueueSnackbar);
                setLoader(false);
                navigate('/login');
           } catch (e) {
                setLoader(false);
                console.log(e);
-               showErrorSnackbar('error in creating user', enqueueSnackbar);
           }
      };
-
      useEffect(() => {
           getBrands();
      }, []);
@@ -71,6 +89,8 @@ export default function Registrationpage() {
                               password: '',
                               confirmPassword: '',
                               userRole: '',
+                              subsidiaryId: '',
+                              brandId: 0,
                          }}
                          validationSchema={userValidationSchema}
                          onSubmit={async values => {
@@ -106,7 +126,7 @@ export default function Registrationpage() {
                                              placeholder="Select UserType"
                                              name="userRole"
                                              onChange={e => {
-                                                  e.target.value === roles.admin ? setShowBrandForOwner(true) : setShowBrandForOwner(false);
+                                                  e.target.value === roles.owner ? setShowBrandForOwner(true) : setShowBrandForOwner(false);
                                                   setFieldValue('userRole', e.target.value);
                                              }}
                                         >
@@ -119,53 +139,88 @@ export default function Registrationpage() {
                                    </div>
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
                                         {showBrandForOwner ? (
-                                             <Field
-                                                  type="text"
-                                                  className="form-control item"
-                                                  id="brandName"
-                                                  placeholder="Brand Name"
-                                                  name="brandName"
-                                             />
+                                             <>
+                                                  <Field
+                                                       type="text"
+                                                       className="form-control item"
+                                                       id="brandName"
+                                                       placeholder="Brand Name"
+                                                       name="brandName"
+                                                  />
+                                                  {errors.brandName && touched.brandName ? <div className="error">{errors.brandName}</div> : null}
+                                             </>
                                         ) : (
-                                             <Field
-                                                  as="select"
-                                                  className="form-control item"
-                                                  id="brandName"
-                                                  placeholder="Brand Name"
-                                                  name="brandName"
-                                             >
-                                                  <option value="">Select Brand</option>
-                                                  {brandOptions.length > 0 &&
-                                                       brandOptions.map(each => (
-                                                            <option value={each.brandId} key={each.brandId}>
-                                                                 {each.name}
-                                                            </option>
-                                                       ))}
-                                             </Field>
+                                             <>
+                                                  <Field
+                                                       as="select"
+                                                       className="form-control item"
+                                                       id="brandId"
+                                                       placeholder="Brand Name"
+                                                       name="brandId"
+                                                       onChange={async e => {
+                                                            setFieldValue('brandId', Number(e.target.value));
+                                                            await getSubsidiaries(e.target.value);
+                                                       }}
+                                                  >
+                                                       <option value="">Select Brand</option>
+                                                       {brandOptions.length > 0 &&
+                                                            brandOptions.map(each => (
+                                                                 <option value={each.brandId} key={each.brandId}>
+                                                                      {each.name}
+                                                                 </option>
+                                                            ))}
+                                                  </Field>
+                                                  {errors.brandId && touched.brandId ? <div className="error">{errors.brandId}</div> : null}
+                                             </>
                                         )}
-                                        {errors.brandName && touched.brandName ? <div className="error">{errors.brandName}</div> : null}
                                    </div>
-                                   {showBrandForOwner && (
-                                        <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
-                                             <Field
-                                                  type="text"
-                                                  className="form-control item"
-                                                  id="brandDescription"
-                                                  placeholder="Brand Description"
-                                                  name="brandDescription"
-                                             />
-                                             {errors.brandDescription && touched.brandDescription ? (
-                                                  <div className="error">{errors.brandDescription}</div>
-                                             ) : null}
-                                        </div>
-                                   )}
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
-                                        <Field type="text" className="form-control item" id="pass" placeholder="Password" name="password" />
+                                        {showBrandForOwner ? (
+                                             <>
+                                                  <Field
+                                                       type="text"
+                                                       className="form-control item"
+                                                       id="brandDescription"
+                                                       placeholder="Brand Description"
+                                                       name="brandDescription"
+                                                  />
+                                                  {errors.brandDescription && touched.brandDescription ? (
+                                                       <div className="error">{errors.brandDescription}</div>
+                                                  ) : null}
+                                             </>
+                                        ) : (
+                                             <>
+                                                  <Field
+                                                       as="select"
+                                                       className="form-control item"
+                                                       id="subsidiaryId"
+                                                       placeholder="Select Subsidiary"
+                                                       name="subsidiaryId"
+                                                       onChange={async e => {
+                                                            setFieldValue('subsidiaryId', Number(e.target.value));
+                                                       }}
+                                                  >
+                                                       <option value="">Select Subsidiary</option>
+                                                       {subsidiaryOptions.length > 0 &&
+                                                            subsidiaryOptions.map(each => (
+                                                                 <option value={each.idxId} key={each.idxId}>
+                                                                      {each.subsidiaryName}
+                                                                 </option>
+                                                            ))}
+                                                  </Field>
+                                                  {errors.subsidiaryId && touched.subsidiaryId ? (
+                                                       <div className="error">{errors.subsidiaryId}</div>
+                                                  ) : null}
+                                             </>
+                                        )}
+                                   </div>
+                                   <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
+                                        <Field type="password" className="form-control item" id="password" placeholder="Password" name="password" />
                                         {errors.password && touched.password ? <div className="error">{errors.password}</div> : null}
                                    </div>
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
                                         <Field
-                                             type="text"
+                                             type="password"
                                              className="form-control item"
                                              id="confirmPassword"
                                              placeholder="Confirm Password"

@@ -8,7 +8,7 @@
  * @returns {string}
  */
 export const getUsersPaginatedEndpoint = (endpoint, page, role) => {
-     return 'endpoint' + `?page=${page}&size=${process.env.PAGE_SIZE}&role=${role}`;
+     return `${endpoint}?page=${page}&size=${import.meta.env.VITE_PAGE_SIZE}&role=${role}`;
 };
 
 /**

@@ -13,7 +13,6 @@ export let url = import.meta.env.VITE_SERVER_URL;
  * Helps to make post request to the server
  */
 export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
-     console.log(data);
      try {
           const response = await axios.post(url + endpoint, data);
           return response.data;
@@ -61,9 +60,10 @@ export let getRequest = async (endpoint, navigate, enqueueSnackbar) => {
                     //logout the user
                     showErrorSnackbar('Unauthorized Access', enqueueSnackbar);
                     navigate('/login');
+               } else {
+                    showErrorSnackbar(err.response.data.message, enqueueSnackbar);
+                    throw new Error(err.response.data.message);
                }
-               showErrorSnackbar(err.response.data.message, enqueueSnackbar);
-               throw new Error(err.response.data.message);
           } else if (err.request) {
                // The request was made but no response was received
                showErrorSnackbar('Connection Failed', enqueueSnackbar);
