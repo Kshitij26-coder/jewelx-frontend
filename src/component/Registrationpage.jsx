@@ -89,7 +89,7 @@ export default function Registrationpage() {
                               password: '',
                               confirmPassword: '',
                               userRole: '',
-                              subsidiaryId: '',
+                              subsidiaryId: 0,
                               brandId: 0,
                          }}
                          validationSchema={userValidationSchema}
@@ -126,7 +126,7 @@ export default function Registrationpage() {
                                              placeholder="Select UserType"
                                              name="userRole"
                                              onChange={e => {
-                                                  e.target.value === roles.owner ? setShowBrandForOwner(true) : setShowBrandForOwner(false);
+                                                  setShowBrandForOwner(e.target.value == roles.owner);
                                                   setFieldValue('userRole', e.target.value);
                                              }}
                                         >

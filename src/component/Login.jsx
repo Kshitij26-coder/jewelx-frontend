@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Formik, Field } from 'formik';
 import { userValidationLogin } from '../validation/userValidationLogin';
 import './style.css';
@@ -9,6 +9,9 @@ import { showSuccessSnackbar, showErrorSnackbar } from '../utils/snackBar';
 export default function Register() {
      const { enqueueSnackbar } = useSnackbar();
      const navigate = useNavigate();
+     const [loader, setLoader] = useState(false);
+
+     const onSubmitHandler = async values => {};
 
      return (
           <div>
@@ -39,8 +42,7 @@ export default function Register() {
 
                                    <div className="form-group">
                                         <button type="submit" className="btn btn-block create-account">
-                                             {' '}
-                                             Login{' '}
+                                             {loader ? <ButtonLoader /> : 'Login'}
                                         </button>
                                    </div>
                                    <div className="forgot-password">
