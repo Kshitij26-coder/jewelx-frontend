@@ -5,8 +5,8 @@
      },
      "About": {
           "paragraph": "Empowering jewelers with streamlined operations, enhanced customer management, and optimized inventory control for a sparkling business transformation.",
-          "Why": ["Lorem ipsum dolor", "Tempor incididunt", "Lorem ipsum dolor", "Incididunt ut labore"],
-          "Why2": ["Aliquip ex ea commodo", "Lorem ipsum dolor", "Exercitation ullamco", "Lorem ipsum dolor"]
+          "Why": ["Enhanced Customer Experience", "Compliance and Security", "Continuous Innovation and Support", "Innovative Features"],
+          "Why2": ["Integration Capabilities", "User-friendly Interface", "Future-proof Technology", "Customer Satisfaction"]
      },
      "Gallery": [
           {
@@ -57,118 +57,87 @@
      ],
      "Services": [
           {
-               "icon": "fa fa-wordpress",
-               "name": "Lorem ipsum dolor",
-               "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+               "icon": "fa fa-bank",
+               "name": "Money Lending (Girvi)",
+               "text": "Flexible Interest Setups , Separate Trial With Intt.Calculations,Transparent Terms and Conditions,Collateralized Loans. "
           },
           {
-               "icon": "fa fa-cart-arrow-down",
-               "name": "Consectetur adipiscing",
-               "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+               "icon": "fa fa-globe",
+               "name": "Multi-Store Management",
+               "text": "Manage multiple store locations from a centralized system, including inventory synchronization, sales reporting, and centralized customer management."
           },
           {
                "icon": "fa fa-cloud-download",
-               "name": "Lorem ipsum dolor",
-               "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+               "name": "Updates and Enhancements",
+               "text": "Provide regular software updates and enhancements to add new features, improve performance, ensuring the software remains up-to-date and reliable."
           },
           {
-               "icon": "fa fa-language",
-               "name": "Consectetur adipiscing",
-               "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
-          },
-          {
-               "icon": "fa fa-plane",
-               "name": "Lorem ipsum dolor",
-               "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+               "icon": "fa fa-diamond",
+               "name": "Gemstone Management",
+               "text": "Manage gemstone inventory, including tracking gemstone attributes such as type, carat weight, clarity, and certification details."
           },
           {
                "icon": "fa fa-pie-chart",
-               "name": "Consectetur adipiscing",
-               "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+               "name": "Customized Financial Reports",
+               "text": "Generate customized financial reports, such as income statements, balance sheets, cash flow statements, and profitability analysis."
+          },
+          {
+               "icon": "fa fa-cart-plus",
+               "name": "ADD - ONS",
+               "text": "Monthly Saving Scheme,Multiple Branch Management,Accounting - Stock - GST - MIS,Repair and Maintenance Services"
           }
      ],
-     "Testimonials": [
-          {
-               "img": "img/testimonials/01.jpg",
-               "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-               "name": "John Doe"
-          },
-          {
-               "img": "img/testimonials/02.jpg",
-               "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-               "name": "Johnathan Doe"
-          },
-          {
-               "img": "img/testimonials/03.jpg",
-               "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-               "name": "John Doe"
-          },
-          {
-               "img": "img/testimonials/04.jpg",
-               "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-               "name": "Johnathan Doe"
-          },
-          {
-               "img": "img/testimonials/05.jpg",
-               "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-               "name": "John Doe"
-          },
-          {
-               "img": "img/testimonials/06.jpg",
-               "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-               "name": "Johnathan Doe"
-          }
-     ],
+     
      "Team": [
           {
                "img": "img/team/01.jpg",
-               "name": "John Doe",
-               "job": "Director"
+               "name": "Kshitij Burhade",
+               "job": "Software Developer"
           },
           {
                "img": "img/team/02.jpg",
-               "name": "Mike Doe",
-               "job": "Senior Designer"
+               "name": "Krishna Jadhav",
+               "job": "Software Developer"
           },
           {
                "img": "img/team/03.jpg",
-               "name": "Jane Doe",
-               "job": "Senior Designer"
+               "name": "Rupesh Rane",
+               "job": "Software Developer"
           },
           {
                "img": "img/team/04.jpg",
-               "name": "Karen Doe",
-               "job": "Project Manager"
+               "name": "Rita Sonawane",
+               "job": "Software Developer"
           }
      ],
      "Contact": {
-          "address": "4321 California St, San Francisco, CA 12345 ",
-          "phone": "+1 123 456 1234",
-          "email": "info@company.com",
+          "address": "Pune Maharashtra 411044 ",
+          "phone": "+91 8329618990",
+          "email": "jewelxsoftware@gmail.com",
           "facebook": "fb.com",
           "twitter": "twitter.com",
           "youtube": "youtube.com"
      },
      "Features": [
           {
-               "icon": "fa fa-comments-o",
-               "title": "Lorem ipsum",
-               "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+               "icon": "fa fa-bullhorn",
+               "title": "Marketing Services",
+               "text": "Email or SMS marketing integration for promotions and updates.Customer feedback and review management"
           },
           {
-               "icon": "fa fa-bullhorn",
-               "title": "Lorem ipsum",
-               "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+               "icon": "fa fa-lock",
+               "title": "Security and Compliance",
+               "text": "Ensure data security and compliance with industry regulations . Secure backup and data recovery procedures."
           },
           {
                "icon": "fa fa-group",
-               "title": "Lorem ipsum",
-               "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+               "title": "Customer Relationship",
+               "text": "Maintain customer profiles with contact information, purchase history.Build and maintain strong relationships with customers to enhance loyalty and satisfaction."
           },
           {
-               "icon": "fa fa-magic",
-               "title": "Lorem ipsum",
-               "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+               "icon": "fa fa-barcode",
+               "title": "Inventory Management ",
+               "text": "Track inventory levels for various types of jewelry (e.g., rings, necklaces, earrings),Barcode or RFID tagging for easy tracking."
           }
      ]
 }

@@ -7,8 +7,8 @@ export const Services = (props) => {
         <div className="section-title">
           <h2>Our Services</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed
-            dapibus leonec.
+          Discover how our jewelry management system can streamline your operations and elevate your business.
+
           </p>
         </div>
         <div className="row">

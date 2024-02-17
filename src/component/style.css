@@ -57,7 +57,7 @@ body {
      padding: 10px 20px;
      font-size: 18px;
      font-weight: bold;
-     background-color: #a343b6;
+     background-image: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
      border: none;
      color: white;
      margin-top: 20px;
