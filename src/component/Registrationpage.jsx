@@ -72,6 +72,7 @@ export default function Registrationpage() {
                console.log(e);
           }
      };
+
      useEffect(() => {
           getBrands();
      }, []);
@@ -99,10 +100,6 @@ export default function Registrationpage() {
                     >
                          {({ errors, touched, isValid, setFieldValue }) => (
                               <Form>
-                                   <div className="social-media">
-                                        <h3> Signup </h3>
-                                        <h6> with Jewelx</h6>
-                                   </div>
                                    <div className="form-group" style={{ marginBottom: '25px' }}>
                                         <Field type="text" className="form-control item" id="email" placeholder="Email" name="email" />
                                         {errors.email && touched.email ? <div className="error">{errors.email}</div> : null}
