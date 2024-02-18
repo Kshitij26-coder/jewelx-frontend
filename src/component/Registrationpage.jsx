@@ -16,6 +16,9 @@ export default function Registrationpage() {
      return (
           <div>
                <div className="registration-form">
+               <div className="section-title text-center">
+               <Link to="/home">  <h2>Jewelx</h2>  </Link>     
+                                   </div>
                     <Formik
                          initialValues={{
                               name: '',
@@ -43,10 +46,8 @@ export default function Registrationpage() {
                     >
                          {({ errors, touched, isValid, setFieldValue }) => (
                               <Form>
-                                   <div className="social-media">
-                                        <h3> Signup </h3>
-                                        <h6> with Jewelx</h6>
-                                   </div>
+                                   <h3 className='text-center mb-5'style={{ marginBottom: '25px' }}>Signup with Jewelx</h3>
+                    
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
                                         <Field type="text" className="form-control item" id="fullname" placeholder="Name" name="name" />
                                         {errors.name && touched.name ? <div className="error">{errors.name}</div> : null}
@@ -121,7 +122,7 @@ export default function Registrationpage() {
                                         {errors.cpassword && touched.cpassword ? <div className="error">{errors.cpassword}</div> : null}
                                    </div>
                                    <div className="form-group">
-                                        <button type="submit" className="btn btn-block create-account" disabled={!isValid}>
+                                        <button type="submit" className="btn btn-block create-account btn btn-lg" disabled={!isValid}>
                                              Create Account
                                         </button>
                                    </div>

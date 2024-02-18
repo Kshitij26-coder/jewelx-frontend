@@ -23,7 +23,7 @@ const Index = () => {
      }, []);
 
      return (
-          <div>
+          <div style={{backgroundColor:'#242424'}}>
                <Navigation />
                <Header data={landingPageData.Header} />
                <Features data={landingPageData.Features} />

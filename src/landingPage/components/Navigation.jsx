@@ -16,7 +16,6 @@ export const Navigation = props => {
                          </button>
                          
                          <Link className="navbar-brand page-scroll" to="/home">
-               
                               Jewelx
                          </Link>
                          

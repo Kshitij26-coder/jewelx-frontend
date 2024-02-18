@@ -52,10 +52,7 @@ export const routing = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "*",
-    element: <NotFound404 />,
-  },
+
   {
     path: "/forgot-password",
     element: <ForgotPassword />,
@@ -63,5 +60,9 @@ export const routing = createBrowserRouter([
   {
     path:"/home",
     element:<Index/>
-  }
+  },
+  {
+    path: "*",
+    element: <NotFound404 />,
+  },
 ]);

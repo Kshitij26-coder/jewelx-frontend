@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import Footer from './component/Footer';
-import Header from './component/Header';
 import { SnackbarProvider } from 'notistack';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import Header from './component/Header';
 
 function App() {
      return (
