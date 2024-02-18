@@ -86,7 +86,6 @@ export default function Registrationpage() {
                     </div>
                     <Formik
                          initialValues={{
-                              name: '',
                               email: '',
                               userName: '',
                               mobileNumber: '',
@@ -109,16 +108,7 @@ export default function Registrationpage() {
                                         Signup with Jewelx
                                    </h3>
 
-                                   <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
-                                        <Field
-                                             type="text"
-                                             className="form-control item"
-                                             id="name"
-                                             placeholder="Name"
-                                             name="name"
-                                        />
-                                        {errors.name && touched.name ? <div className="error">{errors.name}</div> : null}
-                                   </div>
+                    
                                    <div className="form-group" style={{ marginBottom: '25px' }}>
                                         <Field
                                              type="text"
@@ -205,12 +195,13 @@ export default function Registrationpage() {
                                                        }}
                                                   >
                                                        <option value="">Select Brand</option>
-                                                       {brandOptions.length > 0 &&
+                                                       {console.log(brandOptions)}
+                                                       {/* {brandOptions.length > 0 &&
                                                             brandOptions.map(each => (
                                                                  <option value={each.brandId} key={each.brandId}>
                                                                       {each.name}
                                                                  </option>
-                                                            ))}
+                                                            ))} */}
                                                   </Field>
                                                   {errors.brandId && touched.brandId ? (
                                                        <div className="error">{errors.brandId}</div>

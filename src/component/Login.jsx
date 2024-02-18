@@ -25,7 +25,7 @@ export default function Register() {
                navigate('/content');
           } catch (e) {
                setLoader(false);
-               console.log(e.message);
+               console.log(e);
           }
      };
 
