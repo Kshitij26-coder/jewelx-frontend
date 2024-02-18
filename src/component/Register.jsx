@@ -2,7 +2,6 @@ import React from 'react';
 import { Form, Formik, Field } from 'formik';
 import { userValidationRegister } from '../validation/userValidationRegister';
 import './style.css';
-import { postUser } from '../utils/apiRequests';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import { showSuccessSnackbar, showErrorSnackbar } from '../utils/snackBar';

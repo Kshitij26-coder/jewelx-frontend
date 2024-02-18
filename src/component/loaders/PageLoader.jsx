@@ -1,11 +1,10 @@
 import React from 'react';
 import './loaderStyle.css';
-import './error500Style.css';
-const Loader = () => {
+const PageLoader = () => {
      return (
           <div className="parent-container">
                <span className="loader"></span>
           </div>
      );
 };
-export default Loader;
+export default PageLoader;

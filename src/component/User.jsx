@@ -1,8 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import Loader from './Loader';
+import Loader from './loaders/PageLoader';
 import { useNavigate } from 'react-router-dom';
-import { deleteUser, getUser } from '../utils/apiRequests';
 import { useSnackbar } from 'notistack';
 import ServerError500 from './errorComponents/serverError/ServerError500';
 
@@ -50,28 +49,15 @@ export default function User() {
                },
           });
      };
-     let updateHelper = async id => {
-          try {
-               let data = await getUser(id);
-               if (data) {
-                    navigate(`/update?id=${data.id}&name=${data.name}&age=${data.age}&email=${data.email}`);
-               }
-          } catch (e) {
-               showErrorSnackbar('something went wrong');
-          }
-     };
 
      let deleteHandler = async id => {
           try {
-               await deleteUser(id);
                showSuccessSnackbar('Successfully deleted');
           } catch (e) {
                showErrorSnackbar('something went wrong');
           }
      };
-     useEffect(() => {
-          getData();
-     }, []);
+     useEffect(() => {}, []);
      if (error) {
           navigate('/error500');
      }

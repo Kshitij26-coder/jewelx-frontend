@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Formik, Field } from 'formik';
 import { userValidationLogin } from '../validation/userValidationLogin';
 import './style.css';
-import { postUser } from '../utils/apiRequests';
 import { useSnackbar } from 'notistack';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Navigate } from 'react-router-dom';
 import { showSuccessSnackbar, showErrorSnackbar } from '../utils/snackBar';
+import ButtonLoader from './loaders/ButtonLoader';
+import { postRequest } from '../utils/apis/apiRequestHelper';
+import { userEndpoints } from '../utils/endpoints/userEndpoints';
+import Cookies from 'js-cookie';
 
 export default function Register() {
      const { enqueueSnackbar } = useSnackbar();
      const navigate = useNavigate();
+     const [loader, setLoader] = useState(false);
+
+     const onSubmitHandler = async values => {
+          try {
+               setLoader(true);
+               const data = await postRequest(values, userEndpoints.LOGIN, navigate, enqueueSnackbar);
+               Cookies.set('user', JSON.stringify(data), { expires: 3 });
+               showSuccessSnackbar('Logged in successfully', enqueueSnackbar);
+               setLoader(false);
+               navigate('/content');
+          } catch (e) {
+               setLoader(false);
+               console.log(e.message);
+          }
+     };
 
      return (
           <div>
@@ -25,14 +43,7 @@ export default function Register() {
                          validationSchema={userValidationLogin}
                          onSubmit={values => {
                               // values object will contain the form data
-                              postUser(values)
-                                   .then(() => {
-                                        showSuccessSnackbar('Registered Sucessfully', enqueueSnackbar);
-                                        navigate('/user');
-                                   })
-                                   .catch(e => {
-                                        showErrorSnackbar('Error', enqueueSnackbar);
-                                   });
+                              onSubmitHandler(values);
                          }}
                     >
                          {({ errors, touched }) => (
@@ -51,8 +62,7 @@ export default function Register() {
 
                                    <div className="form-group">
                                         <button type="submit" className="btn btn-block create-account">
-                                             {' '}
-                                             Login{' '}
+                                             {loader ? <ButtonLoader /> : 'Login'}
                                         </button>
                                    </div>
                                    <div className="forgot-password">
