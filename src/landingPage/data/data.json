@@ -1,0 +1,143 @@
+{
+     "Header": {
+          "title": "JewelX ERP",
+          "paragraph": "Empowering jewelers with streamlined operations, enhanced customer management, and optimized inventory control for a sparkling business transformation."
+     },
+     "About": {
+          "paragraph": "Empowering jewelers with streamlined operations, enhanced customer management, and optimized inventory control for a sparkling business transformation.",
+          "Why": ["Enhanced Customer Experience", "Compliance and Security", "Continuous Innovation and Support", "Innovative Features"],
+          "Why2": ["Integration Capabilities", "User-friendly Interface", "Future-proof Technology", "Customer Satisfaction"]
+     },
+     "Gallery": [
+          {
+               "title": "Project Title",
+               "largeImage": "img/portfolio/01-large.jpg",
+               "smallImage": "img/portfolio/01-small.jpg"
+          },
+          {
+               "title": "Project Title",
+               "largeImage": "img/portfolio/02-large.jpg",
+               "smallImage": "img/portfolio/02-small.jpg"
+          },
+          {
+               "title": "Project Title",
+               "largeImage": "img/portfolio/03-large.jpg",
+               "smallImage": "img/portfolio/03-small.jpg"
+          },
+          {
+               "title": "Project Title",
+               "largeImage": "img/portfolio/04-large.jpg",
+               "smallImage": "img/portfolio/04-small.jpg"
+          },
+          {
+               "title": "Project Title",
+               "largeImage": "img/portfolio/05-large.jpg",
+               "smallImage": "img/portfolio/05-small.jpg"
+          },
+          {
+               "title": "Project Title",
+               "largeImage": "img/portfolio/06-large.jpg",
+               "smallImage": "img/portfolio/06-small.jpg"
+          },
+          {
+               "title": "Project Title",
+               "largeImage": "img/portfolio/07-large.jpg",
+               "smallImage": "img/portfolio/07-small.jpg"
+          },
+          {
+               "title": "Project Title",
+               "largeImage": "img/portfolio/08-large.jpg",
+               "smallImage": "img/portfolio/08-small.jpg"
+          },
+          {
+               "title": "Project Title",
+               "largeImage": "img/portfolio/09-large.jpg",
+               "smallImage": "img/portfolio/09-small.jpg"
+          }
+     ],
+     "Services": [
+          {
+               "icon": "fa fa-bank",
+               "name": "Money Lending (Girvi)",
+               "text": "Flexible Interest Setups , Separate Trial With Intt.Calculations,Transparent Terms and Conditions,Collateralized Loans. "
+          },
+          {
+               "icon": "fa fa-globe",
+               "name": "Multi-Store Management",
+               "text": "Manage multiple store locations from a centralized system, including inventory synchronization, sales reporting, and centralized customer management."
+          },
+          {
+               "icon": "fa fa-cloud-download",
+               "name": "Updates and Enhancements",
+               "text": "Provide regular software updates and enhancements to add new features, improve performance, ensuring the software remains up-to-date and reliable."
+          },
+          {
+               "icon": "fa fa-diamond",
+               "name": "Gemstone Management",
+               "text": "Manage gemstone inventory, including tracking gemstone attributes such as type, carat weight, clarity, and certification details."
+          },
+          {
+               "icon": "fa fa-pie-chart",
+               "name": "Customized Financial Reports",
+               "text": "Generate customized financial reports, such as income statements, balance sheets, cash flow statements, and profitability analysis."
+          },
+          {
+               "icon": "fa fa-cart-plus",
+               "name": "ADD - ONS",
+               "text": "Monthly Saving Scheme,Multiple Branch Management,Accounting - Stock - GST - MIS,Repair and Maintenance Services"
+          }
+     ],
+     
+     "Team": [
+          {
+               "img": "img/team/01.jpg",
+               "name": "Kshitij Burhade",
+               "job": "Software Developer"
+          },
+          {
+               "img": "img/team/02.jpg",
+               "name": "Krishna Jadhav",
+               "job": "Software Developer"
+          },
+          {
+               "img": "img/team/03.jpg",
+               "name": "Rupesh Rane",
+               "job": "Software Developer"
+          },
+          {
+               "img": "img/team/04.jpg",
+               "name": "Rita Sonawane",
+               "job": "Software Developer"
+          }
+     ],
+     "Contact": {
+          "address": "Pune Maharashtra 411044 ",
+          "phone": "+91 8329618990",
+          "email": "jewelxsoftware@gmail.com",
+          "facebook": "fb.com",
+          "twitter": "twitter.com",
+          "youtube": "youtube.com"
+     },
+     "Features": [
+          {
+               "icon": "fa fa-bullhorn",
+               "title": "Marketing Services",
+               "text": "Email or SMS marketing integration for promotions and updates.Customer feedback and review management"
+          },
+          {
+               "icon": "fa fa-lock",
+               "title": "Security and Compliance",
+               "text": "Ensure data security and compliance with industry regulations . Secure backup and data recovery procedures."
+          },
+          {
+               "icon": "fa fa-group",
+               "title": "Customer Relationship",
+               "text": "Maintain customer profiles with contact information, purchase history.Build and maintain strong relationships with customers to enhance loyalty and satisfaction."
+          },
+          {
+               "icon": "fa fa-barcode",
+               "title": "Inventory Management ",
+               "text": "Track inventory levels for various types of jewelry (e.g., rings, necklaces, earrings),Barcode or RFID tagging for easy tracking."
+          }
+     ]
+}
