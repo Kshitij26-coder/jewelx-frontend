@@ -60,7 +60,7 @@ export default function Registrationpage() {
       * @param {*} values
       * hanlde the what to do after onSubmit event
       */
-     const onSubmitHandelr = async values => {
+     const onSubmitHandler = async values => {
           try {
                setLoader(true);
                await postRequest(values, userEndpoints.BASE_ROUTE, navigate, enqueueSnackbar);
@@ -80,26 +80,35 @@ export default function Registrationpage() {
      return (
           <div>
                <div className="registration-form">
+                    <div className="section-title text-center">
+                         <Link to="/home">
+                              <h2>Jewelx</h2>
+                         </Link>
+                    </div>
                     <Formik
                          initialValues={{
-                              brandName: '',
-                              brandDescription: '',
-                              userName: '',
                               email: '',
+                              userName: '',
                               mobileNumber: '',
                               password: '',
                               confirmPassword: '',
                               userRole: '',
+                              brandName: '',
+                              brandDescription: '',
                               subsidiaryId: 0,
                               brandId: 0,
                          }}
                          validationSchema={userValidationSchema}
                          onSubmit={async values => {
-                              onSubmitHandelr(values);
+                              onSubmitHandler(values);
                          }}
                     >
                          {({ errors, touched, isValid, setFieldValue }) => (
                               <Form>
+                                   <h3 className="text-center mb-5" style={{ marginBottom: '25px' }}>
+                                        Signup with Jewelx
+                                   </h3>
+
                                    <div className="form-group" style={{ marginBottom: '25px' }}>
                                         <Field type="text" className="form-control item" id="email" placeholder="Email" name="email" />
                                         {errors.email && touched.email ? <div className="error">{errors.email}</div> : null}
@@ -111,7 +120,13 @@ export default function Registrationpage() {
                                    </div>
 
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
-                                        <Field type="tel" className="form-control item" id="mob" placeholder="Mobile No" name="mobileNumber" />
+                                        <Field
+                                             type="tel"
+                                             className="form-control item"
+                                             id="mobileNumber"
+                                             placeholder="Mobile No"
+                                             name="mobileNumber"
+                                        />
                                         {errors.mobileNumber && touched.mobileNumber ? <div className="error">{errors.mobileNumber}</div> : null}
                                    </div>
 
@@ -160,12 +175,13 @@ export default function Registrationpage() {
                                                        }}
                                                   >
                                                        <option value="">Select Brand</option>
-                                                       {brandOptions.length > 0 &&
+                                                       {console.log(brandOptions)}
+                                                       {/* {brandOptions.length > 0 &&
                                                             brandOptions.map(each => (
                                                                  <option value={each.brandId} key={each.brandId}>
                                                                       {each.name}
                                                                  </option>
-                                                            ))}
+                                                            ))} */}
                                                   </Field>
                                                   {errors.brandId && touched.brandId ? <div className="error">{errors.brandId}</div> : null}
                                              </>
@@ -228,7 +244,7 @@ export default function Registrationpage() {
                                         ) : null}
                                    </div>
                                    <div className="form-group">
-                                        <button type="submit" className="btn btn-block create-account" disabled={!isValid}>
+                                        <button type="submit" className="btn btn-block create-account btn btn-lg" disabled={!isValid}>
                                              {loader ? <ButtonLoader /> : 'Create Account'}
                                         </button>
                                    </div>

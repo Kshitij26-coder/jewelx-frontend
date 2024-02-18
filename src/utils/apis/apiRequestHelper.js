@@ -17,6 +17,7 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
           const response = await axios.post(url + endpoint, data);
           return response.data;
      } catch (err) {
+
           if (err.response) {
                // The request was made and the server responded with a status code
                if (err.response.status === 401) {
@@ -25,8 +26,9 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
                     showErrorSnackbar('Unauthorized Access', enqueueSnackbar);
                     navigate('/login');
                }
-               showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
-               throw new Error(err.response.data.message ? err.response.data.message : err.response.data);
+               console.log(err.response);
+               showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data? err.response.data :"Something Went Wrong", enqueueSnackbar);
+               throw new Error(err.response.data.message ? err.response.data.message : err.response.data? err.response.data :"Something Went Wrong");
           } else if (err.request) {
                // The request was made but no response was received
                showErrorSnackbar("Can't connect to server", enqueueSnackbar);
@@ -51,6 +53,7 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
 export let getRequest = async (endpoint, navigate, enqueueSnackbar) => {
      try {
           const response = await axios.get(url + endpoint);
+          console.log(response);
           return response.data;
      } catch (err) {
           if (err.response) {

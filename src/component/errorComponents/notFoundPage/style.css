@@ -77,7 +77,7 @@ body {
      color: #fff;
      text-decoration: none;
      border: none;
-     background: #5c91fe;
+     background-image: linear-gradient(to right, #5ca9fb 0%, #364af8 100%);
      padding: 10px 40px;
      font-size: 14px;
      font-weight: 700;

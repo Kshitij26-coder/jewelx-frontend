@@ -25,13 +25,16 @@ export default function Register() {
                navigate('/content');
           } catch (e) {
                setLoader(false);
-               console.log(e.message);
+               console.log(e);
           }
      };
 
      return (
           <div>
                <div className="registration-form" style={{ height: '100vh' }}>
+               <div className="section-title text-center">
+               <Link to="/home"><h2>Jewelx</h2> </Link>      
+                                   </div>
                     <Formik
                          initialValues={{
                               password: '',
@@ -44,10 +47,10 @@ export default function Register() {
                          }}
                     >
                          {({ errors, touched }) => (
+                              
                               <Form>
-                                   <div className="social-media">
-                                        <h3>Login </h3>
-                                   </div>
+                                         
+                                   <h3 className='text-center mb-5'style={{ marginBottom: '25px' }}>Login to Jewelx</h3>
                                    <div className="form-group" style={{ marginBottom: '25px' }}>
                                         <Field type="text" className="form-control item" id="email" placeholder="Email" name="email" />
                                         {errors.email && touched.email ? <div className="error">{errors.email}</div> : null}

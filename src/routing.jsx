@@ -11,6 +11,7 @@ import Login from "./component/Login";
 import ForgotPassword from "./component/ForgotPassword";
 import Customer from "./component/Customer";
 import App from "./App";
+import Index from "./landingPage/Index";
 
 export const routing = createBrowserRouter([
   {
@@ -51,12 +52,17 @@ export const routing = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "*",
-    element: <NotFound404 />,
-  },
+
   {
     path: "/forgot-password",
     element: <ForgotPassword />,
+  },
+  {
+    path:"/home",
+    element:<Index/>
+  },
+  {
+    path: "*",
+    element: <NotFound404 />,
   },
 ]);

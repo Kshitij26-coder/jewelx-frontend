@@ -1,5 +1,5 @@
 body {
-     background-color: #ffffff;
+     background-color: #ffffff !important;
 
      display: flex;
      background-size: cover;
@@ -28,9 +28,9 @@ body {
      background-color: #e8e5ea;
      max-width: 600px;
      margin: auto;
-     padding: 50px 70px;
+     padding: 20px 60px 50px 60px;
      border-radius: 30px;
-     box-shadow: 0px 2px 10px rgba(232, 49, 49, 0.075);
+     box-shadow: 5px 5px 20px rgb(75, 72, 72);
 }
 
 .registration-form .form-icon {
@@ -57,12 +57,19 @@ body {
      padding: 10px 20px;
      font-size: 18px;
      font-weight: bold;
-     background-color: #a343b6;
+     background-image: linear-gradient(to right, #5ca9fb 0%, #364af8 100%);
      border: none;
      color: white;
      margin-top: 20px;
      width: 100%;
 }
+
+.registration-form .create-account:hover{
+color: #fff;
+     background-image: none;
+     background-color: #6372ff;
+}
+
 
 .registration-form .social-media {
      max-width: 600px;

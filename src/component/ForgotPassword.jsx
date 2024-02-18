@@ -60,6 +60,9 @@ export default function Register() {
      return (
           <div>
                <div className="registration-form" style={{ height: '100vh' }}>
+               <div className="section-title text-center">
+                                        <h2>Jewelx</h2>       
+                                   </div>
                     <Formik
                          initialValues={{
                               email: '',

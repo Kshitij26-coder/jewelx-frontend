@@ -47,13 +47,13 @@ const onSubmit = values => {
 
 const FormicForm = () => {
      return (
-          <div className="container">
+          <div className="container" style={{ marginTop: '110px' }}>
                <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-6" >
                          <h1 className="mt-4 text-center">Add Customer</h1>
                          <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                               {({ setFieldValue, values }) => (
-                                   <Form>
+                                   <Form >
                                         <div className="mb-3">
                                              <label htmlFor="name" className="form-label">
                                                   Name:

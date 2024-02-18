@@ -5,45 +5,53 @@ import imageLogo from '../assets/logo.png';
 
 export default function Header() {
      return (
-          <div className="header-container">
-               <nav className="navbar navbar-expand-lg">
-                    <div className="container-fluid">
-                         <img src={imageLogo} alt="JX" className="logo" />
-                         <button
-                              className="navbar-toggler"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#navbarNavAltMarkup"
-                              aria-controls="navbarNavAltMarkup"
-                              aria-expanded="false"
-                              aria-label="Toggle navigation"
-                         >
-                              <span className="navbar-toggler-icon"></span>
-                         </button>
-                         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                              <div className="navbar-nav">
-                                   <Link className="nav-link" to="/user">
-                                        User
-                                   </Link>
-                                   <Link className="nav-link" to="/content">
-                                        Content
-                                   </Link>
-                                   <Link className="nav-link" to="/register">
-                                        Register
-                                   </Link>
-                                   <Link className="nav-link" to="/registrationpage">
-                                        Registration Page
-                                   </Link>
-                                   <Link className="nav-link" to="/login">
-                                        Login
-                                   </Link>
-                                   <Link className="nav-link" to="/customer">
-                                        Customer
-                                   </Link>
-                              </div>
+          <nav id="menu" className="navbar navbar-default navbar-fixed-top">
+               <div className="container">
+               <div className='navbar-header' >
+                         <img src={imageLogo} alt="Jewelx Logo" style={{height:45,marginRight:4}}/>
                          </div>
+                    <div className="navbar-header">
+                         <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                              {' '}
+                              <span className="sr-only">Toggle navigation</span> <span className="icon-bar"></span> <span className="icon-bar"></span>{' '}
+                              <span className="icon-bar"></span>{' '}
+                         </button>
+                         
+                         <Link className="navbar-brand page-scroll" to="/home">
+                              Jewelx
+                         </Link>
+                         
+                         {''}.
                     </div>
-               </nav>
-          </div>
+              
+
+                    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                         <ul className="nav navbar-nav navbar-right">
+                         <li>
+                              <Link className="nav-link" to="/user">
+                                   User
+                              </Link>
+                              </li>  
+                              <li>
+                              <Link className="nav-link" to="/home">
+                                   Home
+                              </Link>
+                              </li>    
+                         <li></li>  
+                         <li> 
+                         <Link className="nav-link" to="/content">
+                                   Content
+                              </Link>
+                              </li>
+                              <li>
+                              <Link className="nav-link" to="/customer">
+                                   Customer
+                              </Link>
+                              </li>
+                              
+                         </ul>
+                    </div>
+               </div>
+          </nav>
      );
 }

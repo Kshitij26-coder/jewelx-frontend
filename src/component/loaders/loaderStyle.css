@@ -23,14 +23,14 @@
      height: 24px;
      position: absolute;
      border-radius: 50%;
-     background: #0d6efd;
+     background: #364af8;
      animation: spin 1s linear infinite;
      transform-origin: 0px 100%;
 }
 
 .loader:before {
      transform-origin: 0 50%;
-     background: #fff;
+     background: #5ca9fb ;
 }
 
 @keyframes spin {
