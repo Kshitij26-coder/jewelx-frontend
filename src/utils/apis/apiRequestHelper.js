@@ -25,8 +25,8 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
                     showErrorSnackbar('Unauthorized Access', enqueueSnackbar);
                     navigate('/login');
                }
-               showErrorSnackbar(err.response.data.message, enqueueSnackbar);
-               throw new Error(err.response.data.message);
+               showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
+               throw new Error(err.response.data.message ? err.response.data.message : err.response.data);
           } else if (err.request) {
                // The request was made but no response was received
                showErrorSnackbar("Can't connect to server", enqueueSnackbar);
@@ -35,7 +35,7 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
                // Something happened in setting up the request that triggered an error
                showErrorSnackbar('Something went wrong', enqueueSnackbar);
                navigate('/error500');
-               // throw new Error('Something went wrong');
+               //throw new Error('Something went wrong');
           }
      }
 };
@@ -61,7 +61,7 @@ export let getRequest = async (endpoint, navigate, enqueueSnackbar) => {
                     showErrorSnackbar('Unauthorized Access', enqueueSnackbar);
                     navigate('/login');
                } else {
-                    showErrorSnackbar(err.response.data.message, enqueueSnackbar);
+                    showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
                     throw new Error(err.response.data.message);
                }
           } else if (err.request) {
@@ -79,7 +79,7 @@ export let getRequest = async (endpoint, navigate, enqueueSnackbar) => {
 
 /**
  *
- * @param {string} id
+ * @param {string} id //id must be in '/id' format while calling the method
  * @param {*} data
  * @param {string} endpoint
  * @param {import('react-router-dom').NavigateFunction} navigate
@@ -88,8 +88,8 @@ export let getRequest = async (endpoint, navigate, enqueueSnackbar) => {
  */
 export let putRequest = async (id, data, endpoint, navigate, enqueueSnackbar) => {
      try {
-          const response = await axios.put(url + endpoint + `/${id}`, data);
-          showSuccessSnackbar(response.data ? response.data : `${id} Updated successfully`);
+          const response = await axios.put(url + endpoint + `${id}`, data);
+          showSuccessSnackbar(response.data ? response.data : ` Updated successfully`, enqueueSnackbar);
      } catch (err) {
           if (err.response) {
                // The request was made and the server responded with a status code
@@ -98,9 +98,10 @@ export let putRequest = async (id, data, endpoint, navigate, enqueueSnackbar) =>
                     //logout the user
                     showErrorSnackbar('Unauthorized Access', enqueueSnackbar);
                     navigate('/login');
+               } else {
+                    showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
+                    throw new Error(err.response.data.message);
                }
-               showErrorSnackbar(err.response.data.message, enqueueSnackbar);
-               throw new Error(err.response.data.message);
           } else if (err.request) {
                // The request was made but no response was received
                showErrorSnackbar('Connection Failed', enqueueSnackbar);
@@ -136,7 +137,7 @@ export let deleteRequest = async (endpoint, id, navigate, enqueueSnackbar) => {
                     showErrorSnackbar('Unauthorized Access', enqueueSnackbar);
                     navigate('/login');
                }
-               showErrorSnackbar(err.response.data.message, enqueueSnackbar);
+               showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
                throw new Error(err.response.data.message);
           } else if (err.request) {
                // The request was made but no response was received

@@ -18,5 +18,5 @@ export const getUsersPaginatedEndpoint = (endpoint, page, role) => {
  * @returns {string}
  */
 export const getUsersByIdEndpoint = (endpoint, id) => {
-     return 'endpoint' + `/${id}`;
+     return `${endpoint}/${id}`;
 };
