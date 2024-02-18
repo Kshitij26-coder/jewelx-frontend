@@ -11,7 +11,7 @@ import { getRequest, postRequest } from '../utils/apis/apiRequestHelper';
 import { userEndpoints } from '../utils/endpoints/userEndpoints';
 import { brandEndpoints } from '../utils/endpoints/BrandEndPoints';
 import Footer from './Footer';
-import roles from '../utils/roles';
+import { roles } from '../utils/roles';
 import { subsidiaryEndPoints } from '../utils/endpoints/subsidiaryEndPoints';
 import { getSubsidiariesByIdEndpoint } from '../utils/apis/subsidiaryApiRequests';
 

@@ -12,8 +12,8 @@ const initialValues = {
      adhar_id: '',
      pan_id: '',
      mobile_number: '',
-     date_of_birth: null,
-     anniversary_date: null,
+     date_of_birth: '',
+     anniversary_date: '',
      opening_balance: '',
 };
 
@@ -45,15 +45,15 @@ const onSubmit = values => {
      console.log('Form Values:', values);
 };
 
-const FormicForm = () => {
+const Customer = () => {
      return (
           <div className="container" style={{ marginTop: '110px' }}>
                <div className="row">
-                    <div className="col-md-6" >
+                    <div className="col-md-6">
                          <h1 className="mt-4 text-center">Add Customer</h1>
                          <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                               {({ setFieldValue, values }) => (
-                                   <Form >
+                                   <Form>
                                         <div className="mb-3">
                                              <label htmlFor="name" className="form-label">
                                                   Name:
@@ -217,4 +217,4 @@ const FormicForm = () => {
      );
 };
 
-export default FormicForm;
+export default Customer;
