@@ -4,7 +4,7 @@ import { userValidationLogin } from '../validation/userValidationLogin';
 import './style.css';
 import { useSnackbar } from 'notistack';
 import { useNavigate, Link, Navigate } from 'react-router-dom';
-import { showSuccessSnackbar, showErrorSnackbar } from '../utils/snackBar';
+import { showSuccessSnackbar } from '../utils/snackBar';
 import ButtonLoader from './loaders/ButtonLoader';
 import { postRequest } from '../utils/apis/apiRequestHelper';
 import { userEndpoints } from '../utils/endpoints/userEndpoints';
@@ -32,9 +32,11 @@ export default function Register() {
      return (
           <div>
                <div className="registration-form" style={{ height: '100vh' }}>
-               <div className="section-title text-center">
-               <Link to="/home"><h2>Jewelx</h2> </Link>      
-                                   </div>
+                    <div className="section-title text-center">
+                         <Link to="/home">
+                              <h2>Jewelx</h2>{' '}
+                         </Link>
+                    </div>
                     <Formik
                          initialValues={{
                               password: '',
@@ -47,10 +49,10 @@ export default function Register() {
                          }}
                     >
                          {({ errors, touched }) => (
-                              
                               <Form>
-                                         
-                                   <h3 className='text-center mb-5'style={{ marginBottom: '25px' }}>Login to Jewelx</h3>
+                                   <h3 className="text-center mb-5" style={{ marginBottom: '25px' }}>
+                                        Login to Jewelx
+                                   </h3>
                                    <div className="form-group" style={{ marginBottom: '25px' }}>
                                         <Field type="text" className="form-control item" id="email" placeholder="Email" name="email" />
                                         {errors.email && touched.email ? <div className="error">{errors.email}</div> : null}

@@ -30,7 +30,7 @@
 
 .loader:before {
      transform-origin: 0 50%;
-     background: #5ca9fb ;
+     background: #5ca9fb;
 }
 
 @keyframes spin {
