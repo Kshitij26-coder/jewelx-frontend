@@ -108,7 +108,7 @@ export default function Registrationpage() {
                                         Signup with Jewelx
                                    </h3>
 
-                    
+
                                    <div className="form-group" style={{ marginBottom: '25px' }}>
                                         <Field
                                              type="text"
