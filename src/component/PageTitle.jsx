@@ -3,10 +3,10 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const PageTitle = props => {
      return (
           <div>
-               <h3 className="mt-4 text-center" style={{ textAlign: 'left' }}>
+               <h3 className="mt-5 text-center" style={{ textAlign: 'left', fontSize: '2.5rem' }}>
                     {' '}
                     <button className="btn btn-link">
-                         <ArrowBackIcon style={{ color: 'black', fontSize: '2rem' }} />
+                         <ArrowBackIcon style={{ color: '#333', fontSize: '2rem' }} />
                     </button>
                     {props.title}
                </h3>

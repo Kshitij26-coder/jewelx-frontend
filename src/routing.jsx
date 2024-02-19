@@ -9,6 +9,7 @@ import App from './App';
 import Index from './landingPage/Index';
 import DashBoard from './views/dashboard/DashBoard';
 import Users from './views/users/Users';
+import CreateUser from './views/users/CreateUser';
 
 export const routing = createBrowserRouter([
      {
@@ -16,16 +17,21 @@ export const routing = createBrowserRouter([
           element: <App />,
           children: [
                {
+                    path: '/users',
+                    element: <Users />,
+               },
+               { path: '/users/create', element: <CreateUser update={false} /> },
+               {
+                    path: '/users/update',
+                    element: <CreateUser update={true} />,
+               },
+               {
                     path: '/dashboard',
                     element: <DashBoard />,
                },
                {
                     path: '/customers',
                     element: <Customer />,
-               },
-               {
-                    path: '/users',
-                    element: <Users />,
                },
           ],
      },
