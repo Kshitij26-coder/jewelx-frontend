@@ -1,18 +1,23 @@
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
-import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined';
-import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import AutoAwesomeMosaicIcon from '@mui/icons-material/AutoAwesomeMosaic';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import StoreOutlinedIcon from '@mui/icons-material/StoreOutlined';
+import AutoGraphOutlinedIcon from '@mui/icons-material/AutoGraphOutlined';
+import RequestQuoteOutlinedIcon from '@mui/icons-material/RequestQuoteOutlined';
+import DataThresholdingOutlinedIcon from '@mui/icons-material/DataThresholdingOutlined';
+import DiamondOutlinedIcon from '@mui/icons-material/DiamondOutlined';
+import ScaleOutlinedIcon from '@mui/icons-material/ScaleOutlined';
+import FaceRetouchingNaturalOutlinedIcon from '@mui/icons-material/FaceRetouchingNaturalOutlined';
 
 const OwnerSideBar = [
-     { path: '/dashboard', icon: <AutoAwesomeMosaicIcon fontSize="large" />, option: 'Home' },
-     { path: '/customers', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Team' },
-     { path: '/contacts', icon: <ContactsOutlinedIcon fontSize="large" />, option: 'Contacts' },
-     { path: '/profile', icon: <ReceiptOutlinedIcon fontSize="large" />, option: 'Profile' },
-     { path: '/faq', icon: <HelpOutlineOutlinedIcon fontSize="large" />, option: 'FAQ' },
-     { path: '/calendar', icon: <CalendarTodayOutlinedIcon fontSize="large" />, option: 'Calendar' },
+     { path: '/dashboard', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
+     { path: '/users', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Users' },
+     { path: '/contacts', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
+     { path: '/customers', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },
+     { path: '/profile', icon: <AutoGraphOutlinedIcon fontSize="large" />, option: 'Sales' },
+     { path: '/faq', icon: <RequestQuoteOutlinedIcon fontSize="large" />, option: 'Accounts' },
+     { path: '/calendar', icon: <DataThresholdingOutlinedIcon fontSize="large" />, option: 'Metal Stock' },
+     { path: '/calendar', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },
+     { path: '/calendar', icon: <ScaleOutlinedIcon fontSize="large" />, option: 'Unit Of Measurement' },
 ];
 
 export default OwnerSideBar;
