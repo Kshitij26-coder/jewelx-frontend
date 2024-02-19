@@ -15,6 +15,7 @@ import { roles } from '../utils/roles';
 import { subsidiaryEndPoints } from '../utils/endpoints/subsidiaryEndPoints';
 import { getSubsidiariesByIdEndpoint } from '../utils/apis/subsidiaryApiRequests';
 
+
 export default function Registrationpage() {
      const { enqueueSnackbar } = useSnackbar();
      const navigate = useNavigate();

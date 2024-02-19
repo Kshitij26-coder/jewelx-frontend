@@ -58,7 +58,7 @@ export default function Register() {
                                         {errors.email && touched.email ? <div className="error">{errors.email}</div> : null}
                                    </div>
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
-                                        <Field type="text" className="form-control item" id="pass" placeholder="Password" name="password" />
+                                        <Field type="password" className="form-control item" id="pass" placeholder="Password" name="password" />
                                         {errors.password && touched.password ? <div className="error">{errors.password}</div> : null}
                                    </div>
 

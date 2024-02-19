@@ -64,12 +64,11 @@ body {
      width: 100%;
 }
 
-.registration-form .create-account:hover{
-color: #fff;
+.registration-form .create-account:hover {
+     color: #fff;
      background-image: none;
      background-color: #6372ff;
 }
-
 
 .registration-form .social-media {
      max-width: 600px;
@@ -163,4 +162,24 @@ th {
 .error {
      color: red;
      margin-top: 0;
+}
+.page-margin {
+     margin-top: 70px;
+}
+.table {
+     box-shadow: 0 4px 8px rgba(0, 0, 0.1, 0.1);
+}
+.customer-form .submit-button {
+     border-radius: 10px;
+     padding: 10px 20px;
+     font-size: 18px;
+     font-weight: bold;
+     background-image: linear-gradient(to right, #5ca9fb 0%, #364af8 100%);
+     color: white;
+     width: 200px;
+}
+.button-submit {
+     justify-content: flex-end;
+     display: flex;
+     margin-bottom: 15px;
 }
