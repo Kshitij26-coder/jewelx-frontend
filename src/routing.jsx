@@ -12,6 +12,7 @@ import ForgotPassword from './component/ForgotPassword';
 import Customer from './component/Customer';
 import App from './App';
 import Index from './landingPage/Index';
+import DashBoard from './component/dashboard/DashBoard';
 
 export const routing = createBrowserRouter([
      {
@@ -27,8 +28,8 @@ export const routing = createBrowserRouter([
                     element: <User />,
                },
                {
-                    path: '/content',
-                    element: <Content />,
+                    path: '/dashboard',
+                    element: <DashBoard />,
                },
                {
                     path: '/update',

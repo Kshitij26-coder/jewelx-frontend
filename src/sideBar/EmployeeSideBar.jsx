@@ -6,7 +6,7 @@ import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 
 const EmployeeSideBar = [
-     { path: '/content', icon: <HomeOutlinedIcon fontSize="large" />, option: 'Home' },
+     { path: '/dashboard', icon: <HomeOutlinedIcon fontSize="large" />, option: 'Home' },
      { path: '/customer', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Team' },
      { path: '/contacts', icon: <ContactsOutlinedIcon fontSize="large" />, option: 'Contacts' },
      { path: '/profile', icon: <ReceiptOutlinedIcon fontSize="large" />, option: 'Profile' },

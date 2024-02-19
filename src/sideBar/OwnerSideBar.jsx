@@ -4,9 +4,10 @@ import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined';
 import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import AutoAwesomeMosaicIcon from '@mui/icons-material/AutoAwesomeMosaic';
 
 const OwnerSideBar = [
-     { path: '/content', icon: <HomeOutlinedIcon fontSize="large" />, option: 'Home' },
+     { path: '/dashboard', icon: <AutoAwesomeMosaicIcon fontSize="large" />, option: 'Home' },
      { path: '/customer', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Team' },
      { path: '/contacts', icon: <ContactsOutlinedIcon fontSize="large" />, option: 'Contacts' },
      { path: '/profile', icon: <ReceiptOutlinedIcon fontSize="large" />, option: 'Profile' },
