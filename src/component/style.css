@@ -183,3 +183,7 @@ th {
      display: flex;
      margin-bottom: 15px;
 }
+.table-customer{
+     background-color: #1111;
+     color: #333;
+}

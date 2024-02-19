@@ -30,13 +30,13 @@ export default function Header() {
                                    </Link>
                               </li>
                               <li>
-                                   <Link className="nav-link" to="/profile">
-                                        Profile
+                                   <Link className="nav-link" to="/dashboard">
+                                        Dashboard
                                    </Link>
                               </li>
                               <li>
-                                   <Link className="nav-link" to="/customer">
-                                        Customer
+                                   <Link className="nav-link" to="/profile">
+                                        Profile
                                    </Link>
                               </li>
                          </ul>

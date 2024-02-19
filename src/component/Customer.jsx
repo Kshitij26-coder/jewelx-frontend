@@ -163,9 +163,9 @@ const FormicForm = () => {
                                         <table className="table table-bordered">
                                              <thead>
                                                   <tr>
-                                                       <th style={{ backgroundColor: ' #5ca9fb' }}>Type Name</th>
-                                                       <th style={{ backgroundColor: ' #5ca9fb' }}>Weight</th>
-                                                       <th style={{ backgroundColor: ' #5ca9fb' }}>Credit/Debit</th>
+                                                       <th className='table-customer'>Metal Name</th>
+                                                       <th className='table-customer'>Weight</th>
+                                                       <th className='table-customer'>Credit/Debit</th>
                                                   </tr>
                                              </thead>
                                              <tbody>
