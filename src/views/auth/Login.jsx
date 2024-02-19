@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Form, Formik, Field } from 'formik';
-import { userValidationLogin } from '../validation/userValidationLogin';
-import './style.css';
+import { userValidationLogin } from '../../validation/userValidationLogin';
+import '../../styles/style.css';
 import { useSnackbar } from 'notistack';
 import { useNavigate, Link, Navigate } from 'react-router-dom';
-import { showSuccessSnackbar, showErrorSnackbar } from '../utils/snackBar';
-import ButtonLoader from './loaders/ButtonLoader';
-import { postRequest } from '../utils/apis/apiRequestHelper';
-import { userEndpoints } from '../utils/endpoints/userEndpoints';
+import { showSuccessSnackbar } from '../../utils/snackBar';
+import ButtonLoader from '../../component/loaders/ButtonLoader';
+import { postRequest } from '../../utils/apis/apiRequestHelper';
+import { userEndpoints } from '../../utils/endpoints/userEndpoints';
 import Cookies from 'js-cookie';
 
 export default function Register() {
@@ -33,7 +33,13 @@ export default function Register() {
           <div>
                <div className="registration-form" style={{ height: '100vh' }}>
                     <div className="section-title text-center">
+<<<<<<< HEAD:src/component/Login.jsx
                          <Link to="/home"><h2>Jewelx</h2> </Link>
+=======
+                         <Link to="/home">
+                              <h2>Jewelx</h2>{' '}
+                         </Link>
+>>>>>>> cacb2c918b9aea94e16a22ac67a346835d7bf110:src/views/auth/Login.jsx
                     </div>
                     <Formik
                          initialValues={{
@@ -47,16 +53,23 @@ export default function Register() {
                          }}
                     >
                          {({ errors, touched }) => (
+<<<<<<< HEAD:src/component/Login.jsx
 
                               <Form>
 
                                    <h3 className='text-center mb-5' style={{ marginBottom: '25px' }}>Login to Jewelx</h3>
+=======
+                              <Form>
+                                   <h3 className="text-center mb-5" style={{ marginBottom: '25px' }}>
+                                        Login to Jewelx
+                                   </h3>
+>>>>>>> cacb2c918b9aea94e16a22ac67a346835d7bf110:src/views/auth/Login.jsx
                                    <div className="form-group" style={{ marginBottom: '25px' }}>
                                         <Field type="text" className="form-control item" id="email" placeholder="Email" name="email" />
                                         {errors.email && touched.email ? <div className="error">{errors.email}</div> : null}
                                    </div>
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
-                                        <Field type="text" className="form-control item" id="pass" placeholder="Password" name="password" />
+                                        <Field type="password" className="form-control item" id="pass" placeholder="Password" name="password" />
                                         {errors.password && touched.password ? <div className="error">{errors.password}</div> : null}
                                    </div>
 
@@ -71,7 +84,7 @@ export default function Register() {
                                         </p>
                                         <div className="links">
                                              <p>
-                                                  New to Jewelx ? <Link to="/registrationpage"> Create An Account</Link>
+                                                  New to Jewelx ? <Link to="/register"> Create An Account</Link>
                                              </p>
                                         </div>
                                    </div>

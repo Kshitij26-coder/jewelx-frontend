@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Formik, Field } from 'formik';
-import { userValidationSchema } from '../validation/userValidationSchema';
-import './style.css';
+import { userValidationSchema } from '../../validation/userValidationSchema';
+import '../../styles/style.css';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
-import { showErrorSnackbar, showSuccessSnackbar } from '../utils/snackBar';
+import { showErrorSnackbar, showSuccessSnackbar } from '../../utils/snackBar';
 import { Link } from 'react-router-dom';
-import ButtonLoader from './loaders/ButtonLoader';
-import { getRequest, postRequest } from '../utils/apis/apiRequestHelper';
-import { userEndpoints } from '../utils/endpoints/userEndpoints';
-import { brandEndpoints } from '../utils/endpoints/BrandEndPoints';
-import Footer from './Footer';
-import roles from '../utils/roles';
-import { subsidiaryEndPoints } from '../utils/endpoints/subsidiaryEndPoints';
-import { getSubsidiariesByIdEndpoint } from '../utils/apis/subsidiaryApiRequests';
+import ButtonLoader from '../../component/loaders/ButtonLoader';
+import { getRequest, postRequest } from '../../utils/apis/apiRequestHelper';
+import { userEndpoints } from '../../utils/endpoints/userEndpoints';
+import { brandEndpoints } from '../../utils/endpoints/BrandEndPoints';
+import Footer from '../../component/Footer';
+import { roles } from '../../utils/roles';
+import { subsidiaryEndPoints } from '../../utils/endpoints/subsidiaryEndPoints';
+import { getSubsidiariesByIdEndpoint } from '../../utils/apis/subsidiaryApiRequests';
+
 
 export default function Registrationpage() {
      const { enqueueSnackbar } = useSnackbar();
@@ -72,6 +73,7 @@ export default function Registrationpage() {
                console.log(e);
           }
      };
+
      useEffect(() => {
           getBrands();
      }, []);
@@ -108,29 +110,18 @@ export default function Registrationpage() {
                                         Signup with Jewelx
                                    </h3>
 
+<<<<<<< HEAD:src/component/Registrationpage.jsx
 
+=======
+>>>>>>> cacb2c918b9aea94e16a22ac67a346835d7bf110:src/views/auth/Registrationpage.jsx
                                    <div className="form-group" style={{ marginBottom: '25px' }}>
-                                        <Field
-                                             type="text"
-                                             className="form-control item"
-                                             id="email"
-                                             placeholder="Email"
-                                             name="email"
-                                        />
+                                        <Field type="text" className="form-control item" id="email" placeholder="Email" name="email" />
                                         {errors.email && touched.email ? <div className="error">{errors.email}</div> : null}
                                    </div>
 
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
-                                        <Field
-                                             type="text"
-                                             className="form-control item"
-                                             id="userName"
-                                             placeholder="Full Name "
-                                             name="userName"
-                                        />
-                                        {errors.userName && touched.userName ? (
-                                             <div className="error">{errors.userName}</div>
-                                        ) : null}
+                                        <Field type="text" className="form-control item" id="userName" placeholder="Full Name " name="userName" />
+                                        {errors.userName && touched.userName ? <div className="error">{errors.userName}</div> : null}
                                    </div>
 
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
@@ -141,9 +132,7 @@ export default function Registrationpage() {
                                              placeholder="Mobile No"
                                              name="mobileNumber"
                                         />
-                                        {errors.mobileNumber && touched.mobileNumber ? (
-                                             <div className="error">{errors.mobileNumber}</div>
-                                        ) : null}
+                                        {errors.mobileNumber && touched.mobileNumber ? <div className="error">{errors.mobileNumber}</div> : null}
                                    </div>
 
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
@@ -163,9 +152,7 @@ export default function Registrationpage() {
                                              <option value={roles.owner}>Owner</option>
                                              <option value={roles.admin}>Admin</option>
                                         </Field>
-                                        {errors.userRole && touched.userRole ? (
-                                             <div className="error">{errors.userRole}</div>
-                                        ) : null}
+                                        {errors.userRole && touched.userRole ? <div className="error">{errors.userRole}</div> : null}
                                    </div>
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
                                         {showBrandForOwner ? (
@@ -177,9 +164,7 @@ export default function Registrationpage() {
                                                        placeholder="Brand Name"
                                                        name="brandName"
                                                   />
-                                                  {errors.brandName && touched.brandName ? (
-                                                       <div className="error">{errors.brandName}</div>
-                                                  ) : null}
+                                                  {errors.brandName && touched.brandName ? <div className="error">{errors.brandName}</div> : null}
                                              </>
                                         ) : (
                                              <>
@@ -203,9 +188,7 @@ export default function Registrationpage() {
                                                                  </option>
                                                             ))} */}
                                                   </Field>
-                                                  {errors.brandId && touched.brandId ? (
-                                                       <div className="error">{errors.brandId}</div>
-                                                  ) : null}
+                                                  {errors.brandId && touched.brandId ? <div className="error">{errors.brandId}</div> : null}
                                              </>
                                         )}
                                    </div>
@@ -250,16 +233,8 @@ export default function Registrationpage() {
                                         )}
                                    </div>
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
-                                        <Field
-                                             type="password"
-                                             className="form-control item"
-                                             id="password"
-                                             placeholder="Password"
-                                             name="password"
-                                        />
-                                        {errors.password && touched.password ? (
-                                             <div className="error">{errors.password}</div>
-                                        ) : null}
+                                        <Field type="password" className="form-control item" id="password" placeholder="Password" name="password" />
+                                        {errors.password && touched.password ? <div className="error">{errors.password}</div> : null}
                                    </div>
                                    <div className="form-group mb-10" style={{ marginBottom: '25px' }}>
                                         <Field
