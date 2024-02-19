@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './style.css';
+import '../styles/style.css';
 import imageLogo from '../assets/logo.png';
 
 export default function Header() {
      return (
           <nav id="menu" className="navbar navbar-default navbar-fixed-top">
                <div className="container">
+                    <div className="navbar-header">
+                         <img src={imageLogo} alt="Jewelx Logo" style={{ height: 45, marginRight: 4 }} />
+                    </div>
                     <div className="navbar-header">
                          <img src={imageLogo} alt="Jewelx Logo" style={{ height: 45, marginRight: 4 }} />
                     </div>

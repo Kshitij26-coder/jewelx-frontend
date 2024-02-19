@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Form, Formik, Field } from 'formik';
-import { userValidationLogin } from '../validation/userValidationLogin';
-import './style.css';
+import { userValidationLogin } from '../../validation/userValidationLogin';
+import '../../styles/style.css';
 import { useSnackbar } from 'notistack';
 import { useNavigate, Link, Navigate } from 'react-router-dom';
-import { showSuccessSnackbar } from '../utils/snackBar';
-import ButtonLoader from './loaders/ButtonLoader';
-import { postRequest } from '../utils/apis/apiRequestHelper';
-import { userEndpoints } from '../utils/endpoints/userEndpoints';
+import { showSuccessSnackbar } from '../../utils/snackBar';
+import ButtonLoader from '../../component/loaders/ButtonLoader';
+import { postRequest } from '../../utils/apis/apiRequestHelper';
+import { userEndpoints } from '../../utils/endpoints/userEndpoints';
 import Cookies from 'js-cookie';
 
 export default function Register() {
@@ -73,7 +73,7 @@ export default function Register() {
                                         </p>
                                         <div className="links">
                                              <p>
-                                                  New to Jewelx ? <Link to="/registrationpage"> Create An Account</Link>
+                                                  New to Jewelx ? <Link to="/register"> Create An Account</Link>
                                              </p>
                                         </div>
                                    </div>

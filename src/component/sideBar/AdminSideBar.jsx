@@ -10,9 +10,9 @@ import FaceRetouchingNaturalOutlinedIcon from '@mui/icons-material/FaceRetouchin
 
 const AdminSideBar = [
      { path: '/dashboard', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
-     { path: '/customer', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Users' },
+     { path: '/users', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Users' },
      { path: '/contacts', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
-     { path: '/calendar', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },
+     { path: '/customers', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },
      { path: '/profile', icon: <AutoGraphOutlinedIcon fontSize="large" />, option: 'Sales' },
      { path: '/faq', icon: <RequestQuoteOutlinedIcon fontSize="large" />, option: 'Accounts' },
      { path: '/calendar', icon: <DataThresholdingOutlinedIcon fontSize="large" />, option: 'Metal Stock' },

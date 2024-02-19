@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Formik, Field } from 'formik';
-import { userValidationSchema } from '../validation/userValidationSchema';
-import './style.css';
+import { userValidationSchema } from '../../validation/userValidationSchema';
+import '../../styles/style.css';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
-import { showErrorSnackbar, showSuccessSnackbar } from '../utils/snackBar';
+import { showErrorSnackbar, showSuccessSnackbar } from '../../utils/snackBar';
 import { Link } from 'react-router-dom';
-import ButtonLoader from './loaders/ButtonLoader';
-import { getRequest, postRequest } from '../utils/apis/apiRequestHelper';
-import { userEndpoints } from '../utils/endpoints/userEndpoints';
-import { brandEndpoints } from '../utils/endpoints/BrandEndPoints';
-import Footer from './Footer';
-import { roles } from '../utils/roles';
-import { subsidiaryEndPoints } from '../utils/endpoints/subsidiaryEndPoints';
-import { getSubsidiariesByIdEndpoint } from '../utils/apis/subsidiaryApiRequests';
+import ButtonLoader from '../../component/loaders/ButtonLoader';
+import { getRequest, postRequest } from '../../utils/apis/apiRequestHelper';
+import { userEndpoints } from '../../utils/endpoints/userEndpoints';
+import { brandEndpoints } from '../../utils/endpoints/BrandEndPoints';
+import Footer from '../../component/Footer';
+import { roles } from '../../utils/roles';
+import { subsidiaryEndPoints } from '../../utils/endpoints/subsidiaryEndPoints';
+import { getSubsidiariesByIdEndpoint } from '../../utils/apis/subsidiaryApiRequests';
 
 
 export default function Registrationpage() {
