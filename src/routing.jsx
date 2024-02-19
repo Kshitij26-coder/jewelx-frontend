@@ -12,6 +12,7 @@ import ForgotPassword from "./component/ForgotPassword";
 import Customer from "./component/Customer";
 import App from "./App";
 import Index from "./landingPage/Index";
+import Profile from "./component/Profile";
 
 export const routing = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const routing = createBrowserRouter([
         path: "/customer",
         element: <Customer />,
       },
+      {
+        path: "/profile",
+        element: <Profile />
+      },
     ],
   },
   {
@@ -58,8 +63,8 @@ export const routing = createBrowserRouter([
     element: <ForgotPassword />,
   },
   {
-    path:"/home",
-    element:<Index/>
+    path: "/home",
+    element: <Index />
   },
   {
     path: "*",
