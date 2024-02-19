@@ -3,8 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import selectPhoto from '../assets/select photo.png';
-
+import selectPhoto from '../../assets/select photo.png';
 const initialValues = {
      name: '',
      pincode: '',

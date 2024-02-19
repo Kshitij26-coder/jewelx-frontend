@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
 import { roles } from './roles';
-import AdminSideBar from '../sideBar/AdminSideBar';
-import OwnerSideBar from '../sideBar/OwnerSideBar';
-import EmployeeSideBar from '../sideBar/EmployeeSideBar';
+import AdminSideBar from '../component/sideBar/AdminSideBar';
+import OwnerSideBar from '../component/sideBar/OwnerSideBar';
+import EmployeeSideBar from '../component/sideBar/EmployeeSideBar';
 
 /**
  *

@@ -1,18 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
-
-import Register from './component/Register';
-import User from './component/User';
-import Content from './component/Content';
-import UpdateContent from './component/UpdateContent';
 import NotFound404 from './component/errorComponents/notFoundPage/NotFound404';
 import ServerError500 from './component/errorComponents/serverError/ServerError500';
-import Registrationpage from './component/Registrationpage';
-import Login from './component/Login';
-import ForgotPassword from './component/ForgotPassword';
-import Customer from './component/Customer';
+import Registrationpage from './views/auth/Registrationpage';
+import Login from './views/auth/Login';
+import ForgotPassword from './views/auth/ForgotPassword';
+import Customer from './views/customer/Customer';
 import App from './App';
 import Index from './landingPage/Index';
-import DashBoard from './component/dashboard/DashBoard';
+import DashBoard from './views/dashboard/DashBoard';
 
 export const routing = createBrowserRouter([
      {
@@ -20,20 +15,8 @@ export const routing = createBrowserRouter([
           element: <App />,
           children: [
                {
-                    path: '/register',
-                    element: <Register />,
-               },
-               {
-                    path: '/user',
-                    element: <User />,
-               },
-               {
                     path: '/dashboard',
                     element: <DashBoard />,
-               },
-               {
-                    path: '/update',
-                    element: <UpdateContent />,
                },
                {
                     path: '/customer',
@@ -46,7 +29,7 @@ export const routing = createBrowserRouter([
           element: <ServerError500 />,
      },
      {
-          path: '/registrationpage',
+          path: '/register',
           element: <Registrationpage />,
      },
      {

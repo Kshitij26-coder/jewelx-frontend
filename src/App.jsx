@@ -5,7 +5,7 @@ import Footer from './component/Footer';
 import Header from './component/Header';
 import { Sidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import OwnerSideBar from './sideBar/OwnerSideBar';
+import OwnerSideBar from './component/sideBar/OwnerSideBar';
 import { getSideBarAsRole } from './utils/sideBar';
 import { getRolesFromCookies } from './utils/roles';
 
