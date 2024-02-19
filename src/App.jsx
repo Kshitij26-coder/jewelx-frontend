@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Footer from './component/Footer';
-
 import Header from './component/Header';
 import { Sidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import OwnerSideBar from './component/sideBar/OwnerSideBar';
 import { getSideBarAsRole } from './utils/sideBar';
 import { getRolesFromCookies } from './utils/roles';
 

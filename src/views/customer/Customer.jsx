@@ -38,11 +38,7 @@ const validationSchema = Yup.object().shape({
      opening_balance: Yup.number().required('Opening Balance is required'),
 });
 
-const onSubmit = values => {
-     // Handle form submission
-     console.log('clicked');
-     console.log('Form Values:', values);
-};
+const onSubmit = values => {};
 
 const Customer = () => {
      return (

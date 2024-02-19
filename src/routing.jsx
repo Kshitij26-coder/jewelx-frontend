@@ -8,6 +8,7 @@ import Customer from './views/customer/Customer';
 import App from './App';
 import Index from './landingPage/Index';
 import DashBoard from './views/dashboard/DashBoard';
+import Users from './views/users/Users';
 
 export const routing = createBrowserRouter([
      {
@@ -19,8 +20,12 @@ export const routing = createBrowserRouter([
                     element: <DashBoard />,
                },
                {
-                    path: '/customer',
+                    path: '/customers',
                     element: <Customer />,
+               },
+               {
+                    path: '/users',
+                    element: <Users />,
                },
           ],
      },

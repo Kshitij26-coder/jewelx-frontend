@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logojx from '../data/logo.png';
+import { isLoggedIn } from '../../utils/isLoggedIn';
 export const Navigation = props => {
+     const [loggedInStatus, setLoggedInStatus] = useState(false);
+
+     useEffect(() => {
+          setLoggedInStatus(isLoggedIn());
+     }, []);
      return (
           <nav id="menu" className="navbar navbar-default navbar-fixed-top">
                <div className="container">
@@ -47,16 +53,33 @@ export const Navigation = props => {
                                         Contact
                                    </a>
                               </li>
-                              <li>
-                                   <Link to="/login" className="page-scroll">
-                                        Login
-                                   </Link>
-                              </li>
-                              <li>
-                                   <Link to="/register" className="page-scroll">
-                                        SignUp
-                                   </Link>
-                              </li>
+                              {loggedInStatus ? (
+                                   <>
+                                        <li>
+                                             <Link to="/dashboard" className="page-scroll">
+                                                  Dashboard
+                                             </Link>
+                                        </li>
+                                        <li>
+                                             <Link to="/dashboard" className="page-scroll">
+                                                  Profile
+                                             </Link>
+                                        </li>
+                                   </>
+                              ) : (
+                                   <>
+                                        <li>
+                                             <Link to="/login" className="page-scroll">
+                                                  Login
+                                             </Link>
+                                        </li>
+                                        <li>
+                                             <Link to="/register" className="page-scroll">
+                                                  SignUp
+                                             </Link>
+                                        </li>
+                                   </>
+                              )}
                          </ul>
                     </div>
                </div>

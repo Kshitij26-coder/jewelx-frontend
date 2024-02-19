@@ -8,7 +8,7 @@ import AutoAwesomeMosaicIcon from '@mui/icons-material/AutoAwesomeMosaic';
 
 const OwnerSideBar = [
      { path: '/dashboard', icon: <AutoAwesomeMosaicIcon fontSize="large" />, option: 'Home' },
-     { path: '/customer', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Team' },
+     { path: '/customers', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Team' },
      { path: '/contacts', icon: <ContactsOutlinedIcon fontSize="large" />, option: 'Contacts' },
      { path: '/profile', icon: <ReceiptOutlinedIcon fontSize="large" />, option: 'Profile' },
      { path: '/faq', icon: <HelpOutlineOutlinedIcon fontSize="large" />, option: 'FAQ' },
