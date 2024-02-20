@@ -1,6 +1,5 @@
 body {
      background-color: #ffffff !important;
-
      display: flex;
      background-size: cover;
      background-position: center;
@@ -20,8 +19,14 @@ body {
 .registration-form {
      padding: 50px;
      height: auto;
-     width: 800px;
+     width: 100%;
      margin: auto;
+     background: url(../assets/Login.png) center center no-repeat;
+     background-color: #e5e5e5;
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     background-size: cover;
+     -o-background-size: cover;
 }
 
 .registration-form form {
