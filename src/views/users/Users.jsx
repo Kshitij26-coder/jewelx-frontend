@@ -7,6 +7,8 @@ import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import TableWithPagination from '../../component/form/Table';
 import { roles } from '../../utils/roles';
+import Badge from '../../component/badges/Badge';
+import Indicator from '../../component/badges/Indicator';
 
 const Users = () => {
      const columns = ['Email', 'Name', 'Mobile', 'Subsidiary', 'Role', 'IsActive', 'IsLoggedIn'];
@@ -25,15 +27,16 @@ const Users = () => {
 
      const data1 = data => {
           let arr = [];
+          console.log(data);
           data.map((each, index) => {
                const temp = {
                     email: each?.email,
                     name: each?.userName,
                     mobile: each?.mobileNumber,
                     subsidiary: each?.subsidiary?.subsidiaryName,
-                    role: each?.userRole == 'A' ? roles.admin : each?.userRole == 'O' ? roles.owner : roles.employee,
+                    role: <Badge role={each?.userRole} />,
                     isActive: each.active ? 'active' : 'disabled',
-                    isLoggedIn: each.loggedIn ? 'online' : 'offline',
+                    isLoggedIn: <Indicator isLoggedIn={each.loggedIn} />,
                };
                arr[index] = temp;
           });

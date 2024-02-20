@@ -10,6 +10,7 @@ import Index from './landingPage/Index';
 import DashBoard from './views/dashboard/DashBoard';
 import Users from './views/users/Users';
 import CreateUser from './views/users/CreateUser';
+import Profile from './views/profile/Profile';
 
 export const routing = createBrowserRouter([
      {
@@ -32,6 +33,10 @@ export const routing = createBrowserRouter([
                {
                     path: '/customers',
                     element: <Customer />,
+               },
+               {
+                    path: '/profile',
+                    element: <Profile />,
                },
           ],
      },

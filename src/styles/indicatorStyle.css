@@ -1,0 +1,15 @@
+.indicator {
+     top: calc(50% - 20px);
+     left: calc(50% - 20px);
+     width: 10px;
+     height: 10px;
+     border-radius: 50%;
+}
+.indicator-offline {
+     background-color: #ed0f0f;
+     box-shadow: 0 0 60px 5px #f34040;
+}
+.indicator-online {
+     background-color: #10a73d;
+     box-shadow: 0 0 60px 5px #8ae694;
+}
