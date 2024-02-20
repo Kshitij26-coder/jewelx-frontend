@@ -7,9 +7,9 @@
 }
 .indicator-offline {
      background-color: #ed0f0f;
-     box-shadow: 0 0 60px 5px #f34040;
+     box-shadow: 0 0 5px 2px #e46969;
 }
 .indicator-online {
      background-color: #10a73d;
-     box-shadow: 0 0 60px 5px #8ae694;
+     box-shadow: 0 0 5px 2px #8ae694;
 }

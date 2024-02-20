@@ -1,7 +1,8 @@
 import { Box, FormControlLabel } from '@mui/material';
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
-const IOSSwitch = styled(props => <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />)(({ theme }) => ({
+
+const IOSSwitch = styled(Switch)(({ theme }) => ({
      width: 42,
      height: 26,
      padding: 0,
@@ -36,6 +37,9 @@ const IOSSwitch = styled(props => <Switch focusVisibleClassName=".Mui-focusVisib
           boxSizing: 'border-box',
           width: 22,
           height: 22,
+          '&:hover': {
+               backgroundColor: '#FFA500', // Orange color for thumb on hover
+          },
      },
      '& .MuiSwitch-track': {
           borderRadius: 26 / 2,
@@ -47,12 +51,12 @@ const IOSSwitch = styled(props => <Switch focusVisibleClassName=".Mui-focusVisib
      },
 }));
 
-export default function ToggleSwitch() {
+export default function ToggleSwitch({ checked, onChange }) {
      return (
           <Box display="flex" justifyContent="center">
                {' '}
                {/* Center align using Flexbox */}
-               <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} defaultChecked />} />
+               <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} defaultChecked={checked} onChange={onChange} />} />
           </Box>
      );
 }

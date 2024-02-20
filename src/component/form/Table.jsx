@@ -20,10 +20,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
      [`&.${tableCellClasses.head}`]: {
           background: 'linear-gradient(to bottom, #5ca9fb, #6372ff)',
           color: theme.palette.common.white,
-          fontSize: 17,
+          fontSize: 15,
      },
      [`&.${tableCellClasses.body}`]: {
-          fontSize: 17,
+          fontSize: 15,
      },
 }));
 
@@ -36,7 +36,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
           border: 0,
      },
      '&:hover': {
-          backgroundColor: grey[200], // Change the color on hover
+          backgroundColor: grey[300], // Change the color on hover
      },
 }));
 
@@ -76,9 +76,10 @@ const TableWithPagination = ({ columns, rows, onPageChange, count, page }) => {
                          size="large"
                          sx={{
                               '& .MuiPaginationItem-root': {
-                                   fontSize: '2rem', // Increase the font size
+                                   fontSize: '1.5rem', // Increase the font size
                               },
-                              mt: 2, // Add margin top
+                              mt: 2,
+                              mb: 2, // Add margin top
                          }}
                     />
                </Box>

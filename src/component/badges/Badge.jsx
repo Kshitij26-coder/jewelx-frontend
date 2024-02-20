@@ -3,7 +3,7 @@ import { roles } from '../../utils/roles';
 
 const Badge = ({ role }) => {
      const color = role == roles.admin ? 'warning' : role == roles.owner ? 'success' : 'danger';
-     const rolename = role == roles.admin ? 'Admin' : role == roles.owner ? 'Owner' : 'danger';
+     const rolename = role == roles.admin ? 'Admin' : role == roles.owner ? 'Owner' : 'Owner';
      return <button className={'btn btn-' + color}>{rolename}</button>;
 };
 
