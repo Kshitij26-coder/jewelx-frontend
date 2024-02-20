@@ -1,185 +1,247 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { profilevalidation } from '../../validation/profilevalidation';
 import '../../styles/style.css';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { getCookiesObject } from '../../utils/getCookiesObject';
+import { roles } from '../../utils/roles';
+import { getRolesfromAbbrev } from '../../utils/getRolesfromAbbrev';
+
 const Profile = () => {
+     const [isEditing, setIsEditing] = useState(false);
+     const [formData, setFormData] = useState(null);
+     const [data, setdata] = useState({});
+     const [initialValues, setInitialValues] = useState({});
+     // const initialValues = {
+     //      userName: data?.username,
+     //      email: data?.email,
+     //      mobileNumber: data?.mobileNumber,
+     //      userRole: data?.role,
+     //      brand: data?.brandDetails?.name,
+     //      subsidiary: data?.subsidiaryDetails?.subsidiaryId,
+     //      aboutMe: `Hello, I'm ${data?.username}. With a focus on ${data?.role}, I bring expertise in ${data?.brandDetails?.name} and ${data?.subsidiaryDetails?.subsidiaryId}. Reach out to me via email at ${data?.email} or call me on ${data?.mobileNumber}. Let's collaborate and drive success together.`,
+     // };
+
+     const handleSubmit = (values, { setSubmitting }) => {
+          // Handle form submission
+          console.log(values);
+          setSubmitting(false);
+          setFormData(values);
+          setIsEditing(false);
+     };
+
+     const handleLogout = () => {
+          // Handle logout functionality
+          console.log('Logged out');
+     };
+
+     const handleEdit = () => {
+          // Handle edit functionality
+          setIsEditing(true);
+     };
+     useEffect(() => {
+          setdata(getCookiesObject());
+          let data = getCookiesObject();
+          setInitialValues({
+               userName: data?.username,
+               email: data?.email,
+               mobileNumber: data?.mobileNumber,
+               userRole: data?.role,
+               brand: data?.brandDetails?.name,
+               subsidiary: data?.subsidiaryDetails?.subsidiaryId,
+               aboutMe: `Hello, I'm ${data?.username}. With a focus on ${data?.role}, I bring expertise in ${data?.brandDetails?.name} and ${data?.subsidiaryDetails?.subsidiaryId}. Reach out to me via email at ${data?.email} or call me on ${data?.mobileNumber}. Let's collaborate and drive success together.`,
+          });
+     }, []);
+
      return (
-          <div className="container " style={{ marginTop: '200px' }}>
+          <div className="container" style={{ marginTop: '100px' }}>
                <div className="row">
-                    <div className="col-md-4">
-                         <div className="card">
-                              <div className="text-center">
-                                   <div className="half-inside-outside">
-                                        <img
-                                             alt="..."
-                                             className="img-circle img-fluid img-thumbnail"
-                                             src="https://demos.creative-tim.com/argon-dashboard-react/static/media/team-4-800x800.99c612eb.jpg"
-                                        />
-                                   </div>
-                              </div>
-                              <div className="card-body">
+                    <div className="col-md-3" style={{ width: '40%', paddingRight: '1px' }}>
+                         <div className="col-md-12">
+                              <div className="card">
                                    <div className="text-center">
-                                        <h3>Jessica Jones</h3>
-                                        <div className="h5 font-weight-300">
-                                             <i className="glyphicon glyphicon-map-marker" /> Bucharest, Romania
+                                        <div className="half-inside-outside ">
+                                             <img
+                                                  alt="..."
+                                                  className="img-circle img-fluid img-thumbnail"
+                                                  src="https://t4.ftcdn.net/jpg/05/47/92/27/240_F_547922755_AazNubxrYOHUF3qHpJGl7FrE564utmH5.jpg"
+                                             />
                                         </div>
-                                        <div className="h5">
-                                             <i className="glyphicon glyphicon-briefcase" /> Solution Manager - Creative Tim Officer
+                                   </div>
+                                   <div className="card-body " style={{ height: 'auto' }}>
+                                        <div className="text-center">
+                                             <h3>{data.username}</h3>
+                                             <div style={{ marginBottom: '20px' }}>
+                                                  <h5>Brand Name : {data?.brandDetails?.name}</h5>
+                                             </div>
+                                             <div className="h5 font-weight-300">
+                                                  <i className="glyphicon glyphicon-map-marker" />
+                                                  {getRolesfromAbbrev(data?.role)}
+                                             </div>
+                                             <div className="h5">
+                                                  <i className="glyphicon glyphicon-briefcase" /> {data?.email}
+                                             </div>
+
+                                             <div style={{ marginTop: '20px' }}>
+                                                  <button className="btn btn-danger btn-lg" onClick={handleLogout}>
+                                                       <ExitToAppIcon />
+                                                       Logout
+                                                  </button>
+                                             </div>
                                         </div>
-                                        <div>
-                                             <i className="glyphicon glyphicon-education" /> University of Computer Science
-                                        </div>
-                                        <hr className="my-4" />
-                                        <p>
-                                             Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all
-                                             of his own music.
-                                        </p>
                                    </div>
                               </div>
                          </div>
                     </div>
 
-                    <div className="col-md-8">
-                         <div className="card">
-                              <div className="card-header">
-                                   <div className="row">
-                                        <div className="col-xs-8">
-                                             <h3 className="mb-0 ml-5">My account</h3>
-                                        </div>
-                                   </div>
-                              </div>
-                              <div className="card-body">
-                                   <form>
-                                        <h6 className="heading-small text-muted mb-4">User information</h6>
-                                        <div className="pl-lg-4">
-                                             <div className="row">
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-username">
-                                                                 Username
-                                                            </label>
-                                                            <input
-                                                                 className="form-control"
-                                                                 defaultValue="lucky.jesse"
-                                                                 id="input-username"
-                                                                 placeholder="Username"
-                                                                 type="text"
-                                                            />
+                    <div className="col-md-9" style={{ width: '60%' }}>
+                         <div>
+                              <div className="w-100 p-5 card " style={{ padding: '20px' }}>
+                                   <IconButton onClick={handleEdit} aria-label="edit" style={{ marginLeft: '90%' }}>
+                                        <EditIcon />
+                                   </IconButton>
+                                   <Formik
+                                        initialValues={initialValues}
+                                        enableReinitialize
+                                        validationSchema={profilevalidation}
+                                        onSubmit={handleSubmit}
+                                   >
+                                        {({ isSubmitting }) => (
+                                             <Form>
+                                                  <h5 className="heading-small text-muted mb-4 ">User information</h5>
+                                                  <div className="pl-md-4">
+                                                       <div className="row">
+                                                            <div className="col-lg-6">
+                                                                 <div className="form-group">
+                                                                      <label className="form-control-label" htmlFor="input-name">
+                                                                           Name
+                                                                      </label>
+                                                                      <Field
+                                                                           className="form-control"
+                                                                           id="input-name"
+                                                                           name="userName"
+                                                                           placeholder="Name"
+                                                                           disabled={!isEditing}
+                                                                      />
+                                                                      <ErrorMessage name="userName" component="div" className="text-danger" />
+                                                                 </div>
+                                                            </div>
+                                                            <div className="col-lg-6">
+                                                                 <div className="form-group">
+                                                                      <label className="form-control-label" htmlFor="input-email">
+                                                                           Email
+                                                                      </label>
+                                                                      <Field
+                                                                           className="form-control"
+                                                                           id="input-email"
+                                                                           name="email"
+                                                                           placeholder="Email"
+                                                                           disabled={!isEditing}
+                                                                      />
+                                                                      <ErrorMessage name="email" component="div" className="text-danger" />
+                                                                 </div>
+                                                            </div>
+                                                            <div className="col-lg-6">
+                                                                 <div className="form-group">
+                                                                      <label className="form-control-label" htmlFor="input-mobileno">
+                                                                           Mobile No
+                                                                      </label>
+                                                                      <Field
+                                                                           className="form-control"
+                                                                           id="input-mobileno"
+                                                                           name="mobileNumber"
+                                                                           placeholder="Mobile No"
+                                                                           disabled={!isEditing}
+                                                                      />
+                                                                      <ErrorMessage name="mobileNumber" component="div" className="text-danger" />
+                                                                 </div>
+                                                            </div>
+                                                            <div className="col-lg-6">
+                                                                 <div className="form-group">
+                                                                      <label className="form-control-label" htmlFor="input-userrole">
+                                                                           User Role
+                                                                      </label>
+                                                                      <Field
+                                                                           className="form-control"
+                                                                           id="input-userrole"
+                                                                           name="userRole"
+                                                                           placeholder="User Role"
+                                                                           disabled={!isEditing}
+                                                                      />
+                                                                      <ErrorMessage name="userRole" component="div" className="text-danger" />
+                                                                 </div>
+                                                            </div>
+                                                            <div className="col-lg-6">
+                                                                 <div className="form-group">
+                                                                      <label className="form-control-label" htmlFor="input-brand">
+                                                                           Brand
+                                                                      </label>
+                                                                      <Field
+                                                                           className="form-control"
+                                                                           id="input-brand"
+                                                                           name="brand"
+                                                                           placeholder="Brand"
+                                                                           disabled={!(isEditing && getCookiesObject().role == roles.owner)}
+                                                                      />
+                                                                      <ErrorMessage name="brand" component="div" className="text-danger" />
+                                                                 </div>
+                                                            </div>
+                                                            <div className="col-lg-6">
+                                                                 <div className="form-group">
+                                                                      <label className="form-control-label" htmlFor="input-subsidiary">
+                                                                           Subsidiary
+                                                                      </label>
+                                                                      <Field
+                                                                           className="form-control"
+                                                                           id="input-subsidiary"
+                                                                           name="subsidiary"
+                                                                           placeholder="Subsidiary"
+                                                                           disabled={!isEditing}
+                                                                           as="select"
+                                                                      >
+                                                                           <option value="select">Select Subsidiary</option>
+                                                                           <option value={roles.employee}>Employee</option>
+                                                                           <option value={roles.owner}>Owner</option>
+                                                                           <option value={roles.admin}>Admin</option>
+                                                                      </Field>
+                                                                      <ErrorMessage name="subsidiary" component="div" className="text-danger" />
+                                                                 </div>
+                                                            </div>
+
+                                                            <hr className="my-4" />
+                                                            <h5 className="heading-small text-muted mb-4 " style={{ marginLeft: '15px' }}>
+                                                                 About Me
+                                                            </h5>
+                                                            <div className="col-lg-12">
+                                                                 <div className="form-group">
+                                                                      <label className="form-control-label" htmlFor="aboutMe">
+                                                                           About Me
+                                                                      </label>
+                                                                      <Field
+                                                                           as="textarea"
+                                                                           className="form-control"
+                                                                           id="aboutMe"
+                                                                           name="aboutMe"
+                                                                           placeholder="A few words about you ..."
+                                                                           rows="4"
+                                                                           disabled={true}
+                                                                      />
+                                                                      <ErrorMessage name="aboutMe" component="div" className="text-danger" />
+                                                                 </div>
+                                                            </div>
                                                        </div>
                                                   </div>
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-email">
-                                                                 Email address
-                                                            </label>
-                                                            <input
-                                                                 className="form-control"
-                                                                 id="input-email"
-                                                                 placeholder="jesse@example.com"
-                                                                 type="email"
-                                                            />
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                             <div className="row">
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-first-name">
-                                                                 First name
-                                                            </label>
-                                                            <input
-                                                                 className="form-control"
-                                                                 defaultValue="Lucky"
-                                                                 id="input-first-name"
-                                                                 placeholder="First name"
-                                                                 type="text"
-                                                            />
-                                                       </div>
-                                                  </div>
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-last-name">
-                                                                 Last name
-                                                            </label>
-                                                            <input
-                                                                 className="form-control"
-                                                                 defaultValue="Jesse"
-                                                                 id="input-last-name"
-                                                                 placeholder="Last name"
-                                                                 type="text"
-                                                            />
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <hr className="my-4" />
-                                        <h6 className="heading-small text-muted mb-4">Contact information</h6>
-                                        <div className="pl-lg-4">
-                                             <div className="form-group">
-                                                  <label className="form-control-label" htmlFor="input-address">
-                                                       Address
-                                                  </label>
-                                                  <input
-                                                       className="form-control"
-                                                       defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                                                       id="input-address"
-                                                       placeholder="Home Address"
-                                                       type="text"
-                                                  />
-                                             </div>
-                                             <div className="row">
-                                                  <div className="col-lg-4">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-city">
-                                                                 City
-                                                            </label>
-                                                            <input
-                                                                 className="form-control"
-                                                                 defaultValue="New York"
-                                                                 id="input-city"
-                                                                 placeholder="City"
-                                                                 type="text"
-                                                            />
-                                                       </div>
-                                                  </div>
-                                                  <div className="col-lg-4">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-country">
-                                                                 Country
-                                                            </label>
-                                                            <input
-                                                                 className="form-control"
-                                                                 defaultValue="United States"
-                                                                 id="input-country"
-                                                                 placeholder="Country"
-                                                                 type="text"
-                                                            />
-                                                       </div>
-                                                  </div>
-                                                  <div className="col-lg-4">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-postal-code">
-                                                                 Postal code
-                                                            </label>
-                                                            <input
-                                                                 className="form-control"
-                                                                 id="input-postal-code"
-                                                                 placeholder="Postal code"
-                                                                 type="number"
-                                                            />
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <hr className="my-4" />
-                                        <h6 className="heading-small text-muted mb-4">About me</h6>
-                                        <div className="pl-lg-4">
-                                             <div className="form-group">
-                                                  <label>About Me</label>
-                                                  <textarea className="form-control" placeholder="A few words about you ..." rows="4">
-                                                       A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.
-                                                  </textarea>
-                                             </div>
-                                        </div>
-                                   </form>
+                                                  {/* Submit button */}
+                                                  {isEditing && (
+                                                       <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting}>
+                                                            Submit
+                                                       </button>
+                                                  )}
+                                             </Form>
+                                        )}
+                                   </Formik>
                               </div>
                          </div>
                     </div>
