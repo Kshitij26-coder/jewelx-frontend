@@ -11,6 +11,7 @@ import Indicator from '../../component/badges/Indicator';
 import Switch from '../../component/form/Switch';
 import PageLoader from '../../component/loaders/PageLoader';
 import { getTablePages } from '../../utils/getTablePages';
+import { getCookiesObject } from '../../utils/getCookiesObject';
 
 const Users = () => {
      const columns = ['Email', 'Name', 'Mobile', 'Subsidiary', 'Role', 'IsActive', 'IsLoggedIn'];
@@ -28,6 +29,7 @@ const Users = () => {
       */
      const reponseToColoumns = data => {
           let arr = [];
+          console.log(data);
           data.map((each, index) => {
                const temp = {
                     email: each?.email,
@@ -39,7 +41,7 @@ const Users = () => {
                          <Switch
                               checked={each.active}
                               onChange={async (e, value) => {
-                                   await setUserActive(each.userId);
+                                   await setUserActive({ assigneeId: each.idxId, assignerId: getCookiesObject().idxId });
                               }}
                          />
                     ),
@@ -47,6 +49,7 @@ const Users = () => {
                };
                arr[index] = temp;
           });
+          console.log(arr);
           setRows(arr);
      };
 
@@ -55,8 +58,8 @@ const Users = () => {
       * @param {String} id //uuid of the user
       * API call used activate/disable user
       */
-     const setUserActive = async id => {
-          await putRequest(id, {}, userEndpoints.ACTIVATE_USER, navigate, enqueueSnackbar);
+     const setUserActive = async data => {
+          await putRequest('', data, userEndpoints.ACTIVATE_USER, navigate, enqueueSnackbar);
      };
 
      /**
@@ -79,6 +82,8 @@ const Users = () => {
      };
 
      useEffect(() => {
+          const cookies = getCookiesObject();
+          console.log(getCookiesObject().idxId);
           getUsers(0);
      }, []);
 

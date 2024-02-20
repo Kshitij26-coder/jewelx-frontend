@@ -18,6 +18,10 @@ export const routing = createBrowserRouter([
           element: <App />,
           children: [
                {
+                    path: '/',
+                    element: <DashBoard />,
+               },
+               {
                     path: '/users',
                     element: <Users />,
                },
@@ -25,10 +29,6 @@ export const routing = createBrowserRouter([
                {
                     path: '/users/update',
                     element: <CreateUser update={true} />,
-               },
-               {
-                    path: '/dashboard',
-                    element: <DashBoard />,
                },
                {
                     path: '/customers',
