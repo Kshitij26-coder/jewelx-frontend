@@ -11,6 +11,7 @@ import DashBoard from './views/dashboard/DashBoard';
 import Users from './views/users/Users';
 import CreateUser from './views/users/CreateUser';
 import Profile from './views/profile/Profile';
+import Uom from './views/UOM/Uom';
 
 export const routing = createBrowserRouter([
      {
@@ -37,6 +38,10 @@ export const routing = createBrowserRouter([
                {
                     path: '/profile',
                     element: <Profile />,
+               },
+               {
+                    path: '/uom',
+                    element: <Uom />,
                },
           ],
      },

@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { showErrorSnackbar, showSuccessSnackbar } from '../snackBar';
 import Cookies from 'js-cookie';
+
+/**
+ * 
+ * @returns header Object
+ * To get header object
+ */
 export let getHeaders = () => {
      const userCookie = Cookies.get('user');
      // Parse the JSON string if the cookie exists
@@ -72,7 +78,7 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
  */
 export let getRequest = async (endpoint, navigate, enqueueSnackbar) => {
      try {
-          const response = await axios.get(url + endpoint);
+          const response = await axios.get(url + endpoint,{headers: getHeaders()});
           console.log(response);
           return response.data;
      } catch (err) {

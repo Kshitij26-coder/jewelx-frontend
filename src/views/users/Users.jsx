@@ -29,7 +29,7 @@ const Users = () => {
       */
      const reponseToColoumns = data => {
           let arr = [];
-          console.log(data);
+          //console.log(data);
           data.map((each, index) => {
                const temp = {
                     email: each?.email,
@@ -49,7 +49,7 @@ const Users = () => {
                };
                arr[index] = temp;
           });
-          console.log(arr);
+         // console.log(arr);
           setRows(arr);
      };
 
@@ -82,8 +82,6 @@ const Users = () => {
      };
 
      useEffect(() => {
-          const cookies = getCookiesObject();
-          console.log(getCookiesObject().idxId);
           getUsers(0);
      }, []);
 
