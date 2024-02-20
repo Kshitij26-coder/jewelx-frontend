@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import PageTitle from '../../component/PageTitle';
-import { getRequest } from '../../utils/apis/apiRequestHelper';
+import { getRequest, putRequest } from '../../utils/apis/apiRequestHelper';
 import { userEndpoints } from '../../utils/endpoints/userEndpoints';
 import { getUsersPaginatedEndpoint } from '../../utils/apis/userApiRequests';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import TableWithPagination from '../../component/form/Table';
-import { roles } from '../../utils/roles';
 import Badge from '../../component/badges/Badge';
 import Indicator from '../../component/badges/Indicator';
+import Switch from '../../component/form/Switch';
+import PageLoader from '../../component/loaders/PageLoader';
+import { getTablePages } from '../../utils/getTablePages';
 
 const Users = () => {
      const columns = ['Email', 'Name', 'Mobile', 'Subsidiary', 'Role', 'IsActive', 'IsLoggedIn'];
-     const { enqueSnackbar } = useSnackbar();
+     const { enqueueSnackbar } = useSnackbar();
      const [rows, setRows] = useState([]);
      const navigate = useNavigate();
-     const getUsers = async page => {
-          try {
-               const data = await getRequest(getUsersPaginatedEndpoint(userEndpoints.BASE_ROUTE, 0), navigate, enqueSnackbar);
-               console.log(data.content);
-               data1(data.content);
-          } catch (e) {
-               console.log(e);
-          }
-     };
+     const [loader, setLoader] = useState(false);
+     const [page, setPage] = useState(1);
+     const [totalRows, setTotalRows] = useState(1);
 
-     const data1 = data => {
+     /**
+      *
+      * @param {*} data //API response data
+      * used to convert reponse object to rows object
+      */
+     const reponseToColoumns = data => {
           let arr = [];
-          console.log(data);
           data.map((each, index) => {
                const temp = {
                     email: each?.email,
@@ -35,30 +35,71 @@ const Users = () => {
                     mobile: each?.mobileNumber,
                     subsidiary: each?.subsidiary?.subsidiaryName,
                     role: <Badge role={each?.userRole} />,
-                    isActive: each.active ? 'active' : 'disabled',
+                    isActive: (
+                         <Switch
+                              checked={each.active}
+                              onChange={async (e, value) => {
+                                   await setUserActive(each.userId);
+                              }}
+                         />
+                    ),
                     isLoggedIn: <Indicator isLoggedIn={each.loggedIn} />,
                };
                arr[index] = temp;
           });
-          console.log(arr);
           setRows(arr);
      };
 
+     /**
+      *
+      * @param {String} id //uuid of the user
+      * API call used activate/disable user
+      */
+     const setUserActive = async id => {
+          await putRequest(id, {}, userEndpoints.ACTIVATE_USER, navigate, enqueueSnackbar);
+     };
+
+     /**
+      *
+      * @param {int} page
+      * get users data according to page number
+      */
+     const getUsers = async page => {
+          try {
+               setLoader(true);
+               const data = await getRequest(getUsersPaginatedEndpoint(userEndpoints.BASE_ROUTE, page), navigate, enqueueSnackbar);
+               console.log(data);
+               setTotalRows(data.totalElements);
+               reponseToColoumns(data.content);
+               setLoader(false);
+          } catch (e) {
+               setLoader(false);
+               console.log(e);
+          }
+     };
+
      useEffect(() => {
-          getUsers();
+          getUsers(0);
      }, []);
+
      return (
           <div className="container w-100">
                <PageTitle title="Users" />
-               <TableWithPagination
-                    columns={columns}
-                    rows={rows}
-                    count={10}
-                    page={7}
-                    onPageChange={(e, newPage) => {
-                         console.log(newPage);
-                    }}
-               />
+               {loader ? (
+                    <PageLoader />
+               ) : (
+                    <TableWithPagination
+                         columns={columns}
+                         rows={rows}
+                         count={getTablePages(totalRows)}
+                         page={page}
+                         onPageChange={(e, newPage) => {
+                              console.log(newPage);
+                              setPage(newPage);
+                              getUsers(newPage - 1);
+                         }}
+                    />
+               )}
           </div>
      );
 };
