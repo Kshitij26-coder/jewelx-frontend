@@ -9,7 +9,7 @@ import ScaleOutlinedIcon from '@mui/icons-material/ScaleOutlined';
 import FaceRetouchingNaturalOutlinedIcon from '@mui/icons-material/FaceRetouchingNaturalOutlined';
 
 const AdminSideBar = [
-     { path: '/dashboard', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
+     { path: '/', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
      { path: '/users', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Users' },
      { path: '/contacts', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
      { path: '/customers', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },
