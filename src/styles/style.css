@@ -189,11 +189,13 @@ th {
 }
 
 .half-inside-outside {
-     overflow: visible; /* Allow the image to overflow outside of the container */
+     background: linear-gradient(to top, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 30%, #5ca9fb 30%, #364af8 100%);
 }
 
 .half-inside-outside img {
      width: 30rem;
-     padding: 10%;
      border: none;
+     z-index: 1000;
+     position: relative;
+     margin-top: 2rem;
 }

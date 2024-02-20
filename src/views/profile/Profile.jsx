@@ -1,26 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { profilevalidation } from '../../validation/profilevalidation';
 import '../../styles/style.css';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { getCookiesObject } from '../../utils/getCookiesObject';
+import { roles } from '../../utils/roles';
+import { getRolesfromAbbrev } from '../../utils/getRolesfromAbbrev';
 
 const Profile = () => {
      const [isEditing, setIsEditing] = useState(false);
      const [formData, setFormData] = useState(null);
-     const initialValues = {
-          name: '',
-          email: '',
-          mobileno: '',
-          userrole: '',
-          brand: '',
-          subsidary: '',
-          address: '',
-          city: '',
-          country: '',
-          postalCode: '',
-          aboutMe: '',
-     };
+     const [data, setdata] = useState({});
+     const [initialValues, setInitialValues] = useState({});
+     // const initialValues = {
+     //      userName: data?.username,
+     //      email: data?.email,
+     //      mobileNumber: data?.mobileNumber,
+     //      userRole: data?.role,
+     //      brand: data?.brandDetails?.name,
+     //      subsidiary: data?.subsidiaryDetails?.subsidiaryId,
+     //      aboutMe: `Hello, I'm ${data?.username}. With a focus on ${data?.role}, I bring expertise in ${data?.brandDetails?.name} and ${data?.subsidiaryDetails?.subsidiaryId}. Reach out to me via email at ${data?.email} or call me on ${data?.mobileNumber}. Let's collaborate and drive success together.`,
+     // };
 
      const handleSubmit = (values, { setSubmitting }) => {
           // Handle form submission
@@ -39,6 +41,19 @@ const Profile = () => {
           // Handle edit functionality
           setIsEditing(true);
      };
+     useEffect(() => {
+          setdata(getCookiesObject());
+          let data = getCookiesObject();
+          setInitialValues({
+               userName: data?.username,
+               email: data?.email,
+               mobileNumber: data?.mobileNumber,
+               userRole: data?.role,
+               brand: data?.brandDetails?.name,
+               subsidiary: data?.subsidiaryDetails?.subsidiaryId,
+               aboutMe: `Hello, I'm ${data?.username}. With a focus on ${data?.role}, I bring expertise in ${data?.brandDetails?.name} and ${data?.subsidiaryDetails?.subsidiaryId}. Reach out to me via email at ${data?.email} or call me on ${data?.mobileNumber}. Let's collaborate and drive success together.`,
+          });
+     }, []);
 
      return (
           <div className="container" style={{ marginTop: '100px' }}>
@@ -47,7 +62,7 @@ const Profile = () => {
                          <div className="col-md-12">
                               <div className="card">
                                    <div className="text-center">
-                                        <div className="half-inside-outside">
+                                        <div className="half-inside-outside ">
                                              <img
                                                   alt="..."
                                                   className="img-circle img-fluid img-thumbnail"
@@ -55,26 +70,23 @@ const Profile = () => {
                                              />
                                         </div>
                                    </div>
-                                   <div className="card-body">
+                                   <div className="card-body " style={{ height: 'auto' }}>
                                         <div className="text-center">
-                                             <h3>Shri Krishna</h3>
+                                             <h3>{data.username}</h3>
+                                             <div style={{ marginBottom: '20px' }}>
+                                                  <h5>Brand Name : {data?.brandDetails?.name}</h5>
+                                             </div>
                                              <div className="h5 font-weight-300">
                                                   <i className="glyphicon glyphicon-map-marker" />
-                                                  Shri Krishna
+                                                  {getRolesfromAbbrev(data?.role)}
                                              </div>
                                              <div className="h5">
-                                                  <i className="glyphicon glyphicon-briefcase" /> Solution Manager - Creative Tim Officer
+                                                  <i className="glyphicon glyphicon-briefcase" /> {data?.email}
                                              </div>
-                                             <div>
-                                                  <i className="glyphicon glyphicon-education" /> University of Computer Science
-                                             </div>
-                                             <hr className="my-4" />
-                                             <p>
-                                                  Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records
-                                                  all of his own music.
-                                             </p>
-                                             <div>
-                                                  <button className="btn btn-danger" onClick={handleLogout}>
+
+                                             <div style={{ marginTop: '20px' }}>
+                                                  <button className="btn btn-danger btn-lg" onClick={handleLogout}>
+                                                       <ExitToAppIcon />
                                                        Logout
                                                   </button>
                                              </div>
@@ -90,12 +102,17 @@ const Profile = () => {
                                    <IconButton onClick={handleEdit} aria-label="edit" style={{ marginLeft: '90%' }}>
                                         <EditIcon />
                                    </IconButton>
-                                   <Formik initialValues={initialValues} validationSchema={profilevalidation} onSubmit={handleSubmit}>
+                                   <Formik
+                                        initialValues={initialValues}
+                                        enableReinitialize
+                                        validationSchema={profilevalidation}
+                                        onSubmit={handleSubmit}
+                                   >
                                         {({ isSubmitting }) => (
                                              <Form>
+                                                  <h5 className="heading-small text-muted mb-4 ">User information</h5>
                                                   <div className="pl-md-4">
                                                        <div className="row">
-                                                            <h5 className="heading-small text-muted mb-4 ">User information</h5>
                                                             <div className="col-lg-6">
                                                                  <div className="form-group">
                                                                       <label className="form-control-label" htmlFor="input-name">
@@ -104,11 +121,11 @@ const Profile = () => {
                                                                       <Field
                                                                            className="form-control"
                                                                            id="input-name"
-                                                                           name="name"
+                                                                           name="userName"
                                                                            placeholder="Name"
                                                                            disabled={!isEditing}
                                                                       />
-                                                                      <ErrorMessage name="name" component="div" className="text-danger" />
+                                                                      <ErrorMessage name="userName" component="div" className="text-danger" />
                                                                  </div>
                                                             </div>
                                                             <div className="col-lg-6">
@@ -134,11 +151,11 @@ const Profile = () => {
                                                                       <Field
                                                                            className="form-control"
                                                                            id="input-mobileno"
-                                                                           name="mobileno"
+                                                                           name="mobileNumber"
                                                                            placeholder="Mobile No"
                                                                            disabled={!isEditing}
                                                                       />
-                                                                      <ErrorMessage name="mobileno" component="div" className="text-danger" />
+                                                                      <ErrorMessage name="mobileNumber" component="div" className="text-danger" />
                                                                  </div>
                                                             </div>
                                                             <div className="col-lg-6">
@@ -149,11 +166,11 @@ const Profile = () => {
                                                                       <Field
                                                                            className="form-control"
                                                                            id="input-userrole"
-                                                                           name="userrole"
+                                                                           name="userRole"
                                                                            placeholder="User Role"
                                                                            disabled={!isEditing}
                                                                       />
-                                                                      <ErrorMessage name="userrole" component="div" className="text-danger" />
+                                                                      <ErrorMessage name="userRole" component="div" className="text-danger" />
                                                                  </div>
                                                             </div>
                                                             <div className="col-lg-6">
@@ -166,90 +183,37 @@ const Profile = () => {
                                                                            id="input-brand"
                                                                            name="brand"
                                                                            placeholder="Brand"
-                                                                           disabled={!isEditing}
+                                                                           disabled={!(isEditing && getCookiesObject().role == roles.owner)}
                                                                       />
                                                                       <ErrorMessage name="brand" component="div" className="text-danger" />
                                                                  </div>
                                                             </div>
                                                             <div className="col-lg-6">
                                                                  <div className="form-group">
-                                                                      <label className="form-control-label" htmlFor="input-subsidary">
+                                                                      <label className="form-control-label" htmlFor="input-subsidiary">
                                                                            Subsidiary
                                                                       </label>
                                                                       <Field
                                                                            className="form-control"
-                                                                           id="input-subsidary"
-                                                                           name="subsidary"
+                                                                           id="input-subsidiary"
+                                                                           name="subsidiary"
                                                                            placeholder="Subsidiary"
                                                                            disabled={!isEditing}
-                                                                      />
-                                                                      <ErrorMessage name="subsidary" component="div" className="text-danger" />
+                                                                           as="select"
+                                                                      >
+                                                                           <option value="select">Select Subsidiary</option>
+                                                                           <option value={roles.employee}>Employee</option>
+                                                                           <option value={roles.owner}>Owner</option>
+                                                                           <option value={roles.admin}>Admin</option>
+                                                                      </Field>
+                                                                      <ErrorMessage name="subsidiary" component="div" className="text-danger" />
                                                                  </div>
                                                             </div>
+
                                                             <hr className="my-4" />
-                                                            <h5 className="heading-small text-muted mb-4">Contact information</h5>
-                                                            <div className="col-lg-6">
-                                                                 <div className="form-group">
-                                                                      <label className="form-control-label" htmlFor="input-address">
-                                                                           Address
-                                                                      </label>
-                                                                      <Field
-                                                                           className="form-control"
-                                                                           id="input-address"
-                                                                           name="address"
-                                                                           placeholder="Address"
-                                                                           disabled={!isEditing}
-                                                                      />
-                                                                      <ErrorMessage name="address" component="div" className="text-danger" />
-                                                                 </div>
-                                                            </div>
-                                                            <div className="col-lg-6">
-                                                                 <div className="form-group">
-                                                                      <label className="form-control-label" htmlFor="input-city">
-                                                                           City
-                                                                      </label>
-                                                                      <Field
-                                                                           className="form-control"
-                                                                           id="input-city"
-                                                                           name="city"
-                                                                           placeholder="City"
-                                                                           disabled={!isEditing}
-                                                                      />
-                                                                      <ErrorMessage name="city" component="div" className="text-danger" />
-                                                                 </div>
-                                                            </div>
-                                                            <div className="col-lg-6">
-                                                                 <div className="form-group">
-                                                                      <label className="form-control-label" htmlFor="input-country">
-                                                                           Country
-                                                                      </label>
-                                                                      <Field
-                                                                           className="form-control"
-                                                                           id="input-country"
-                                                                           name="country"
-                                                                           placeholder="Country"
-                                                                           disabled={!isEditing}
-                                                                      />
-                                                                      <ErrorMessage name="country" component="div" className="text-danger" />
-                                                                 </div>
-                                                            </div>
-                                                            <div className="col-lg-6">
-                                                                 <div className="form-group">
-                                                                      <label className="form-control-label" htmlFor="input-postal-code">
-                                                                           Postal Code
-                                                                      </label>
-                                                                      <Field
-                                                                           className="form-control"
-                                                                           id="input-postal-code"
-                                                                           name="postalCode"
-                                                                           placeholder="Postal Code"
-                                                                           disabled={!isEditing}
-                                                                      />
-                                                                      <ErrorMessage name="postalCode" component="div" className="text-danger" />
-                                                                 </div>
-                                                            </div>
-                                                            <hr className="my-4" />
-                                                            <h5 className="heading-small text-muted mb-4">About Me</h5>
+                                                            <h5 className="heading-small text-muted mb-4 " style={{ marginLeft: '15px' }}>
+                                                                 About Me
+                                                            </h5>
                                                             <div className="col-lg-12">
                                                                  <div className="form-group">
                                                                       <label className="form-control-label" htmlFor="aboutMe">
@@ -262,7 +226,7 @@ const Profile = () => {
                                                                            name="aboutMe"
                                                                            placeholder="A few words about you ..."
                                                                            rows="4"
-                                                                           disabled={!isEditing}
+                                                                           disabled={true}
                                                                       />
                                                                       <ErrorMessage name="aboutMe" component="div" className="text-danger" />
                                                                  </div>
@@ -271,7 +235,7 @@ const Profile = () => {
                                                   </div>
                                                   {/* Submit button */}
                                                   {isEditing && (
-                                                       <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                                                       <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting}>
                                                             Submit
                                                        </button>
                                                   )}
