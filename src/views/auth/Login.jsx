@@ -22,7 +22,7 @@ export default function Register() {
                Cookies.set('user', JSON.stringify(data), { expires: 3 });
                showSuccessSnackbar('Logged in successfully', enqueueSnackbar);
                setLoader(false);
-               navigate('/content');
+               navigate('/');
           } catch (e) {
                setLoader(false);
                console.log(e);

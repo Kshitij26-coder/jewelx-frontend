@@ -10,8 +10,7 @@ import Cookies from 'js-cookie';
  */
 export const getUsersPaginatedEndpoint = (endpoint, page) => {
      const userCookie = JSON.parse(Cookies.get('user'));
-     console.log(userCookie.role);
-     return `${endpoint}?page=${page}&size=${import.meta.env.VITE_PAGE_SIZE}&role=${userCookie.role}`;
+     return `${endpoint}?page=${page}&size=${import.meta.env.VITE_PAGE_SIZE}&role=${userCookie.role}&brand=${userCookie.brandId}`;
 };
 
 /**
