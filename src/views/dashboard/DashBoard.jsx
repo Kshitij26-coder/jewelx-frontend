@@ -39,8 +39,8 @@ const Dashboard = () => {
                          legend: {
                               position: 'right',
                          },
-                    },
-                    responsive: true,
+                    },   
+                    responsive: false,
                     maintainAspectRatio: false,
                },
           });

@@ -15,7 +15,6 @@ import { roles } from '../../utils/roles';
 import { subsidiaryEndPoints } from '../../utils/endpoints/subsidiaryEndPoints';
 import { getSubsidiariesByIdEndpoint } from '../../utils/apis/subsidiaryApiRequests';
 
-
 export default function Registrationpage() {
      const { enqueueSnackbar } = useSnackbar();
      const navigate = useNavigate();
@@ -177,12 +176,12 @@ export default function Registrationpage() {
                                                   >
                                                        <option value="">Select Brand</option>
                                                        {console.log(brandOptions)}
-                                                       {/* {brandOptions.length > 0 &&
+                                                       {brandOptions.length > 0 &&
                                                             brandOptions.map(each => (
                                                                  <option value={each.brandId} key={each.brandId}>
                                                                       {each.name}
                                                                  </option>
-                                                            ))} */}
+                                                            ))}
                                                   </Field>
                                                   {errors.brandId && touched.brandId ? <div className="error">{errors.brandId}</div> : null}
                                              </>
