@@ -48,6 +48,7 @@ export default function Registrationpage() {
                     navigate,
                     enqueueSnackbar,
                );
+               console.log(data);
                setSubsidiaryOptions(data);
           } catch (e) {
                console.log(e);

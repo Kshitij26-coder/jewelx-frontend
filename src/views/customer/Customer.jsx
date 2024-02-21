@@ -45,7 +45,7 @@ const handleSubmit = (values, { setSubmitting }) => {
 
 const Customer = () => {
      return (
-          <div className="container page-margin">
+          <div className="container">
                <PageTitle title="Add Customer" />
 
                <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>

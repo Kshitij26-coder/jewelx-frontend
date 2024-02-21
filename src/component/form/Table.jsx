@@ -42,12 +42,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const TableWithPagination = ({ columns, rows, onPageChange, count, page }) => {
      return (
-          <div className="container w-100">
+          <div style={{ width: '100%' }}>
                <Table aria-label="customized table" sx={{ boxShadow: '5px 5px 10px #666' }}>
                     <TableHead>
                          <StyledTableRow>
                               {columns.map((column, index) => (
-                                   <StyledTableCell align={index == 0 ? 'left' : 'center'} key={index} className={tableCellClasses.head}>
+                                   <StyledTableCell align={index == 0 ? 'left' : 'left'} key={index} className={tableCellClasses.head}>
                                         {column}
                                    </StyledTableCell>
                               ))}
@@ -58,7 +58,7 @@ const TableWithPagination = ({ columns, rows, onPageChange, count, page }) => {
                               rows.map(row => (
                                    <StyledTableRow key={row.name}>
                                         {Object.values(row).map((value, index) => (
-                                             <StyledTableCell align={index == 0 ? 'left' : 'center'} key={index} className={tableCellClasses.body}>
+                                             <StyledTableCell align={index == 0 ? 'left' : 'left'} key={index} className={tableCellClasses.body}>
                                                   {value}
                                              </StyledTableCell>
                                         ))}
