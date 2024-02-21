@@ -12,6 +12,7 @@ import Users from './views/users/Users';
 import CreateUser from './views/users/CreateUser';
 import Profile from './views/profile/Profile';
 import Uom from './views/UOM/Uom';
+import AddUom from './views/UOM/AddUom';
 
 export const routing = createBrowserRouter([
      {
@@ -42,6 +43,14 @@ export const routing = createBrowserRouter([
                {
                     path: '/uom',
                     element: <Uom />,
+               },
+               {
+                    path: '/uom/add',
+                    element: <AddUom update={false} />,
+               },
+               {
+                    path: '/uom/update',
+                    element: <AddUom update={true} />,
                },
           ],
      },

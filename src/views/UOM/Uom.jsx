@@ -9,9 +9,10 @@ import PageLoader from '../../component/loaders/PageLoader';
 import TableWithPagination from '../../component/form/Table';
 import { getTablePages } from '../../utils/getTablePages';
 import UomBadge from '../../component/badges/UomBadge';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 const Uom = () => {
-     const columns = ['Id', 'Code', 'Name', 'Description'];
+     const columns = ['View', 'Id', 'Code', 'Name', 'Description'];
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
      const [loader, setLoader] = useState(false);
@@ -27,6 +28,7 @@ const Uom = () => {
                responseToRows(data.content);
                setTotalRows(data.totalElements);
           } catch (e) {
+               setLoader(false);
                console.log(e);
           }
      };
@@ -35,7 +37,14 @@ const Uom = () => {
           let temp = [];
           data.map((each, index) => {
                each.uomCode = <UomBadge code={each.uomCode} />;
-               temp[index] = each;
+               temp[index] = {
+                    view: (
+                         <div>
+                              <RemoveRedEyeIcon fontSize="large" />
+                         </div>
+                    ),
+                    ...each,
+               };
           });
           setRows(temp);
      };
@@ -44,7 +53,7 @@ const Uom = () => {
           getUom(0);
      }, []);
      return (
-          <div className="container w-100 page-margin">
+          <div>
                <PageTitle title="Unit of Measurements" />
                {loader ? (
                     <PageLoader />

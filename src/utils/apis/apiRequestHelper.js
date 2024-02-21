@@ -36,7 +36,7 @@ export let url = import.meta.env.VITE_SERVER_URL;
  */
 export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
      try {
-          const response = await axios.post(url + endpoint, data);
+          const response = await axios.post(url + endpoint, data, { headers: getHeaders() });
           return response.data;
      } catch (err) {
           if (err.response) {

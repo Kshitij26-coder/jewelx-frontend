@@ -57,7 +57,7 @@ function App() {
                     </Sidebar>
 
                     <main>
-                         <div style={{ marginTop: '70px', left: '10px' }}>
+                         <div style={{ marginTop: '100px', left: '10px' }}>
                               <Outlet />
                          </div>
                     </main>
