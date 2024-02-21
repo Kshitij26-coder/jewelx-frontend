@@ -40,7 +40,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const handleSubmit = (values, { setSubmitting }) => {
-     console.log('Form Values:', values);
      setSubmitting(false);
 };
 

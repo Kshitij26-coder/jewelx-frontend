@@ -3,7 +3,7 @@ import { showErrorSnackbar, showSuccessSnackbar } from '../snackBar';
 import Cookies from 'js-cookie';
 
 /**
- * 
+ *
  * @returns header Object
  * To get header object
  */
@@ -47,7 +47,6 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
                     showErrorSnackbar('Unauthorized Access', enqueueSnackbar);
                     navigate('/login');
                }
-               console.log(err.response);
                showErrorSnackbar(
                     err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
                     enqueueSnackbar,
@@ -78,8 +77,7 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
  */
 export let getRequest = async (endpoint, navigate, enqueueSnackbar) => {
      try {
-          const response = await axios.get(url + endpoint,{headers: getHeaders()});
-          console.log(response);
+          const response = await axios.get(url + endpoint, { headers: getHeaders() });
           return response.data;
      } catch (err) {
           if (err.response) {
@@ -135,7 +133,6 @@ export let putRequest = async (id, data, endpoint, navigate, enqueueSnackbar) =>
           } else if (err.request) {
                // The request was made but no response was received
                showErrorSnackbar('Connection Failed', enqueueSnackbar);
-               console.log(err);
                throw new Error("Can't connect to server");
           } else {
                // Something happened in setting up the request that triggered an error

@@ -49,7 +49,7 @@ const Users = () => {
                };
                arr[index] = temp;
           });
-         // console.log(arr);
+          // console.log(arr);
           setRows(arr);
      };
 
@@ -71,7 +71,6 @@ const Users = () => {
           try {
                setLoader(true);
                const data = await getRequest(getUsersPaginatedEndpoint(userEndpoints.BASE_ROUTE, page), navigate, enqueueSnackbar);
-               console.log(data);
                setTotalRows(data.totalElements);
                reponseToColoumns(data.content);
                setLoader(false);
@@ -97,7 +96,6 @@ const Users = () => {
                          count={getTablePages(totalRows)}
                          page={page}
                          onPageChange={(e, newPage) => {
-                              console.log(newPage);
                               setPage(newPage);
                               getUsers(newPage - 1);
                          }}
