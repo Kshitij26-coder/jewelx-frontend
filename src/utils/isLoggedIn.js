@@ -11,6 +11,6 @@ export const isLoggedIn = () => {
      if (userData?.role) {
           return true;
      } else {
-          return flase;
+          return false;
      }
 };

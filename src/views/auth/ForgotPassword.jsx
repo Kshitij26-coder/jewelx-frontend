@@ -21,7 +21,6 @@ export default function Register() {
      const handleSendOTP = async values => {
           try {
                setLoader(true);
-               console.log(getUsersByIdEndpoint(userEndpoints.SEND_OTP, values.email));
                const data = await postRequest({}, getUsersByIdEndpoint(userEndpoints.SEND_OTP, values.email), navigate, enqueueSnackbar);
                setOtpSent(true);
                setLoader(false);

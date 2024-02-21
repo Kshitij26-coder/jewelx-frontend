@@ -16,15 +16,7 @@ const CreateUser = props => {
      return (
           <div className="container w-100">
                <PageTitle title={props.update ? 'Update User' : 'Add User'} />
-               <TableWithPagination
-                    columns={columns}
-                    rows={data}
-                    count={10}
-                    page={7}
-                    onPageChange={(e, newPage) => {
-                         console.log(newPage);
-                    }}
-               />
+               <TableWithPagination columns={columns} rows={data} count={10} page={7} onPageChange={(e, newPage) => {}} />
           </div>
      );
 };

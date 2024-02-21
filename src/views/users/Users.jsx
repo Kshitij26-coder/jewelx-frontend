@@ -29,7 +29,7 @@ const Users = () => {
       */
      const reponseToColoumns = data => {
           let arr = [];
-          console.log(data);
+          //console.log(data);
           data.map((each, index) => {
                const temp = {
                     email: each?.email,
@@ -49,7 +49,7 @@ const Users = () => {
                };
                arr[index] = temp;
           });
-          console.log(arr);
+          // console.log(arr);
           setRows(arr);
      };
 
@@ -71,7 +71,6 @@ const Users = () => {
           try {
                setLoader(true);
                const data = await getRequest(getUsersPaginatedEndpoint(userEndpoints.BASE_ROUTE, page), navigate, enqueueSnackbar);
-               console.log(data);
                setTotalRows(data.totalElements);
                reponseToColoumns(data.content);
                setLoader(false);
@@ -82,8 +81,6 @@ const Users = () => {
      };
 
      useEffect(() => {
-          const cookies = getCookiesObject();
-          console.log(getCookiesObject().idxId);
           getUsers(0);
      }, []);
 
@@ -99,7 +96,6 @@ const Users = () => {
                          count={getTablePages(totalRows)}
                          page={page}
                          onPageChange={(e, newPage) => {
-                              console.log(newPage);
                               setPage(newPage);
                               getUsers(newPage - 1);
                          }}

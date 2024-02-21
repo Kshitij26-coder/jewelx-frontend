@@ -16,7 +16,6 @@ export const getRolesFromCookies = navigate => {
      const userCookie = Cookies.get('user');
      // Parse the JSON string if the cookie exists
      const userData = userCookie ? JSON.parse(userCookie) : null;
-     console.log(userData);
      if (userData?.role) {
           switch (userData.role) {
                case roles.admin:
