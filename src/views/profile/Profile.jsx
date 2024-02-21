@@ -8,22 +8,21 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { getCookiesObject } from '../../utils/getCookiesObject';
 import { roles } from '../../utils/roles';
 import { getRolesfromAbbrev } from '../../utils/getRolesfromAbbrev';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import { putRequest } from '../../utils/apis/apiRequestHelper';
+import { userEndpoints } from '../../utils/endpoints/userEndpoints';
+import { useSnackbar } from 'notistack';
+import ButtonLoader from '../../component/loaders/ButtonLoader';
 
 const Profile = () => {
      const [isEditing, setIsEditing] = useState(false);
      const [formData, setFormData] = useState(null);
      const [data, setdata] = useState({});
      const [initialValues, setInitialValues] = useState({});
-     // const initialValues = {
-     //      userName: data?.username,
-     //      email: data?.email,
-     //      mobileNumber: data?.mobileNumber,
-     //      userRole: data?.role,
-     //      brand: data?.brandDetails?.name,
-     //      subsidiary: data?.subsidiaryDetails?.subsidiaryId,
-     //      aboutMe: `Hello, I'm ${data?.username}. With a focus on ${data?.role}, I bring expertise in ${data?.brandDetails?.name} and ${data?.subsidiaryDetails?.subsidiaryId}. Reach out to me via email at ${data?.email} or call me on ${data?.mobileNumber}. Let's collaborate and drive success together.`,
-     // };
-
+     const navigate = useNavigate();
+     const { enqueueSnackbar } = useSnackbar();
+     const [buttonLoader, setButtonLoader] = useState(false);
      const handleSubmit = (values, { setSubmitting }) => {
           // Handle form submission
           console.log(values);
@@ -32,9 +31,13 @@ const Profile = () => {
           setIsEditing(false);
      };
 
-     const handleLogout = () => {
+     const handleLogout = async () => {
+          setButtonLoader(true);
           // Handle logout functionality
-          console.log('Logged out');
+          await putRequest(getCookiesObject().userId, {}, userEndpoints.LOGOUT, navigate, enqueueSnackbar);
+          Cookies.remove('user');
+          setButtonLoader(false);
+          navigate('/home');
      };
 
      const handleEdit = () => {
@@ -86,8 +89,14 @@ const Profile = () => {
 
                                              <div style={{ marginTop: '20px' }}>
                                                   <button className="btn btn-danger btn-lg" onClick={handleLogout}>
-                                                       <ExitToAppIcon />
-                                                       Logout
+                                                       {buttonLoader ? (
+                                                            <ButtonLoader />
+                                                       ) : (
+                                                            <>
+                                                                 <ExitToAppIcon />
+                                                                 Logout
+                                                            </>
+                                                       )}
                                                   </button>
                                              </div>
                                         </div>

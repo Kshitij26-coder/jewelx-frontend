@@ -17,7 +17,7 @@ const AdminSideBar = [
      { path: '/faq', icon: <RequestQuoteOutlinedIcon fontSize="large" />, option: 'Accounts' },
      { path: '/calendar', icon: <DataThresholdingOutlinedIcon fontSize="large" />, option: 'Metal Stock' },
      { path: '/calendar', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },
-     { path: '/calendar', icon: <ScaleOutlinedIcon fontSize="large" />, option: 'Unit Of Measurement' },
+     { path: '/uom', icon: <ScaleOutlinedIcon fontSize="large" />, option: 'Unit Of Measurement' },
 ];
 
 export default AdminSideBar;

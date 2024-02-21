@@ -11,7 +11,7 @@ export let getHeaders = () => {
      const userCookie = Cookies.get('user');
      // Parse the JSON string if the cookie exists
      const userData = userCookie ? JSON.parse(userCookie) : null;
-     if (userData !== null || userData !== undefined) {
+     if (userData !== null) {
           return {
                Authorization: `Bearer ${userData.jwtToken}`,
                'Content-Type': 'application/json',
@@ -96,6 +96,7 @@ export let getRequest = async (endpoint, navigate, enqueueSnackbar) => {
                showErrorSnackbar('Connection Failed', enqueueSnackbar);
                throw new Error("Can't connect to server");
           } else {
+               console.log(err);
                // Something happened in setting up the request that triggered an error
                showErrorSnackbar('Something went wrong', enqueueSnackbar);
                navigate('/error500');
