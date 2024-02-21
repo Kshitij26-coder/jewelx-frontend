@@ -1,5 +1,27 @@
 import axios from 'axios';
 import { showErrorSnackbar, showSuccessSnackbar } from '../snackBar';
+import Cookies from 'js-cookie';
+
+/**
+ *
+ * @returns header Object
+ * To get header object
+ */
+export let getHeaders = () => {
+     const userCookie = Cookies.get('user');
+     // Parse the JSON string if the cookie exists
+     const userData = userCookie ? JSON.parse(userCookie) : null;
+     if (userData !== null || userData !== undefined) {
+          return {
+               Authorization: `Bearer ${userData.jwtToken}`,
+               'Content-Type': 'application/json',
+          };
+     } else {
+          return {
+               'Content-Type': 'application/json',
+          };
+     }
+};
 
 //imports server url from env
 export let url = import.meta.env.VITE_SERVER_URL;
@@ -17,7 +39,6 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
           const response = await axios.post(url + endpoint, data);
           return response.data;
      } catch (err) {
-
           if (err.response) {
                // The request was made and the server responded with a status code
                if (err.response.status === 401) {
@@ -26,9 +47,13 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
                     showErrorSnackbar('Unauthorized Access', enqueueSnackbar);
                     navigate('/login');
                }
-               console.log(err.response);
-               showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data? err.response.data :"Something Went Wrong", enqueueSnackbar);
-               throw new Error(err.response.data.message ? err.response.data.message : err.response.data? err.response.data :"Something Went Wrong");
+               showErrorSnackbar(
+                    err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
+                    enqueueSnackbar,
+               );
+               throw new Error(
+                    err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
+               );
           } else if (err.request) {
                // The request was made but no response was received
                showErrorSnackbar("Can't connect to server", enqueueSnackbar);
@@ -52,8 +77,7 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
  */
 export let getRequest = async (endpoint, navigate, enqueueSnackbar) => {
      try {
-          const response = await axios.get(url + endpoint);
-          console.log(response);
+          const response = await axios.get(url + endpoint, { headers: getHeaders() });
           return response.data;
      } catch (err) {
           if (err.response) {
@@ -91,7 +115,8 @@ export let getRequest = async (endpoint, navigate, enqueueSnackbar) => {
  */
 export let putRequest = async (id, data, endpoint, navigate, enqueueSnackbar) => {
      try {
-          const response = await axios.put(url + endpoint + `${id}`, data);
+          //if id =='' then don't prefix '/' else prefix '/'
+          const response = await axios.put(url + endpoint + `${id == '' ? '' : '/' + id}`, data, { headers: getHeaders() });
           showSuccessSnackbar(response.data ? response.data : ` Updated successfully`, enqueueSnackbar);
      } catch (err) {
           if (err.response) {
@@ -113,7 +138,7 @@ export let putRequest = async (id, data, endpoint, navigate, enqueueSnackbar) =>
                // Something happened in setting up the request that triggered an error
                showErrorSnackbar('Something went wrong', enqueueSnackbar);
                navigate('/error500');
-               // throw new Error('Something went wrong');
+               throw new Error('Something went wrong');
           }
      }
 };
