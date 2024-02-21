@@ -12,6 +12,8 @@ import Users from './views/users/Users';
 import CreateUser from './views/users/CreateUser';
 import Profile from './views/profile/Profile';
 import Uom from './views/UOM/Uom';
+import AddSubsidiary from './views/subsidiary/AddSubsidiary';
+import Subsidiary from './views/subsidiary/Subsidiary';
 
 export const routing = createBrowserRouter([
      {
@@ -38,6 +40,14 @@ export const routing = createBrowserRouter([
                {
                     path: '/profile',
                     element: <Profile />,
+               },
+               {
+                    path: '/subsidiary/add',
+                    element: <AddSubsidiary />,
+               },
+               {
+                    path: '/subsidiary',
+                    element: <Subsidiary />,
                },
                {
                     path: '/uom',

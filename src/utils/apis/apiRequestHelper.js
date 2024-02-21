@@ -11,7 +11,7 @@ export let getHeaders = () => {
      const userCookie = Cookies.get('user');
      // Parse the JSON string if the cookie exists
      const userData = userCookie ? JSON.parse(userCookie) : null;
-     if (userData !== null || userData !== undefined) {
+     if (userData !== null) {
           return {
                Authorization: `Bearer ${userData.jwtToken}`,
                'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export let url = import.meta.env.VITE_SERVER_URL;
  */
 export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
      try {
-          const response = await axios.post(url + endpoint, data);
+          const response = await axios.post(url + endpoint, data, { headers: getHeaders() });
           return response.data;
      } catch (err) {
           if (err.response) {
