@@ -18,17 +18,42 @@ import ButtonLoader from '../../component/loaders/ButtonLoader';
 const Profile = () => {
      const [isEditing, setIsEditing] = useState(false);
      const [formData, setFormData] = useState(null);
-     const [data, setdata] = useState({});
+     const [cookiesData, setCookiesData] = useState({});
      const [initialValues, setInitialValues] = useState({});
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
      const [buttonLoader, setButtonLoader] = useState(false);
-     const handleSubmit = (values, { setSubmitting }) => {
+     const handleSubmit = async values => {
           // Handle form submission
-          console.log(values);
-          setSubmitting(false);
-          setFormData(values);
-          setIsEditing(false);
+          try {
+               const dto = {
+                    username: values.userName,
+                    mobilenumber: values.mobileNumber,
+                    userId: cookiesData.idxId,
+                    brandId: cookiesData.brandId,
+                    role: cookiesData.role,
+                    brandName: values.brand,
+               };
+               const data = await putRequest('', dto, userEndpoints.BASE_ROUTE, navigate, enqueueSnackbar);
+               console.log(data);
+               //showSuccessSnackbar(data, enqueueSnackbar);
+               Cookies.set(
+                    'user',
+                    JSON.stringify({
+                         ...cookiesData,
+                         username: values.userName,
+                         mobileNumber: values.mobileNumber,
+                         brand: { ...cookiesData.brand, name: values.brand },
+                    }),
+                    { expires: 3 },
+               );
+               setSubmitting(false);
+               setFormData(values);
+               setIsEditing(false);
+          } catch (e) {
+               setIsEditing(false);
+               console.log(e);
+          }
      };
 
      const handleLogout = async () => {
@@ -41,19 +66,19 @@ const Profile = () => {
      };
 
      const handleEdit = () => {
-          // Handle edit functionality
           setIsEditing(true);
      };
      useEffect(() => {
-          setdata(getCookiesObject());
+          setCookiesData(getCookiesObject());
           let data = getCookiesObject();
+          // console.log(data);
           setInitialValues({
                userName: data?.username,
                email: data?.email,
                mobileNumber: data?.mobileNumber,
                userRole: data?.role,
-               brand: data?.brandDetails?.name,
-               subsidiary: data?.subsidiaryDetails?.subsidiaryId,
+               brand: data?.brand?.name,
+               subsidiary: data?.subsidiaryId,
                aboutMe: `Hello, I'm ${data?.username}. With a focus on ${data?.role}, I bring expertise in ${data?.brandDetails?.name} and ${data?.subsidiaryDetails?.subsidiaryId}. Reach out to me via email at ${data?.email} or call me on ${data?.mobileNumber}. Let's collaborate and drive success together.`,
           });
      }, []);
@@ -61,7 +86,7 @@ const Profile = () => {
      return (
           <div className="container" style={{ marginTop: '100px' }}>
                <div className="row">
-                    <div className="col-md-3" style={{ width: '40%', paddingRight: '1px' }}>
+                    <div className="col-md-3 col-sm-12 col-xs-12" style={{ width: '40%', paddingRight: '1px' }}>
                          <div className="col-md-12">
                               <div className="card">
                                    <div className="text-center">
@@ -75,16 +100,16 @@ const Profile = () => {
                                    </div>
                                    <div className="card-body " style={{ height: 'auto' }}>
                                         <div className="text-center">
-                                             <h3>{data.username}</h3>
+                                             <h3>{cookiesData.username}</h3>
                                              <div style={{ marginBottom: '20px' }}>
-                                                  <h5>Brand Name : {data?.brandDetails?.name}</h5>
+                                                  <h5>Brand Name : {cookiesData?.brand?.name}</h5>
                                              </div>
                                              <div className="h5 font-weight-300">
                                                   <i className="glyphicon glyphicon-map-marker" />
-                                                  {getRolesfromAbbrev(data?.role)}
+                                                  {getRolesfromAbbrev(cookiesData?.role)}
                                              </div>
                                              <div className="h5">
-                                                  <i className="glyphicon glyphicon-briefcase" /> {data?.email}
+                                                  <i className="glyphicon glyphicon-briefcase" /> {cookiesData?.email}
                                              </div>
 
                                              <div style={{ marginTop: '20px' }}>
@@ -105,17 +130,17 @@ const Profile = () => {
                          </div>
                     </div>
 
-                    <div className="col-md-9" style={{ width: '60%' }}>
+                    <div className="col-md-9 col-sm-12 col-xs-12" style={{ width: '60%' }}>
                          <div>
                               <div className="w-100 p-5 card " style={{ padding: '20px' }}>
-                                   <IconButton onClick={handleEdit} aria-label="edit" style={{ marginLeft: '90%' }}>
+                                   <IconButton type="button" onClick={handleEdit} aria-label="edit" style={{ marginLeft: '90%' }}>
                                         <EditIcon />
                                    </IconButton>
                                    <Formik
                                         initialValues={initialValues}
                                         enableReinitialize
                                         validationSchema={profilevalidation}
-                                        onSubmit={handleSubmit}
+                                        onSubmit={values => handleSubmit(values)}
                                    >
                                         {({ isSubmitting }) => (
                                              <Form>
@@ -147,7 +172,7 @@ const Profile = () => {
                                                                            id="input-email"
                                                                            name="email"
                                                                            placeholder="Email"
-                                                                           disabled={!isEditing}
+                                                                           disabled={true}
                                                                       />
                                                                       <ErrorMessage name="email" component="div" className="text-danger" />
                                                                  </div>
@@ -177,7 +202,7 @@ const Profile = () => {
                                                                            id="input-userrole"
                                                                            name="userRole"
                                                                            placeholder="User Role"
-                                                                           disabled={!isEditing}
+                                                                           disabled={true}
                                                                       />
                                                                       <ErrorMessage name="userRole" component="div" className="text-danger" />
                                                                  </div>
@@ -197,6 +222,7 @@ const Profile = () => {
                                                                       <ErrorMessage name="brand" component="div" className="text-danger" />
                                                                  </div>
                                                             </div>
+
                                                             <div className="col-lg-6">
                                                                  <div className="form-group">
                                                                       <label className="form-control-label" htmlFor="input-subsidiary">
@@ -207,14 +233,9 @@ const Profile = () => {
                                                                            id="input-subsidiary"
                                                                            name="subsidiary"
                                                                            placeholder="Subsidiary"
-                                                                           disabled={!isEditing}
-                                                                           as="select"
-                                                                      >
-                                                                           <option value="select">Select Subsidiary</option>
-                                                                           <option value={roles.employee}>Employee</option>
-                                                                           <option value={roles.owner}>Owner</option>
-                                                                           <option value={roles.admin}>Admin</option>
-                                                                      </Field>
+                                                                           disabled={true}
+                                                                      />
+
                                                                       <ErrorMessage name="subsidiary" component="div" className="text-danger" />
                                                                  </div>
                                                             </div>
@@ -244,7 +265,7 @@ const Profile = () => {
                                                   </div>
                                                   {/* Submit button */}
                                                   {isEditing && (
-                                                       <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting}>
+                                                       <button type="submit" className="btn btn-primary btn-lg" disabled={false}>
                                                             Submit
                                                        </button>
                                                   )}
