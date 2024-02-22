@@ -6,6 +6,7 @@ import RequestQuoteOutlinedIcon from '@mui/icons-material/RequestQuoteOutlined';
 import DataThresholdingOutlinedIcon from '@mui/icons-material/DataThresholdingOutlined';
 import DiamondOutlinedIcon from '@mui/icons-material/DiamondOutlined';
 import ScaleOutlinedIcon from '@mui/icons-material/ScaleOutlined';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import FaceRetouchingNaturalOutlinedIcon from '@mui/icons-material/FaceRetouchingNaturalOutlined';
 
 const OwnerSideBar = [
@@ -18,6 +19,7 @@ const OwnerSideBar = [
      { path: '/calendar', icon: <DataThresholdingOutlinedIcon fontSize="large" />, option: 'Metal Stock' },
      { path: '/calendar', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },
      { path: '/uom', icon: <ScaleOutlinedIcon fontSize="large" />, option: 'Unit Of Measurement' },
+     { path: '/metal', icon: <InventoryIcon fontSize="large" />, option: 'Metal' },
 ];
 
 export default OwnerSideBar;

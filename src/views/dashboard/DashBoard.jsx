@@ -39,7 +39,7 @@ const Dashboard = () => {
                          legend: {
                               position: 'right',
                          },
-                    },   
+                    },
                     responsive: false,
                     maintainAspectRatio: false,
                },
@@ -117,7 +117,7 @@ const Dashboard = () => {
 
                <div className="col-md-6">
                     <Card title="Pie Chart" footer="Pie Chart Footer">
-                         <canvas ref={pieChartRef}></canvas>
+                         <canvas className='w-100' ref={pieChartRef}></canvas>
                     </Card>
                </div>
 
