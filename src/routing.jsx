@@ -12,6 +12,9 @@ import Users from './views/users/Users';
 import CreateUser from './views/users/CreateUser';
 import Profile from './views/profile/Profile';
 import Uom from './views/UOM/Uom';
+import AddUom from './views/UOM/AddUom';
+import AddSubsidiary from './views/subsidiary/AddSubsidiary';
+import Subsidiary from './views/subsidiary/Subsidiary';
 import Metal from './views/metals/Metal';
 
 export const routing = createBrowserRouter([
@@ -41,8 +44,24 @@ export const routing = createBrowserRouter([
                     element: <Profile />,
                },
                {
+                    path: '/subsidiary/add',
+                    element: <AddSubsidiary />,
+               },
+               {
+                    path: '/subsidiary',
+                    element: <Subsidiary />,
+               },
+               {
                     path: '/uom',
                     element: <Uom />,
+               },
+               {
+                    path: '/uom/add',
+                    element: <AddUom update={false} />,
+               },
+               {
+                    path: '/uom/update',
+                    element: <AddUom update={true} />,
                },
                {
                     path: '/metal',

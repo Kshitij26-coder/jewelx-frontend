@@ -12,7 +12,8 @@ import FaceRetouchingNaturalOutlinedIcon from '@mui/icons-material/FaceRetouchin
 const OwnerSideBar = [
      { path: '/', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
      { path: '/users', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Users' },
-     { path: '/contacts', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
+     { path: '/subsidiary/add', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Add Subsidiary' },
+     { path: '/subsidiary', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
      { path: '/customers', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },
      { path: '/profile', icon: <AutoGraphOutlinedIcon fontSize="large" />, option: 'Sales' },
      { path: '/faq', icon: <RequestQuoteOutlinedIcon fontSize="large" />, option: 'Accounts' },
