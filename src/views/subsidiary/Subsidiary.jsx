@@ -9,7 +9,7 @@ import { getTablePages } from '../../utils/getTablePages';
 import { getSubsidiariesByIdEndpoint } from '../../utils/apis/subsidiaryApiRequests';
 
 const Subsidiary = () => {
-     const columns = ['Id', 'Subsidiary Name', 'ShopAct No.','Gst No.', 'Address', 'City', 'Pincode', 'Brand Id','Brand Name'];
+     const columns = ['Id', 'Subsidiary Name', 'ShopAct No.', 'Gst No.', 'Address', 'City', 'Pincode', 'Brand Id', 'Brand Name'];
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
      const [loader, setLoader] = useState(false);
@@ -25,7 +25,7 @@ const Subsidiary = () => {
                responseToRows(data.content);
                setTotalRows(data.totalElements);
           } catch (e) {
-                setLoader(false);
+               setLoader(false);
                console.log(e);
           }
      };
@@ -33,18 +33,16 @@ const Subsidiary = () => {
      const responseToRows = data => {
           let temp = [];
           data.map((each, index) => {
-               
                temp[index] = {
                     Id: each.idxId,
                     subsidiaryName: each.subsidiaryName,
                     shopact: each.shopActNumber,
                     gst: each.gstin,
                     address: each.address,
-                    city:each.city,
-                    pincode:each.pinCode,
+                    city: each.city,
+                    pincode: each.pinCode,
                     brandId: each.brand.brandId,
-                    brandName: each.brand.name
-
+                    brandName: each.brand.name,
                };
           });
           setRows(temp);
@@ -54,7 +52,7 @@ const Subsidiary = () => {
           getSubsidaries(0);
      }, []);
      return (
-          <div className="container w-100 page-margin">
+          <div>
                <PageTitle title="Subsidaries" />
                {loader ? (
                     <PageLoader />

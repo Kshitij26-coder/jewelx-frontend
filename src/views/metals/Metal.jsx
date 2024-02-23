@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { metalValidation } from '../../validation/metalValidation';
 import '../../styles/style.css';
@@ -7,11 +7,18 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import PageTitle from '../../component/PageTitle';
+import { getCookiesObject } from '../../utils/getCookiesObject';
+import { postRequest } from '../../utils/apis/apiRequestHelper';
+import { metalEndPoints } from '../../utils/endpoints/metalEndPoints';
+import { showSuccessSnackbar } from '../../utils/snackBar';
+import ButtonLoader from '../../component/loaders/ButtonLoader';
 
 const Metal = () => {
      const [isEditing, setIsEditing] = useState(false);
      const navigate = useNavigate();
+     const [cookies, setCookies] = useState({});
      const { enqueueSnackbar } = useSnackbar();
+     const [buttonLoader, setButtonLoader] = useState(false);
 
      const initialValues = {
           metalName: '',
@@ -19,24 +26,37 @@ const Metal = () => {
           metalDescription: '',
      };
 
-     const handleSubmit = (values, { setSubmitting }) => {
-          setSubmitting(false);
-          setIsEditing(false);
-
-          enqueueSnackbar('Form submitted successfully', { variant: 'success' });
+     const handleSubmit = async (values, { setSubmitting }) => {
+          try {
+            setButtonLoader(true)
+               const dto = { ...values, brandId: cookies.brandId, userID: cookies.idxId };
+               const data = await postRequest(dto, metalEndPoints.BASE_URL, navigate, enqueueSnackbar);
+               setSubmitting(false);
+               setIsEditing(false);
+               //console.log(values);
+               showSuccessSnackbar(data, enqueueSnackbar);
+               setButtonLoader(false)
+          } catch (e) {
+               console.log(e);
+               setButtonLoader(false)
+          }
      };
 
      const handleEdit = () => {
           setIsEditing(true);
      };
+     useEffect(() => {
+          setCookies(getCookiesObject());
+          // console.log(getCookiesObject());
+     }, []);
 
      return (
           <div>
                <PageTitle title="Metal" />
-               <div>
-                    <div className="w-100 p-5 card" style={{ padding: '20px', marginLeft: '15rem' }}>
-                         <IconButton onClick={handleEdit} aria-label="edit" style={{ marginLeft: '90%' }}>
-                              Edit <EditIcon />
+               <div className="container">
+                    <div className="w-100 p-5 card" style={{ padding: '20px' }}>
+                         <IconButton onClick={handleEdit} aria-label="edit" style={{ marginLeft: '90%', fontSize: '1.5rem', borderRadius: 0 }}>
+                              <EditIcon fontSize="medium" /> Edit
                          </IconButton>
                          <Formik initialValues={initialValues} enableReinitialize validationSchema={metalValidation} onSubmit={handleSubmit}>
                               {({ isSubmitting }) => (
@@ -80,12 +100,10 @@ const Metal = () => {
                                                                  Metal Description
                                                             </label>
                                                             <Field
-                                                                 as="textarea"
                                                                  className="form-control"
                                                                  id="input-metalDescription"
                                                                  name="metalDescription"
                                                                  placeholder=" Metal Description"
-                                                                 rows="4"
                                                                  disabled={!isEditing}
                                                             />
                                                             <ErrorMessage name="metalDescription" component="div" className="text-danger" />
@@ -93,10 +111,11 @@ const Metal = () => {
                                                   </div>
                                              </div>
                                         </div>
-                                        {/* Submit button */}
+
+                                        <hr style={{ width: '100%', background: '#1111' }} />
                                         {isEditing && (
-                                             <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting}>
-                                                  Submit
+                                             <button type="submit" className="btn btn-block submit-button" disabled={isSubmitting}>
+                                                {buttonLoader?<ButtonLoader/>:"Add"}
                                              </button>
                                         )}
                                    </Form>

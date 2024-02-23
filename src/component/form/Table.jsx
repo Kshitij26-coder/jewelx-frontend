@@ -42,7 +42,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const TableWithPagination = ({ columns, rows, onPageChange, count, page }) => {
      return (
-          <div style={{ width: '100%' }}>
+          <div className="container"style={{ width: '100%' }}>
                <Table aria-label="customized table" sx={{ boxShadow: '5px 5px 10px #666' }}>
                     <TableHead>
                          <StyledTableRow>
