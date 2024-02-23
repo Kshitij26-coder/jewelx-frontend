@@ -73,7 +73,7 @@ export default function Registrationpage() {
      };
 
      useEffect(() => {
-          getBrands();
+         // getBrands();
      }, []);
 
      return (

@@ -98,7 +98,8 @@ export let getRequest = async (endpoint, navigate, enqueueSnackbar) => {
           } else {
                // Something happened in setting up the request that triggered an error
                showErrorSnackbar('Something went wrong', enqueueSnackbar);
-               navigate('/error500');
+              // navigate('/error500');
+              console.log(e);
                // throw new Error('Something went wrong');
           }
      }
