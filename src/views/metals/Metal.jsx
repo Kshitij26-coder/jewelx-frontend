@@ -51,7 +51,6 @@ const Metal = () => {
       */
      const responseToRows = data => {
           let temp = [];
-          console.log(data);
           data.map((each, index) => {
                temp[index] = {
                     view: <ViewButton to={`/metal/update/${each.metalId}`} />,
