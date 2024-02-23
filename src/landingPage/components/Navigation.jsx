@@ -56,12 +56,12 @@ export const Navigation = props => {
                               {loggedInStatus ? (
                                    <>
                                         <li>
-                                             <Link to="/dashboard" className="page-scroll">
+                                             <Link to="/" className="page-scroll">
                                                   Dashboard
                                              </Link>
                                         </li>
                                         <li>
-                                             <Link to="/dashboard" className="page-scroll">
+                                             <Link to="/profile" className="page-scroll">
                                                   Profile
                                              </Link>
                                         </li>

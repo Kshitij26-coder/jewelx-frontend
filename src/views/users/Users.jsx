@@ -85,7 +85,7 @@ const Users = () => {
      }, []);
 
      return (
-          <div className="container w-100">
+          <div>
                <PageTitle title="Users" />
                {loader ? (
                     <PageLoader />

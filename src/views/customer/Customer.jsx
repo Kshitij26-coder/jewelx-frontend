@@ -3,7 +3,6 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
 import PageTitle from '../../component/PageTitle';
 
 const initialValues = {
@@ -45,189 +44,162 @@ const handleSubmit = (values, { setSubmitting }) => {
 
 const Customer = () => {
      return (
-          <div className="container page-margin">
+          <div>
                <PageTitle title="Add Customer" />
+               <div className="container">
+                    <div className="w-100 p-5 card" style={{ padding: '20px' }}>
+                         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+                              {({ isValid }) => (
+                                   <Form>
+                                        <h5 className="heading-small text-muted mb-4">Customer information : </h5>
+                                        <div className="pl-md-4">
+                                             <div className="row">
+                                                  <div className="col-lg-6">
+                                                       <div className="form-group">
+                                                            <label className="form-control-label" htmlFor="name">
+                                                                 Name:
+                                                            </label>
+                                                            <Field type="text" id="name" name="name" className="form-control" />
+                                                            <ErrorMessage name="name" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                                  <div className="col-lg-6">
+                                                       <div className="form-group">
+                                                            <label htmlFor="pincode">Pincode:</label>
+                                                            <Field type="text" id="pincode" name="pincode" className="form-control" />
+                                                            <ErrorMessage name="pincode" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                                  <div className="col-lg-6">
+                                                       <div className="form-group">
+                                                            <label htmlFor="address">Address:</label>
+                                                            <Field type="text" id="address" name="address" className="form-control" />
+                                                            <ErrorMessage name="address" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                                  <div className="col-lg-6">
+                                                       <div className="form-group">
+                                                            <label htmlFor="adhar_id">Adhar ID:</label>
+                                                            <Field type="text" id="adhar_id" name="adhar_id" className="form-control" />
+                                                            <ErrorMessage name="adhar_id" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                                  <div className="col-lg-6">
+                                                       <div className="form-group">
+                                                            <label htmlFor="pan_id">Pan ID:</label>
+                                                            <Field type="text" id="pan_id" name="pan_id" className="form-control" />
+                                                            <ErrorMessage name="pan_id" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                                  <div className="col-lg-6">
+                                                       <div className="form-group">
+                                                            <label htmlFor="mobile_number">Mobile Number:</label>
+                                                            <Field type="text" id="mobile_number" name="mobile_number" className="form-control" />
+                                                            <ErrorMessage name="mobile_number" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                                  <div className="col-lg-6">
+                                                       <div className="form-group">
+                                                            <label htmlFor="date_of_birth">Date of Birth:</label>
+                                                            <Field type="date" id="date_of_birth" name="date_of_birth" className="form-control" />
+                                                            <ErrorMessage name="date_of_birth" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
 
-               <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-                    {({ isValid }) => (
-                         <Form className="customer-form">
-                              <div className="row p-5 m-5" style={{ margin: '10px' }}>
-                                   <div className="col-md-6 col-sm-12 ">
-                                        <table className="table">
-                                             <tbody>
-                                                  <tr>
-                                                       <td>
-                                                            <td>Name : </td>
-                                                       </td>
-                                                       <td>
-                                                            <div className="form-group">
-                                                                 <Field type="text" name="name" className="form-control" />
-                                                                 <ErrorMessage name="name" component="div" className="text-danger" />
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                                  <tr>
-                                                       <td>
-                                                            <td>Pincode : </td>
-                                                       </td>
-                                                       <td>
-                                                            <div className="form-group">
-                                                                 <Field type="text" name="pincode" className="form-control" />
-                                                                 <ErrorMessage name="pincode" component="div" className="text-danger" />
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                                  <tr>
-                                                       <td>
-                                                            <td>Address : </td>
-                                                       </td>
-                                                       <td>
-                                                            <div className="form-group">
-                                                                 <Field type="text" name="address" className="form-control" />
-                                                                 <ErrorMessage name="address" component="div" className="text-danger" />
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                                  <tr>
-                                                       <td>
-                                                            <td>Adhar Id : </td>
-                                                       </td>
-                                                       <td>
-                                                            <div className="form-group">
-                                                                 <Field type="text" name="adhar_id" className="form-control" />
-                                                                 <ErrorMessage name="adhar_id" component="div" className="text-danger" />
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                                  <tr>
-                                                       <td>
-                                                            <td>Pan Id : </td>
-                                                       </td>
-                                                       <td>
-                                                            <div className="form-group">
-                                                                 <Field type="text" name="pan_id" className="form-control" />
-                                                                 <ErrorMessage name="pan_id" component="div" className="text-danger" />
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                                  <tr>
-                                                       <td>
-                                                            <td>Mobile No : </td>
-                                                       </td>
-                                                       <td>
-                                                            <div className="form-group">
-                                                                 <Field type="text" name="mobile_number" className="form-control" />
-                                                                 <ErrorMessage name="mobile_number" component="div" className="text-danger" />
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                                  <tr>
-                                                       <td>
-                                                            <td>Date Of Birth : </td>
-                                                       </td>
-                                                       <td>
-                                                            <div className="form-group">
-                                                                 <Field type="date" name="date_of_birth" className="form-control" />
-                                                                 <ErrorMessage name="date_of_birth" component="div" className="text-danger" />
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                                  <tr>
-                                                       <td>
-                                                            <td>Anniversary Date : </td>
-                                                       </td>
-                                                       <td>
-                                                            <div className="form-group">
-                                                                 <Field type="date" name="anniversary_date" className="form-control" />
-                                                                 <ErrorMessage name="anniversary_date" component="div" className="text-danger" />
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                                  <tr>
-                                                       <td>
-                                                            <td>Opening Balance : </td>
-                                                       </td>
-                                                       <td>
-                                                            <div className="form-group">
-                                                                 <Field type="text" name="opening_balance" className="form-control" />
-                                                                 <ErrorMessage name="opening_balance" component="div" className="text-danger" />
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                             </tbody>
-                                        </table>
-                                   </div>
-                                   <div className="col-md-6 col-sm-12">
-                                        <table className="table table-bordered">
-                                             <thead>
-                                                  <tr>
-                                                       <th className="table-customer">Metal Name</th>
-                                                       <th className="table-customer">Weight</th>
-                                                       <th className="table-customer">Credit/Debit</th>
-                                                  </tr>
-                                             </thead>
-                                             <tbody>
-                                                  <tr>
-                                                       <td>Gold</td>
-                                                       <td>
-                                                            <input type="text" className="form-control" placeholder="Enter weight" />
-                                                       </td>
-                                                       <td>
-                                                            <select className="form-control" style={{ backgroundColor: 'transparent' }}>
-                                                                 <option value="credit">Credit</option>
-                                                                 <option value="debit">Debit</option>
-                                                            </select>
-                                                       </td>
-                                                  </tr>
-                                                  <tr>
-                                                       <td>Stone</td>
-                                                       <td>
-                                                            <input type="text" className="form-control" placeholder="Enter weight" />
-                                                       </td>
-                                                       <td>
-                                                            <select className="form-control" style={{ backgroundColor: 'transparent' }}>
-                                                                 <option value="credit">Credit</option>
-                                                                 <option value="debit">Debit</option>
-                                                            </select>
-                                                       </td>
-                                                  </tr>
-                                                  <tr>
-                                                       <td>Silver</td>
-                                                       <td>
-                                                            <input type="text" className="form-control" placeholder="Enter weight" />
-                                                       </td>
-                                                       <td>
-                                                            <select className="form-control" style={{ backgroundColor: 'transparent' }}>
-                                                                 <option value="credit">Credit</option>
-                                                                 <option value="debit">Debit</option>
-                                                            </select>
-                                                       </td>
-                                                  </tr>
-                                                  <tr>
-                                                       <td>Platinum</td>
-                                                       <td>
-                                                            <input type="text" className="form-control " placeholder="Enter weight" />
-                                                       </td>
-                                                       <td>
-                                                            <select className="form-control" style={{ backgroundColor: 'transparent' }}>
-                                                                 <option value="credit">Credit</option>
-                                                                 <option value="debit">Debit</option>
-                                                            </select>
-                                                       </td>
-                                                  </tr>
-                                             </tbody>
-                                        </table>
-                                   </div>
-                              </div>
-                              <hr style={{ width: '100%', background: '#1111' }} />
-                              <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
-                                   <button type="submit" className="btn btn-block submit-button" disabled={!isValid}>
-                                        Submit
-                                   </button>
-                              </div>
-                         </Form>
-                    )}
-               </Formik>
+                                                  <div className="col-lg-6">
+                                                       <div className="form-group">
+                                                            <label htmlFor="opening_balance">Opening Balance:</label>
+                                                            <Field type="text" id="opening_balance" name="opening_balance" className="form-control" />
+                                                            <ErrorMessage name="opening_balance" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                                  <div className="col-lg-6">
+                                                       <div className="form-group">
+                                                            <label htmlFor="anniversary_date">Anniversary Date:</label>
+                                                            <Field
+                                                                 type="date"
+                                                                 id="anniversary_date"
+                                                                 name="anniversary_date"
+                                                                 className="form-control"
+                                                            />
+                                                            <ErrorMessage name="anniversary_date" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                             </div>
+
+                                             <div className="row " style={{ width: '50%' }}>
+                                                  <table className="table table-bordered ">
+                                                       <thead>
+                                                            <tr>
+                                                                 <th className="table-customer">Metal Name</th>
+                                                                 <th className="table-customer">Weight</th>
+                                                                 <th className="table-customer">Credit/Debit</th>
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody>
+                                                            <tr>
+                                                                 <td>Gold</td>
+                                                                 <td>
+                                                                      <input type="text" className="form-control" placeholder="Enter weight" />
+                                                                 </td>
+                                                                 <td>
+                                                                      <select className="form-control" style={{ backgroundColor: 'transparent' }}>
+                                                                           <option value="credit">Credit</option>
+                                                                           <option value="debit">Debit</option>
+                                                                      </select>
+                                                                 </td>
+                                                            </tr>
+                                                            <tr>
+                                                                 <td>Stone</td>
+                                                                 <td>
+                                                                      <input type="text" className="form-control" placeholder="Enter weight" />
+                                                                 </td>
+                                                                 <td>
+                                                                      <select className="form-control" style={{ backgroundColor: 'transparent' }}>
+                                                                           <option value="credit">Credit</option>
+                                                                           <option value="debit">Debit</option>
+                                                                      </select>
+                                                                 </td>
+                                                            </tr>
+                                                            <tr>
+                                                                 <td>Silver</td>
+                                                                 <td>
+                                                                      <input type="text" className="form-control" placeholder="Enter weight" />
+                                                                 </td>
+                                                                 <td>
+                                                                      <select className="form-control" style={{ backgroundColor: 'transparent' }}>
+                                                                           <option value="credit">Credit</option>
+                                                                           <option value="debit">Debit</option>
+                                                                      </select>
+                                                                 </td>
+                                                            </tr>
+                                                            <tr>
+                                                                 <td>Platinum</td>
+                                                                 <td>
+                                                                      <input type="text" className="form-control " placeholder="Enter weight" />
+                                                                 </td>
+                                                                 <td>
+                                                                      <select className="form-control" style={{ backgroundColor: 'transparent' }}>
+                                                                           <option value="credit">Credit</option>
+                                                                           <option value="debit">Debit</option>
+                                                                      </select>
+                                                                 </td>
+                                                            </tr>
+                                                       </tbody>
+                                                  </table>
+                                             </div>
+                                        </div>
+                                        <hr style={{ width: '100%', background: '#1111' }} />
+                                        <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
+                                             <button type="submit" className="btn btn-block submit-button" disabled={!isValid}>
+                                                  Submit
+                                             </button>
+                                        </div>
+                                   </Form>
+                              )}
+                         </Formik>
+                    </div>
+               </div>
           </div>
      );
 };
