@@ -117,7 +117,7 @@ const Dashboard = () => {
 
                <div className="col-md-6">
                     <Card title="Pie Chart" footer="Pie Chart Footer">
-                         <canvas className='w-100' ref={pieChartRef}></canvas>
+                         <canvas ref={pieChartRef}></canvas>
                     </Card>
                </div>
 

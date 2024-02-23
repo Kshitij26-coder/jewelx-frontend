@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import '../../styles/style.css';
-import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
 import { getCookiesObject } from '../../utils/getCookiesObject';
-import { roles } from '../../utils/roles';
-import { getRolesfromAbbrev } from '../../utils/getRolesfromAbbrev';
 import PageTitle from '../../component/PageTitle';
 import { subsidiaryValidationSchema } from '../../validation/subsidiaryValidationSchema';
-import { postRequest } from '../../utils/apis/apiRequestHelper';
+import { getRequest, postRequest, putRequest } from '../../utils/apis/apiRequestHelper';
 import { subsidiaryEndPoints } from '../../utils/endpoints/subsidiaryEndPoints';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
 import { showSuccessSnackbar } from '../../utils/snackBar';
+import EditButton from '../../component/edit/EditButton';
+import { getSubsidiaryByUuidEndpoint } from '../../utils/apis/subsidiaryApiRequests';
 
-const AddSubsidiary = () => {
-     const [isEditing, setIsEditing] = useState(false);
+const AddSubsidiary = ({ update }) => {
+     const [isEditing, setIsEditing] = useState(update ? false : true);
      const [formData, setFormData] = useState(null);
-     const [cookies, setCookies] = useState({});
+     const [cookies, setCookies] = useState(getCookiesObject());
      const [buttonLoader, setButtonLoader] = useState(false);
      //const [initialValues, setInitialValues] = useState({});
+     const [subsidiaryInfo, setSubsidiaryInfo] = useState({});
+     /**
+      * here uselocation is the Hook Used For getting the Current Url
+      */
+     const location = useLocation();
+     const currentPath = location.pathname;
 
      const initialValues = {
           shopActNumber: '',
@@ -38,45 +42,99 @@ const AddSubsidiary = () => {
      let navigate = useNavigate();
      let { enqueueSnackbar } = useSnackbar();
 
+     /**
+      *
+      * @param {*} values
+      * @param {*} param1
+      * used for submit handling using ternary
+      * if update update will be seen if add add wwill be seen
+      */
      const handleSubmit = async (values, { setSubmitting }) => {
-          // Handle form submission
+          update ? await handleUpdateSubsidiary(values) : await handleAddSubsidiary(values, { setSubmitting });
+     };
+
+     /**
+      *
+      * @param {*} values
+      * Used For Update Subsidiary in Database
+      */
+     const handleUpdateSubsidiary = async values => {
+          try {
+               setButtonLoader(true);
+               const dto = { ...values, brandId: cookies.brandId, userIdxId: cookies.idxId };
+               await putRequest(getUuidFromUrl(currentPath), dto, subsidiaryEndPoints.BASE_URL, navigate, enqueueSnackbar);
+               setIsEditing(false);
+               navigate('/subsidiary');
+               setButtonLoader(false);
+          } catch (e) {
+               setButtonLoader(false);
+               console.log(e);
+          }
+     };
+     /**
+      *
+      * @param {String} subsidiaryId
+      * Used For GetRequest Subsidiary
+      */
+     const getSubsidiaryDataById = async subsidiaryId => {
+          try {
+               const data = await getRequest(getSubsidiaryByUuidEndpoint(subsidiaryEndPoints.BASE_URL, subsidiaryId), navigate, enqueueSnackbar);
+              // console.log(data);
+               setSubsidiaryInfo(data);
+          } catch (e) {
+               console.log(e);
+          }
+     };
+     /**
+      *
+      * @param {*} values
+      * Used For Adding Subsidiary In Database
+      */
+     const handleAddSubsidiary = async (values, { setSubmitting }) => {
           try {
                setButtonLoader(true);
                const dto = { ...values, brandId: cookies.brandId, userIdxId: cookies.idxId };
                const data = await postRequest(dto, subsidiaryEndPoints.BASE_URL, navigate, enqueueSnackbar);
                showSuccessSnackbar(data, enqueueSnackbar);
+               setIsEditing(false);
+               navigate('/subsidiary');
+
+               setButtonLoader(false);
           } catch (e) {
                setButtonLoader(false);
                console.log(e);
           }
-
-          setIsEditing(false);
      };
-
-     const handleLogout = () => {
-          // Handle logout functionality
-          console.log('Logged out');
-     };
-
+     /**
+      * Editing is Handled here
+      */
      const handleEdit = () => {
-          // Handle edit functionality
           setIsEditing(true);
      };
+     /**
+      *
+      * @param {String} url
+      * used For Getting the Last Part Of the Current url
+      * @returns
+      * will Return the last part  using split
+      */
+     const getUuidFromUrl = url => {
+          const parts = url.split('/');
+          const lastPart = parts[parts.length - 1];
+          return lastPart;
+     };
      useEffect(() => {
-          setCookies(getCookiesObject());
-          //  console.log(getCookiesObject());
+          if (currentPath !== '/subsidiary/add') getSubsidiaryDataById(getUuidFromUrl(currentPath));
      }, []);
 
      return (
           <div>
-               <PageTitle title={'Subsidiary'} />
-               <div className="container">
+               <PageTitle title={update ? 'Update Subsidiary' : 'Add Subsidiary'} />
+               <div className="container" style={{ padding: '3rem' }}>
                     <div className="w-100 p-5 card " style={{ padding: '20px' }}>
-                         <IconButton onClick={handleEdit} aria-label="edit" style={{ marginLeft: '90%' }}>
-                              <EditIcon />
-                         </IconButton>
+                         {update && <EditButton onClick={handleEdit} />}
                          <Formik
-                              initialValues={initialValues}
+                              initialValues={update ? subsidiaryInfo : initialValues}
                               enableReinitialize
                               validationSchema={subsidiaryValidationSchema}
                               onSubmit={handleSubmit}
@@ -244,11 +302,14 @@ const AddSubsidiary = () => {
                                                   </div>
                                              </div>
                                         </div>
+                                        <hr style={{ width: '100%', background: '#1111' }} />
                                         {/* Submit button */}
                                         {isEditing && (
-                                             <button type="submit" className="btn btn-primary btn-lg " disabled={false}>
-                                                  {buttonLoader ? <ButtonLoader /> : 'Submit'}
-                                             </button>
+                                             <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
+                                                  <button type="submit" className="btn btn-block submit-button" disabled={buttonLoader}>
+                                                       {buttonLoader ? <ButtonLoader /> : update ? 'Update' : 'Add'}
+                                                  </button>
+                                             </div>
                                         )}
                                    </Form>
                               )}

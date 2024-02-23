@@ -9,7 +9,8 @@ import PageLoader from '../../component/loaders/PageLoader';
 import TableWithPagination from '../../component/form/Table';
 import { getTablePages } from '../../utils/getTablePages';
 import UomBadge from '../../component/badges/UomBadge';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import ViewButton from '../../component/edit/ViewButton';
+import TableTitle from '../../component/TableTitle';
 
 const Uom = () => {
      const columns = ['View', 'Id', 'Code', 'Name', 'Description'];
@@ -38,11 +39,7 @@ const Uom = () => {
           data.map((each, index) => {
                each.uomCode = <UomBadge code={each.uomCode} />;
                temp[index] = {
-                    view: (
-                         <div>
-                              <RemoveRedEyeIcon fontSize="large" />
-                         </div>
-                    ),
+                    view: <ViewButton to={`/uom/update/${each.uomId}`} />,
                     ...each,
                };
           });
@@ -54,7 +51,7 @@ const Uom = () => {
      }, []);
      return (
           <div>
-               <PageTitle title="Unit of Measurements" />
+               <TableTitle pageTitle={'Unit of Measurement'} to={'/uom/add'} buttonTitle={'+Add'} back={'/uom'} />
                {loader ? (
                     <PageLoader />
                ) : (

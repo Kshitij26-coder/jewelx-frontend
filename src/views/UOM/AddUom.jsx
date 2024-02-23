@@ -9,8 +9,8 @@ import { getCookiesObject } from '../../utils/getCookiesObject';
 import { roles } from '../../utils/roles';
 import { getRolesfromAbbrev } from '../../utils/getRolesfromAbbrev';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
-import { postRequest, putRequest } from '../../utils/apis/apiRequestHelper';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getRequest, postRequest, putRequest } from '../../utils/apis/apiRequestHelper';
 import { userEndpoints } from '../../utils/endpoints/userEndpoints';
 import { useSnackbar } from 'notistack';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
@@ -18,35 +18,67 @@ import PageTitle from '../../component/PageTitle';
 import { uomValidationSchema } from '../../validation/uomValidationSchema';
 import uomEndpoints from '../../utils/endpoints/uomEndPoints';
 import { showSuccessSnackbar } from '../../utils/snackBar';
+import { getUomById } from '../../utils/apis/uomApiRequest';
 const CreateUom = ({ update }) => {
      const [isEditing, setIsEditing] = useState(!update);
-     const [cookies, setCookies] = useState({});
+     const [cookies, setCookies] = useState(getCookiesObject());
      const { enqueueSnackbar } = useSnackbar();
      const [buttonLoader, setButtonLoader] = useState(false);
+     const [uomInfo, setuomInfo] = useState({});
      const navigate = useNavigate();
+     const location = useLocation();
+     const currentPath = location.pathname;
+
      const submitHandeler = async values => {
+          update ? await handleUpdateUom(values, getIdFromUrl(currentPath)) : await handleAddUom(values);
+     };
+
+     const handleAddUom = async values => {
           try {
                let dto = { ...values, brandId: cookies.brandId, userID: cookies.idxId };
                const data = await postRequest(dto, uomEndpoints.BASE_URL, navigate, enqueueSnackbar);
-               console.log(data);
                showSuccessSnackbar(data, enqueueSnackbar);
+               navigate('/uom');
           } catch (e) {
                console.log(e);
           }
      };
 
-     const getUserDetails = function () {
-          let dto = '';
+     const handleUpdateUom = async (values, uomId) => {
+          try {
+               setButtonLoader(true);
+               let dto = { ...values, brandId: cookies.brandId, userID: cookies.idxId };
+               const data = await putRequest(uomId, dto, uomEndpoints.BASE_URL, navigate, enqueueSnackbar);
+               setButtonLoader(false);
+               navigate('/uom');
+          } catch (e) {
+               setButtonLoader(false);
+               console.log(e);
+          }
+     };
+
+     const getUomDataById = async uomId => {
+          try {
+               const data = await getRequest(getUomById(uomId), navigate, enqueueSnackbar);
+               setuomInfo(data);
+          } catch (e) {
+               console.log(e);
+          }
+     };
+
+     const getIdFromUrl = url => {
+          const parts = url.split('/');
+          const lastPart = parts[parts.length - 1];
+          return lastPart;
      };
 
      useEffect(() => {
-          setCookies(getCookiesObject());
-          console.log(getCookiesObject());
+          if (currentPath !== '/uom/add') getUomDataById(getIdFromUrl(currentPath));
      }, []);
      return (
           <div>
                <PageTitle title={`${update ? 'Update' : 'Add'} Unit of Measurement`} />
-               <div className="container">
+               <div className="container" style={{ padding: '3rem' }}>
                     <div className="w-100 p-5 card " style={{ padding: '20px' }}>
                          {update && (
                               <IconButton
@@ -60,7 +92,7 @@ const CreateUom = ({ update }) => {
                               </IconButton>
                          )}
                          <Formik
-                              initialValues={{ uomCode: '', uomName: '', description: '' }}
+                              initialValues={update ? uomInfo : { uomCode: '', uomName: '', description: '' }}
                               enableReinitialize
                               validationSchema={uomValidationSchema}
                               onSubmit={submitHandeler}

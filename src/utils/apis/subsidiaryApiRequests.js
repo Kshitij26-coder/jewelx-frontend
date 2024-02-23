@@ -11,3 +11,7 @@ export const getSubsidiariesByIdEndpoint = page => {
           getCookiesObject().brandId}?page=${page}&size=${import.meta.env.VITE_PAGE_SIZE}
      `;
 };
+
+export const getSubsidiaryByUuidEndpoint = (endpoint, id) => {
+     return `${endpoint}/${id}`;
+};

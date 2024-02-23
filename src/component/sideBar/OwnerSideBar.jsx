@@ -14,7 +14,6 @@ const OwnerSideBar = [
      { path: '/', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
      { path: '/users', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Users' },
      { path: '/subsidiary', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
-     { path: '/subsidiary/add', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Add Subsidiary' },
      { path: '/subsidiarymaintain', icon: <EngineeringIcon fontSize="large" />, option: 'Maintenance' },
      { path: '/customers', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },
      { path: '/profile', icon: <AutoGraphOutlinedIcon fontSize="large" />, option: 'Sales' },
