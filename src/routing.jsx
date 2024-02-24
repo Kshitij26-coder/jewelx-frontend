@@ -23,7 +23,6 @@ import Metal from './views/metals/Metal';
 import MetalStock from './views/metals/MetalStock';
 import Download from './component/Download';
 
-
 export const routing = createBrowserRouter([
      {
           path: '/',
@@ -109,7 +108,7 @@ export const routing = createBrowserRouter([
                     element: <MetalStock />,
                },
                {
-                    path: '/download',
+                    path: '/invoice',
                     element: <Download />,
                },
           ],
