@@ -15,11 +15,9 @@ import Uom from './views/UOM/Uom';
 import AddUom from './views/UOM/AddUom';
 import AddSubsidiary from './views/subsidiary/AddSubsidiary';
 import Subsidiary from './views/subsidiary/Subsidiary';
-import Metal from './views/metals/Metal';
+
 import Article from './views/article/Article';
 import SubsidiaryMaintain from './views/subsidiary/SubsidiaryMaintain';
-import Feedback from './views/feedback/Feedback';
-
 
 export const routing = createBrowserRouter([
      {
@@ -49,12 +47,17 @@ export const routing = createBrowserRouter([
                },
                {
                     path: '/subsidiary/add',
-                    element: <AddSubsidiary />,
+                    element: <AddSubsidiary update={false} />,
                },
                {
                     path: '/subsidiary',
                     element: <Subsidiary />,
                },
+               {
+                    path: '/subsidiary/update/*',
+                    element: <AddSubsidiary update={true} />,
+               },
+
                {
                     path: '/uom',
                     element: <Uom />,
@@ -64,7 +67,7 @@ export const routing = createBrowserRouter([
                     element: <AddUom update={false} />,
                },
                {
-                    path: '/uom/update',
+                    path: '/uom/update/*',
                     element: <AddUom update={true} />,
                },
                {
@@ -72,14 +75,13 @@ export const routing = createBrowserRouter([
                     element: <Metal />,
                },
                {
-                    path: '/article',
+                    path:'/article',
                     element: <Article />,
                },
                {
-                    path: '/subsidiarymaintain',
-                    element: <SubsidiaryMaintain />
-               },
-               
+                    path:'/subsidiarymaintain',
+                    element:<SubsidiaryMaintain/>
+               }
           ],
      },
      {

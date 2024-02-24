@@ -30,7 +30,7 @@ export default function Header() {
                                    </Link>
                               </li>
                               <li>
-                                   <Link className="nav-link" to="/dashboard">
+                                   <Link className="nav-link" to="/">
                                         Dashboard
                                    </Link>
                               </li>

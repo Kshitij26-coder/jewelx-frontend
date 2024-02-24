@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-const UomBadge = ({code}) => {
-  return (
-    <div className='btn btn-warning'>
-      {code.toUpperCase()}
-    </div>
-  )
-}
+const UomBadge = ({ code }) => {
+     return <div className="btn btn-warning">{code.toUpperCase()}</div>;
+};
 
-export default UomBadge
+export default UomBadge;

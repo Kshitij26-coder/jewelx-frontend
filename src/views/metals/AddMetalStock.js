@@ -1,25 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { profilevalidation } from '../../validation/profilevalidation';
-import '../../styles/style.css';
-import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { getCookiesObject } from '../../utils/getCookiesObject';
-import { roles } from '../../utils/roles';
-import { getRolesfromAbbrev } from '../../utils/getRolesfromAbbrev';
-import Cookies from 'js-cookie';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { getRequest, postRequest, putRequest } from '../../utils/apis/apiRequestHelper';
-import { userEndpoints } from '../../utils/endpoints/userEndpoints';
-import { useSnackbar } from 'notistack';
-import ButtonLoader from '../../component/loaders/ButtonLoader';
-import PageTitle from '../../component/PageTitle';
-import { uomValidationSchema } from '../../validation/uomValidationSchema';
-import uomEndpoints from '../../utils/endpoints/uomEndPoints';
-import { showSuccessSnackbar } from '../../utils/snackBar';
-import { getUomById } from '../../utils/apis/uomApiRequest';
-const CreateUom = ({ update }) => {
+import React from 'react';
+
+const AddMetalStock = () => {
      const [isEditing, setIsEditing] = useState(!update);
      const [cookies, setCookies] = useState(getCookiesObject());
      const { enqueueSnackbar } = useSnackbar();
@@ -105,6 +86,35 @@ const CreateUom = ({ update }) => {
                                                   <div className="col-md-6">
                                                        <div className="form-group">
                                                             <label className="form-control-label" htmlFor="input-name">
+                                                                 Metal
+                                                            </label>
+                                                            <Field
+                                                                 as="select"
+                                                                 className="form-control"
+                                                                 id="metalId"
+                                                                 placeholder="metal"
+                                                                 name="metalId"
+                                                                 disabled={!isEditing}
+                                                                 onChange={async e => {
+                                                                      setFieldValue('metalId', Number(e.target.value));
+                                                                      // await getSubsidiaries(e.target.value);
+                                                                 }}
+                                                            >
+                                                                 <option value="">Select Brand</option>
+                                                                 {brandOptions.length > 0 &&
+                                                                      brandOptions.map(each => (
+                                                                           <option value={each.brandId} key={each.brandId}>
+                                                                                {each.name}
+                                                                           </option>
+                                                                      ))}
+                                                            </Field>
+
+                                                            <ErrorMessage name="metalId" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                                  <div className="col-md-6">
+                                                       <div className="form-group">
+                                                            <label className="form-control-label" htmlFor="input-name">
                                                                  Unit Code (eg gm, ct etc)
                                                             </label>
                                                             <Field
@@ -132,21 +142,6 @@ const CreateUom = ({ update }) => {
                                                             <ErrorMessage name="uomName" component="div" className="text-danger" />
                                                        </div>
                                                   </div>
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-description">
-                                                                 Description
-                                                            </label>
-                                                            <Field
-                                                                 className="form-control"
-                                                                 id="input-description"
-                                                                 name="description"
-                                                                 placeholder="Description"
-                                                                 disabled={!isEditing}
-                                                            />
-                                                            <ErrorMessage name="description" component="div" className="text-danger" />
-                                                       </div>
-                                                  </div>
                                              </div>
                                         </div>
                                         {/* Submit button */}
@@ -169,4 +164,4 @@ const CreateUom = ({ update }) => {
      );
 };
 
-export default CreateUom;
+export default AddMetalStock;

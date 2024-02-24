@@ -107,8 +107,8 @@ const SubsidiaryMaintain = () => {
                                                                  disabled={!isEditing}
                                                             >
                                                                  <option value="">Select Transaction Type</option>
-                                                                 <option value="cr">Credit</option>
-                                                                 <option value="db">Debit</option>
+                                                                 <option value="c">Credit</option>
+                                                                 <option value="d">Debit</option>
                                                             </Field>
                                                             <ErrorMessage name="transactionType" component="div" className="text-danger" />
                                                        </div>
@@ -126,10 +126,10 @@ const SubsidiaryMaintain = () => {
                                                                  disabled={!isEditing}
                                                             >
                                                                  <option value="">Select Transaction Mode</option>
-                                                                 <option value="Cash">Cash</option>
-                                                                 <option value="Online">Online</option>
-                                                                 <option value="Cheque">Cheque</option>
-                                                                 <option value="All Mode">All Mode</option>
+                                                                 <option value="ca">Cash</option>
+                                                                 <option value="on">Online</option>
+                                                                 <option value="ch">Cheque</option>
+                                                                 <option value="mp">Mixed Payment </option>
                                                             </Field>
                                                             <ErrorMessage name="transactionMode" component="div" className="text-danger" />
                                                        </div>

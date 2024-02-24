@@ -4,6 +4,7 @@ import { articleValidation } from '../../validation/articleValidation';
 import '../../styles/style.css';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
+import EditButton from '../../component/edit/EditButton';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import PageTitle from '../../component/PageTitle';
@@ -13,12 +14,13 @@ import { metalEndPoints } from '../../utils/endpoints/metalEndPoints';
 import { showSuccessSnackbar } from '../../utils/snackBar';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
 
-const Article = () => {
-     const [isEditing, setIsEditing] = useState(false);
+const Article = ({ update }) => {
+     const [isEditing, setIsEditing] = useState(update ? false : true);
      const navigate = useNavigate();
-     const [cookies, setCookies] = useState({});
+     const [cookies, setCookies] = useState(getCookiesObject());
      const { enqueueSnackbar } = useSnackbar();
      const [buttonLoader, setButtonLoader] = useState(false);
+     const [articleData, setArticleData] = useState();
 
      const initialValues = {
           articleName: '',
@@ -28,6 +30,10 @@ const Article = () => {
           stoneWeight: '',
           huid: '',
           category: '',
+     };
+
+     const submitHandler = async values => {
+          update ? await handleSubmit(values, getIdFromUrl(currentPath)) : await handleAddUom(values);
      };
 
      const handleSubmit = async (values, { setSubmitting }) => {
@@ -49,20 +55,20 @@ const Article = () => {
      const handleEdit = () => {
           setIsEditing(true);
      };
-     useEffect(() => {
-          setCookies(getCookiesObject());
-          console.log(getCookiesObject());
-     }, []);
+     useEffect(() => {}, []);
 
      return (
           <div>
-               <PageTitle title="Article Stock" />
+               <PageTitle title={update ? 'Update Article Stock' : 'Add Article Stock'} />
                <div className="container">
                     <div className="w-100 p-5 card" style={{ padding: '20px' }}>
-                         <IconButton onClick={handleEdit} aria-label="edit" style={{ marginLeft: '90%', fontSize: '1.5rem', borderRadius: 0 }}>
-                              <EditIcon fontSize="medium" /> Edit
-                         </IconButton>
-                         <Formik initialValues={initialValues} enableReinitialize validationSchema={articleValidation} onSubmit={handleSubmit}>
+                         {update && <EditButton onClick={handleEdit} />}
+                         <Formik
+                              initialValues={update ? articleData : initialValues}
+                              enableReinitialize
+                              validationSchema={articleValidation}
+                              onSubmit={handleSubmit}
+                         >
                               {({ isSubmitting }) => (
                                    <Form>
                                         <h5 className="heading-small text-muted mb-4">Article Stock information</h5>
@@ -182,11 +188,15 @@ const Article = () => {
                                              </div>
                                         </div>
 
-                                        <hr style={{ width: '100%', background: '#1111' }} />
                                         {isEditing && (
-                                             <button type="submit" className="btn btn-block submit-button" disabled={isSubmitting}>
-                                                  {buttonLoader ? <ButtonLoader /> : 'Submit'}
-                                             </button>
+                                             <>
+                                                  <hr style={{ width: '100%', background: '#1111' }} />
+                                                  <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
+                                                       <button type="submit" className="btn btn-block submit-button" disabled={isSubmitting}>
+                                                            {buttonLoader ? <ButtonLoader /> : update ? 'Update' : 'Add'}
+                                                       </button>
+                                                  </div>
+                                             </>
                                         )}
                                    </Form>
                               )}

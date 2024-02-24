@@ -23,7 +23,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
           fontSize: 15,
      },
      [`&.${tableCellClasses.body}`]: {
-          fontSize: 15,
+          fontSize: 14,
+          color: theme.palette.common.grey,
      },
 }));
 
@@ -42,7 +43,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const TableWithPagination = ({ columns, rows, onPageChange, count, page }) => {
      return (
-          <div className="container"style={{ width: '100%' }}>
+          <div className="container" style={{ marginLeft: '0' }}>
                <Table aria-label="customized table" sx={{ boxShadow: '5px 5px 10px #666' }}>
                     <TableHead>
                          <StyledTableRow>
