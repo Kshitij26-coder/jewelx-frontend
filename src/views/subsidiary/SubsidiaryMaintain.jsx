@@ -134,7 +134,7 @@ const SubsidiaryMaintain = () => {
                                                             <ErrorMessage name="transactionMode" component="div" className="text-danger" />
                                                        </div>
                                                   </div>
-                                                  {(values.transactionMode === 'All Mode' || values.transactionMode === 'Cash') && (
+                                                  {(values.transactionMode === 'mp' || values.transactionMode === 'ca') && (
                                                        <div className="col-lg-6">
                                                             <div className="form-group">
                                                                  <label className="form-control-label" htmlFor="input-cashAmount">
@@ -152,7 +152,7 @@ const SubsidiaryMaintain = () => {
                                                             </div>
                                                        </div>
                                                   )}
-                                                  {(values.transactionMode === 'All Mode' || values.transactionMode === 'Online') && (
+                                                  {(values.transactionMode === 'mp' || values.transactionMode === 'on') && (
                                                        <div className="col-lg-6">
                                                             <div className="form-group">
                                                                  <label className="form-control-label" htmlFor="input-netbankingUTR">
@@ -183,7 +183,7 @@ const SubsidiaryMaintain = () => {
                                                             </div>
                                                        </div>
                                                   )}
-                                                  {(values.transactionMode === 'All Mode' || values.transactionMode === 'Cheque') && (
+                                                  {(values.transactionMode === 'mp' || values.transactionMode === 'ch') && (
                                                        <div className="col-lg-6">
                                                             <div className="form-group">
                                                                  <label className="form-control-label" htmlFor="input-chequeNo">

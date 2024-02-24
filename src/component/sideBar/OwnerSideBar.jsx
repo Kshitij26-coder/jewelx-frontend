@@ -14,7 +14,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 const OwnerSideBar = [
      { path: '/', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
      { path: '/users', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Users' },
-     { path: '/orders', icon: <AddShoppingCartIcon fontSize="large" />, option: 'Orders' },
+     { path: '/customer-orders', icon: <AddShoppingCartIcon fontSize="large" />, option: 'Orders' },
      { path: '/subsidiary', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
      { path: '/subsidiarymaintain', icon: <EngineeringIcon fontSize="large" />, option: 'Maintenance' },
      { path: '/customers', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },

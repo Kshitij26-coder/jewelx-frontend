@@ -15,12 +15,12 @@ import Uom from './views/UOM/Uom';
 import AddUom from './views/UOM/AddUom';
 import AddSubsidiary from './views/subsidiary/AddSubsidiary';
 import Subsidiary from './views/subsidiary/Subsidiary';
-
 import Article from './views/article/Article';
 import SubsidiaryMaintain from './views/subsidiary/SubsidiaryMaintain';
 import MetalAdd from './views/metals/MetalAdd';
 import Metal from './views/metals/Metal';
 import MetalStock from './views/metals/MetalStock';
+import CustomerOrder from './views/customerOrders/CustomerOrder';
 
 export const routing = createBrowserRouter([
      {
@@ -105,6 +105,10 @@ export const routing = createBrowserRouter([
                {
                     path: '/metal-stock',
                     element: <MetalStock />,
+               },
+               {
+                    path: '/customer-orders',
+                    element: <CustomerOrder />,
                },
           ],
      },
