@@ -24,6 +24,7 @@ import Download from './component/Download';
 import AddArticle from './views/article/AddArticle';
 import Article from './views/article/Article';
 import ArticleCategory from './views/category/ArticleCategory';
+import Accounting from './views/Accounting/Accounting';
 
 export const routing = createBrowserRouter([
      {
@@ -116,6 +117,10 @@ export const routing = createBrowserRouter([
                {
                     path: '/invoice',
                     element: <Download />,
+               },
+               {
+                    path: '/accounts',
+                    element: <Accounting />,
                },
           ],
      },
