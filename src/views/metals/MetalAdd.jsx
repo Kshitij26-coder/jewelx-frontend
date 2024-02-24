@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { metalValidation } from '../../validation/metalValidation';
 import '../../styles/style.css';
-import { useNavigate } from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import PageTitle from '../../component/PageTitle';
 import { getCookiesObject } from '../../utils/getCookiesObject';
@@ -16,6 +18,8 @@ import { getMetalByMetalId } from '../../utils/apis/metalApiRequest';
 const MetalAdd = ({ update }) => {
      const [isEditing, setIsEditing] = useState(update ? false : true);
      const navigate = useNavigate();
+     const location = useLocation();
+     const currentPath = location.pathname;
      const [cookies, setCookies] = useState(getCookiesObject());
      const { enqueueSnackbar } = useSnackbar();
      const [buttonLoader, setButtonLoader] = useState(false);
@@ -47,7 +51,7 @@ const MetalAdd = ({ update }) => {
                const data = await postRequest(dto, metalEndPoints.BASE_URL, navigate, enqueueSnackbar);
                setIsEditing(false);
                showSuccessSnackbar(data, enqueueSnackbar);
-               //navifate to metal page
+               navigate('/metal');
                setButtonLoader(false);
           } catch (e) {
                console.log(e);
@@ -63,8 +67,9 @@ const MetalAdd = ({ update }) => {
           try {
                setButtonLoader(true);
                const dto = { ...values, brandId: cookies.brandId, userID: cookies.idxId };
-               const data = await putRequest(1, dto, metalEndPoints.BASE_URL, navigate, enqueueSnackbar);
+               const data = await putRequest(geIdFromUrl(currentPath), dto, metalEndPoints.BASE_URL, navigate, enqueueSnackbar);
                setIsEditing(false);
+               navigate('/metal');
                setButtonLoader(false);
           } catch (e) {
                setButtonLoader(false);
@@ -90,8 +95,15 @@ const MetalAdd = ({ update }) => {
      const handleEdit = () => {
           setIsEditing(true);
      };
+
+     const geIdFromUrl = url => {
+          const parts = url.split('/');
+          const lastPart = parts[parts.length - 1];
+          return lastPart;
+     };
+
      useEffect(() => {
-          getMetalByBrand(1);
+          currentPath !== '/metal/add' && getMetalByBrand(geIdFromUrl(currentPath));
      }, []);
 
      return (

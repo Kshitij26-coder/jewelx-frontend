@@ -35,7 +35,6 @@ const Profile = () => {
                     brandName: values.brand,
                };
                const data = await putRequest('', dto, userEndpoints.BASE_ROUTE, navigate, enqueueSnackbar);
-               console.log(data);
                //showSuccessSnackbar(data, enqueueSnackbar);
                Cookies.set(
                     'user',
