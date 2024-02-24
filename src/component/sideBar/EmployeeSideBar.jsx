@@ -12,7 +12,7 @@ const EmployeeSideBar = [
      { path: '/profile', icon: <ReceiptOutlinedIcon fontSize="large" />, option: 'Profile' },
      { path: '/faq', icon: <HelpOutlineOutlinedIcon fontSize="large" />, option: 'FAQ' },
      { path: '/calendar', icon: <CalendarTodayOutlinedIcon fontSize="large" />, option: 'Calendar' },
-     { path: '/invoice', icon: <AutoGraphOutlinedIcon fontSize="large" />, option: 'Sales' },
+     { path: '/invoice', icon: <CalendarTodayOutlinedIcon fontSize="large" />, option: 'Sales' },
 ];
 
 export default EmployeeSideBar;
