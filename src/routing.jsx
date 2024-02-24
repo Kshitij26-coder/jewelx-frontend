@@ -21,6 +21,8 @@ import SubsidiaryMaintain from './views/subsidiary/SubsidiaryMaintain';
 import MetalAdd from './views/metals/MetalAdd';
 import Metal from './views/metals/Metal';
 import MetalStock from './views/metals/MetalStock';
+import Download from './component/Download';
+
 
 export const routing = createBrowserRouter([
      {
@@ -105,6 +107,10 @@ export const routing = createBrowserRouter([
                {
                     path: '/metal-stock',
                     element: <MetalStock />,
+               },
+               {
+                    path: '/download',
+                    element: <Download />,
                },
           ],
      },
