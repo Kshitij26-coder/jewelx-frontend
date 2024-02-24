@@ -20,6 +20,7 @@ import Article from './views/article/Article';
 import SubsidiaryMaintain from './views/subsidiary/SubsidiaryMaintain';
 import MetalAdd from './views/metals/MetalAdd';
 import Metal from './views/metals/Metal';
+import MetalStock from './views/metals/MetalStock';
 
 export const routing = createBrowserRouter([
      {
@@ -99,6 +100,11 @@ export const routing = createBrowserRouter([
                {
                     path: '/subsidiarymaintain',
                     element: <SubsidiaryMaintain />,
+               },
+
+               {
+                    path: '/metal-stock',
+                    element: <MetalStock />,
                },
           ],
      },
