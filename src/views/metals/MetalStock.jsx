@@ -147,94 +147,87 @@ const MetalStock = () => {
                     >
                          {({ isSubmitting, setFieldValue }) => (
                               <Form>
-                                   <h5 className="heading-small text-muted mb-4 ">Add Metal Entry</h5>
-                                   <div className="pl-md-4">
-                                        <div className="row">
-                                             <div className="col-md-4">
-                                                  <div className="form-group">
-                                                       <label className="form-control-label" htmlFor="input-metalId">
-                                                            Select Metal
-                                                       </label>
-                                                       <Field
-                                                            as="select"
-                                                            className="form-control"
-                                                            id="metalId"
-                                                            placeholder="metal"
-                                                            name="metalId"
-                                                            disabled={!isEditing}
-                                                            onChange={async e => {
-                                                                 setFieldValue('metalId', Number(e.target.value));
-                                                                 // await getSubsidiaries(e.target.value);
-                                                            }}
-                                                       >
-                                                            <option value="">Select Metal</option>
+                                   <div className="row">
+                                        <div className="col-md-4">
+                                             <div className="form-group">
+                                                  <label className="form-control-label" htmlFor="input-metalId">
+                                                       Select Metal
+                                                  </label>
+                                                  <Field
+                                                       as="select"
+                                                       className="form-control"
+                                                       id="metalId"
+                                                       placeholder="metal"
+                                                       name="metalId"
+                                                       disabled={!isEditing}
+                                                       onChange={async e => {
+                                                            setFieldValue('metalId', Number(e.target.value));
+                                                            // await getSubsidiaries(e.target.value);
+                                                       }}
+                                                  >
+                                                       <option value="">Select Metal</option>
 
-                                                            {metals?.length > 0 &&
-                                                                 metals.map(each => (
-                                                                      <option value={each.metalId} key={each.metalName}>
-                                                                           {each.metalName}
-                                                                      </option>
-                                                                 ))}
-                                                       </Field>
-                                                       <ErrorMessage name="metalId" component="div" className="text-danger" />
-                                                  </div>
+                                                       {metals?.length > 0 &&
+                                                            metals.map(each => (
+                                                                 <option value={each.metalId} key={each.metalName}>
+                                                                      {each.metalName}
+                                                                 </option>
+                                                            ))}
+                                                  </Field>
+                                                  <ErrorMessage name="metalId" component="div" className="text-danger" />
                                              </div>
-                                             <div className="col-lg-4">
-                                                  <div className="form-group">
-                                                       <label className="form-control-label" htmlFor="input-weight">
-                                                            Weight Details
-                                                       </label>
-                                                       <Field
-                                                            className="form-control"
-                                                            id="weight"
-                                                            name="weight"
-                                                            placeholder="Weight"
-                                                            disabled={!isEditing}
-                                                       />
-                                                       <ErrorMessage name="weight" component="div" className="text-danger" />
-                                                  </div>
+                                        </div>
+                                        <div className="col-lg-4">
+                                             <div className="form-group">
+                                                  <label className="form-control-label" htmlFor="input-weight">
+                                                       Weight Details
+                                                  </label>
+                                                  <Field
+                                                       className="form-control"
+                                                       id="weight"
+                                                       name="weight"
+                                                       placeholder="Weight"
+                                                       disabled={!isEditing}
+                                                  />
+                                                  <ErrorMessage name="weight" component="div" className="text-danger" />
                                              </div>
-                                             <div className="col-lg-3">
-                                                  <div className="form-group">
-                                                       <label className="form-control-label" htmlFor="input-uom">
-                                                            Unit of Measurement
-                                                       </label>
-                                                       <Field
-                                                            as="select"
-                                                            className="form-control"
-                                                            id="uom"
-                                                            placeholder="select Unit"
-                                                            name="uom"
-                                                            disabled={!isEditing}
-                                                            onChange={async e => {
-                                                                 setFieldValue('uom', Number(e.target.value));
-                                                                 // await getSubsidiaries(e.target.value);
-                                                            }}
-                                                       >
-                                                            <option value="">Select UOM</option>
+                                        </div>
+                                        <div className="col-lg-3">
+                                             <div className="form-group">
+                                                  <label className="form-control-label" htmlFor="input-uom">
+                                                       Unit of Measurement
+                                                  </label>
+                                                  <Field
+                                                       as="select"
+                                                       className="form-control"
+                                                       id="uom"
+                                                       placeholder="select Unit"
+                                                       name="uom"
+                                                       disabled={!isEditing}
+                                                       onChange={async e => {
+                                                            setFieldValue('uom', Number(e.target.value));
+                                                            // await getSubsidiaries(e.target.value);
+                                                       }}
+                                                  >
+                                                       <option value="">Select UOM</option>
 
-                                                            {uom?.length > 0 &&
-                                                                 uom.map(each => (
-                                                                      <option value={each.uomId} key={each.uomName}>
-                                                                           {each.uomName}
-                                                                      </option>
-                                                                 ))}
-                                                       </Field>
-                                                       <ErrorMessage name="uom" component="div" className="text-danger" />
-                                                  </div>
+                                                       {uom?.length > 0 &&
+                                                            uom.map(each => (
+                                                                 <option value={each.uomId} key={each.uomName}>
+                                                                      {each.uomName}
+                                                                 </option>
+                                                            ))}
+                                                  </Field>
+                                                  <ErrorMessage name="uom" component="div" className="text-danger" />
                                              </div>
-                                             <div>
-                                                  <div className="form-group">
-                                                       {isEditing && (
-                                                            <button
-                                                                 type="submit"
-                                                                 className="submit-button"
-                                                                 style={{ width: '8rem', marginTop: '1.5rem' }}
-                                                            >
-                                                                 Add
-                                                            </button>
-                                                       )}
-                                                  </div>
+                                        </div>
+                                        <div>
+                                             <div className="form-group">
+                                                  {isEditing && (
+                                                       <button type="submit" className="submit-button" style={{ width: '8rem', marginTop: '1.5rem' }}>
+                                                            Add
+                                                       </button>
+                                                  )}
                                              </div>
                                         </div>
                                    </div>
