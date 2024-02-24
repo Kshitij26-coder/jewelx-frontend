@@ -21,6 +21,7 @@ import MetalAdd from './views/metals/MetalAdd';
 import Metal from './views/metals/Metal';
 import MetalStock from './views/metals/MetalStock';
 import CustomerOrder from './views/customerOrders/CustomerOrder';
+import Billing from './views/bill/Billing';
 
 export const routing = createBrowserRouter([
      {
@@ -109,6 +110,10 @@ export const routing = createBrowserRouter([
                {
                     path: '/customer-orders',
                     element: <CustomerOrder />,
+               },
+               {
+                    path: '/bill',
+                    element: <Billing />,
                },
           ],
      },

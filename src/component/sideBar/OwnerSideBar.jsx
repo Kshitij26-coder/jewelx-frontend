@@ -10,6 +10,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import FaceRetouchingNaturalOutlinedIcon from '@mui/icons-material/FaceRetouchingNaturalOutlined';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 
 const OwnerSideBar = [
      { path: '/', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
@@ -24,6 +25,7 @@ const OwnerSideBar = [
      { path: '/article', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },
      { path: '/uom', icon: <ScaleOutlinedIcon fontSize="large" />, option: 'Unit Of Measurement' },
      { path: '/metal', icon: <InventoryIcon fontSize="large" />, option: 'Metal' },
+     { path: '/bill', icon: <ReceiptLongIcon fontSize="large" />, option: 'Billing' },
 ];
 
 export default OwnerSideBar;
