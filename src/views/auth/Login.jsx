@@ -24,7 +24,7 @@ export default function Register() {
                setLoader(false);
                navigate('/');
           } catch (e) {
-               setLoader(false);
+               setLoader(false); 
                console.log(e);
           }
      };

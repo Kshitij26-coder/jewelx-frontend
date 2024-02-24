@@ -18,6 +18,8 @@ import Subsidiary from './views/subsidiary/Subsidiary';
 import Metal from './views/metals/Metal';
 import Article from './views/article/Article';
 import SubsidiaryMaintain from './views/subsidiary/SubsidiaryMaintain';
+import Feedback from './views/feedback/Feedback';
+
 
 export const routing = createBrowserRouter([
      {
@@ -70,13 +72,14 @@ export const routing = createBrowserRouter([
                     element: <Metal />,
                },
                {
-                    path:'/article',
+                    path: '/article',
                     element: <Article />,
                },
                {
-                    path:'/subsidiarymaintain',
-                    element:<SubsidiaryMaintain/>
-               }
+                    path: '/subsidiarymaintain',
+                    element: <SubsidiaryMaintain />
+               },
+               
           ],
      },
      {
@@ -104,4 +107,8 @@ export const routing = createBrowserRouter([
           path: '*',
           element: <NotFound404 />,
      },
+     {
+          path: '/feedback/*',
+          element: <Feedback />
+     }
 ]);
