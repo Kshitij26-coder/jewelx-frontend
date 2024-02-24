@@ -105,7 +105,7 @@ export const routing = createBrowserRouter([
                     element: <AddArticle update={true} />,
                },
                {
-                    path: '/subsidiarymaintain',
+                    path: '/maintenance',
                     element: <SubsidiaryMaintain />,
                },
 
