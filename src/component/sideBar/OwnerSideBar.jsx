@@ -11,11 +11,13 @@ import FaceRetouchingNaturalOutlinedIcon from '@mui/icons-material/FaceRetouchin
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 const OwnerSideBar = [
      { path: '/', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
      { path: '/users', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Users' },
      { path: '/customer-orders', icon: <AddShoppingCartIcon fontSize="large" />, option: 'Orders' },
+     { path: '/purchaseuser', icon: <ShoppingBagIcon fontSize="large" />, option: 'Purchase' },
      { path: '/subsidiary', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
      { path: '/subsidiarymaintain', icon: <EngineeringIcon fontSize="large" />, option: 'Maintenance' },
      { path: '/customers', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },
