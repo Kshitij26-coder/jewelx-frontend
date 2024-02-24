@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { profilevalidation } from '../../validation/profilevalidation';
 import '../../styles/style.css';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { getCookiesObject } from '../../utils/getCookiesObject';
-import { roles } from '../../utils/roles';
-import { getRolesfromAbbrev } from '../../utils/getRolesfromAbbrev';
-import Cookies from 'js-cookie';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getRequest, postRequest, putRequest } from '../../utils/apis/apiRequestHelper';
-import { userEndpoints } from '../../utils/endpoints/userEndpoints';
 import { useSnackbar } from 'notistack';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
 import PageTitle from '../../component/PageTitle';

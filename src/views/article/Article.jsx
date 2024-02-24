@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { articleValidation } from '../../validation/articleValidation';
 import '../../styles/style.css';
-import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
 import EditButton from '../../component/edit/EditButton';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
