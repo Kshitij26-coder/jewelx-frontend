@@ -1,208 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { articleValidation } from '../../validation/articleValidation';
-import '../../styles/style.css';
-import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
-import EditButton from '../../component/edit/EditButton';
+import React, { useEffect, useState } from 'react';
+import { getRequest, putRequest } from '../../utils/apis/apiRequestHelper';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import PageTitle from '../../component/PageTitle';
+import PageLoader from '../../component/loaders/PageLoader';
+import Switch from '../../component/form/Switch';
+import TableWithPagination from '../../component/form/Table';
 import { getCookiesObject } from '../../utils/getCookiesObject';
-import { postRequest } from '../../utils/apis/apiRequestHelper';
-import { metalEndPoints } from '../../utils/endpoints/metalEndPoints';
+import { getTablePages } from '../../utils/getTablePages';
+import { getSubsidiariesByIdEndpoint } from '../../utils/apis/subsidiaryApiRequests';
+import { subsidiaryEndPoints } from '../../utils/endpoints/subsidiaryEndPoints';
 import { showSuccessSnackbar } from '../../utils/snackBar';
-import ButtonLoader from '../../component/loaders/ButtonLoader';
+import ViewButton from '../../component/edit/ViewButton';
+import TableTitle from '../../component/TableTitle';
+import { getArticleItemsPagesById } from '../../utils/apis/articleStockApiRequests';
 
-const Article = ({ update }) => {
-     const [isEditing, setIsEditing] = useState(update ? false : true);
+const Article = () => {
+     const columns = ['view', 'Id', 'Article Name', 'Gross Wt', 'Net Wt', 'Purity', 'Stone Wt', 'HUID', 'category'];
      const navigate = useNavigate();
-     const [cookies, setCookies] = useState(getCookiesObject());
      const { enqueueSnackbar } = useSnackbar();
-     const [buttonLoader, setButtonLoader] = useState(false);
-     const [articleData, setArticleData] = useState();
+     const [cookies, setCookies] = useState(getCookiesObject());
+     const [loader, setLoader] = useState(false);
+     const [rows, setRows] = useState([]);
+     const [totalRows, setTotalRows] = useState(1);
+     const [page, setPage] = useState(1);
 
-     const initialValues = {
-          articleName: '',
-          grossWeight: '',
-          netWeight: '',
-          purity: '',
-          stoneWeight: '',
-          huid: '',
-          category: '',
-     };
-
-     const submitHandler = async values => {
-          update ? await handleSubmit(values, getIdFromUrl(currentPath)) : await handleAddUom(values);
-     };
-
-     const handleSubmit = async (values, { setSubmitting }) => {
+     /**
+      *
+      * @param {Number} page
+      *
+      */
+     const getArticleItems = async page => {
           try {
-               setButtonLoader(true);
-               const dto = { ...values, subsidiaryId: '', userID: cookies.idxId };
-               const data = await postRequest(dto, metalEndPoints.BASE_URL, navigate, enqueueSnackbar);
-               setSubmitting(false);
-               setIsEditing(false);
-               //console.log(values);
-               showSuccessSnackbar(data, enqueueSnackbar);
-               setButtonLoader(false);
+               setLoader(true);
+               const data = await getRequest(getArticleItemsPagesById(page), navigate, enqueueSnackbar);
+               console.log(data);
+               setLoader(false);
+               responseToRows(data.content);
+               setTotalRows(data.totalElements);
           } catch (e) {
+               setLoader(false);
                console.log(e);
-               setButtonLoader(false);
           }
      };
 
-     const handleEdit = () => {
-          setIsEditing(true);
+     /**
+      *
+      * @param {*} data
+      * Used to map And convert Response rate of Api to column of Table
+      * also used switch fpr active/inActive status
+      */
+     const responseToRows = data => {
+          let temp = [];
+          data.map((each, index) => {
+               temp[index] = {
+                    view: <ViewButton to={`/article/update/${each.tagId}`} />,
+                    Id: each.barcode,
+                    subsidiaryName: <h4>{each.articleName}</h4>,
+                    grossWeight: each.grossWeight,
+                    netWeight: each.netWeight,
+                    purity: each.purity,
+                    stoneWeight: each.stoneWeight,
+                    huid: each.huid,
+                    category: each.category,
+               };
+          });
+          setRows(temp);
      };
-     useEffect(() => {}, []);
 
+     useEffect(() => {
+          getArticleItems(0);
+     }, []);
      return (
           <div>
-               <PageTitle title={update ? 'Update Article Stock' : 'Add Article Stock'} />
-               <div className="container">
-                    <div className="w-100 p-5 card" style={{ padding: '20px' }}>
-                         {update && <EditButton onClick={handleEdit} />}
-                         <Formik
-                              initialValues={update ? articleData : initialValues}
-                              enableReinitialize
-                              validationSchema={articleValidation}
-                              onSubmit={handleSubmit}
-                         >
-                              {({ isSubmitting }) => (
-                                   <Form>
-                                        <h5 className="heading-small text-muted mb-4">Article Stock information</h5>
-                                        <div className="pl-md-4">
-                                             <div className="row">
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-articleName">
-                                                                 Article Name
-                                                            </label>
-                                                            <Field
-                                                                 className="form-control"
-                                                                 id="input-articleName"
-                                                                 name="articleName"
-                                                                 placeholder="Article Name"
-                                                                 disabled={!isEditing}
-                                                            />
-                                                            <ErrorMessage name="articleName" component="div" className="text-danger" />
-                                                       </div>
-                                                  </div>
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-grossWeight">
-                                                                 Gross Weight
-                                                            </label>
-                                                            <Field
-                                                                 className="form-control"
-                                                                 id="input-grossWeight"
-                                                                 name="grossWeight"
-                                                                 placeholder="Gross Weight"
-                                                                 disabled={!isEditing}
-                                                            />
-                                                            <ErrorMessage name="grossWeight" component="div" className="text-danger" />
-                                                       </div>
-                                                  </div>
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-netWeight">
-                                                                 Net Weight
-                                                            </label>
-                                                            <Field
-                                                                 className="form-control"
-                                                                 id="input-netWeight"
-                                                                 name="netWeight"
-                                                                 placeholder="Net Weight"
-                                                                 disabled={!isEditing}
-                                                            />
-                                                            <ErrorMessage name="netWeight" component="div" className="text-danger" />
-                                                       </div>
-                                                  </div>
-
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-stoneWeight">
-                                                                 Stone Weight
-                                                            </label>
-                                                            <Field
-                                                                 className="form-control"
-                                                                 id="input-stoneWeight"
-                                                                 name="stoneWeight"
-                                                                 placeholder=" Stone Weight"
-                                                                 disabled={!isEditing}
-                                                            />
-                                                            <ErrorMessage name="stoneWeight" component="div" className="text-danger" />
-                                                       </div>
-                                                  </div>
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-purity">
-                                                                 Purity
-                                                            </label>
-                                                            <Field
-                                                                 className="form-control"
-                                                                 id="input-purity"
-                                                                 name="purity"
-                                                                 placeholder="Purity"
-                                                                 disabled={!isEditing}
-                                                            />
-                                                            <ErrorMessage name="purity" component="div" className="text-danger" />
-                                                       </div>
-                                                  </div>
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-huid">
-                                                                 Huid
-                                                            </label>
-                                                            <Field
-                                                                 className="form-control"
-                                                                 id="input-huid"
-                                                                 name="huid"
-                                                                 placeholder="Huid"
-                                                                 disabled={!isEditing}
-                                                            />
-                                                            <ErrorMessage name="huid" component="div" className="text-danger" />
-                                                       </div>
-                                                  </div>
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-category">
-                                                                 Category
-                                                            </label>
-                                                            <Field
-                                                                 as="select"
-                                                                 className="form-control"
-                                                                 id="input-category"
-                                                                 name="category"
-                                                                 disabled={!isEditing}
-                                                            >
-                                                                 <option value="">Select Category</option>
-                                                                 <option value="Category 1">Category 1</option>
-                                                                 <option value="Category 2">Category 2</option>
-                                                                 <option value="Category 3">Category 3</option>
-                                                            </Field>
-                                                            <ErrorMessage name="category" component="div" className="text-danger" />
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        </div>
-
-                                        {isEditing && (
-                                             <>
-                                                  <hr style={{ width: '100%', background: '#1111' }} />
-                                                  <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
-                                                       <button type="submit" className="btn btn-block submit-button" disabled={isSubmitting}>
-                                                            {buttonLoader ? <ButtonLoader /> : update ? 'Update' : 'Add'}
-                                                       </button>
-                                                  </div>
-                                             </>
-                                        )}
-                                   </Form>
-                              )}
-                         </Formik>
-                    </div>
-               </div>
+               <TableTitle pageTitle={'Article Stock'} to={'/article/add'} buttonTitle={'+Add'} back={'/article'} />
+               {loader ? (
+                    <PageLoader />
+               ) : (
+                    <TableWithPagination
+                         columns={columns}
+                         rows={rows}
+                         count={getTablePages(totalRows)}
+                         page={page}
+                         onPageChange={(e, newPage) => {
+                              getArticleItems(newPage - 1);
+                         }}
+                    />
+               )}
           </div>
      );
 };

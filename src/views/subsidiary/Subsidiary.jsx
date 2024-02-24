@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { getRequest, putRequest } from '../../utils/apis/apiRequestHelper';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import PageTitle from '../../component/PageTitle';
 import PageLoader from '../../component/loaders/PageLoader';
 import Switch from '../../component/form/Switch';
 import TableWithPagination from '../../component/form/Table';
@@ -71,7 +70,7 @@ const Subsidiary = () => {
                temp[index] = {
                     view: <ViewButton to={`/subsidiary/update/${each.subsidiaryId}`} />,
                     Id: each.idxId,
-                    subsidiaryName: each.subsidiaryName,
+                    subsidiaryName: <h4>{each.subsidiaryName}</h4>,
                     shopact: each.shopActNumber,
                     gst: each.gstin,
                     city: each.city,
