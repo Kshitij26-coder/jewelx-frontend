@@ -16,3 +16,7 @@ export const getMetalStockEndPoint = page => {
           cookie.subsidiaryId ? null : 0
      }&brand=${cookie.brandId}`;
 };
+
+export const getAllMetalsByBrand = () => {
+     return `${metalEndPoints.GET_METALS}/${getCookiesObject().brandId}`;
+};

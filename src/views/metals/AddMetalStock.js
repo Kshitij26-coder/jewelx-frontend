@@ -86,6 +86,35 @@ const AddMetalStock = () => {
                                                   <div className="col-md-6">
                                                        <div className="form-group">
                                                             <label className="form-control-label" htmlFor="input-name">
+                                                                 Metal
+                                                            </label>
+                                                            <Field
+                                                                 as="select"
+                                                                 className="form-control"
+                                                                 id="metalId"
+                                                                 placeholder="metal"
+                                                                 name="metalId"
+                                                                 disabled={!isEditing}
+                                                                 onChange={async e => {
+                                                                      setFieldValue('metalId', Number(e.target.value));
+                                                                      // await getSubsidiaries(e.target.value);
+                                                                 }}
+                                                            >
+                                                                 <option value="">Select Brand</option>
+                                                                 {brandOptions.length > 0 &&
+                                                                      brandOptions.map(each => (
+                                                                           <option value={each.brandId} key={each.brandId}>
+                                                                                {each.name}
+                                                                           </option>
+                                                                      ))}
+                                                            </Field>
+
+                                                            <ErrorMessage name="metalId" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                                  <div className="col-md-6">
+                                                       <div className="form-group">
+                                                            <label className="form-control-label" htmlFor="input-name">
                                                                  Unit Code (eg gm, ct etc)
                                                             </label>
                                                             <Field
