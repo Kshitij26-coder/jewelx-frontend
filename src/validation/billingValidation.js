@@ -12,8 +12,4 @@ export const billingValidation = Yup.object().shape({
      makingCharges: Yup.number().required('MakingCharges is required'),
      artifactAmount: Yup.number().required('Artifact Amount is required'),
      payableAmount: Yup.number().required('Payable Amount is required'),
-     netAmount: Yup.number().required('Net Amount is required'),
-     totalMakingCharges: Yup.number().required('Total Making Charges is required'),
-     sgst: Yup.number().required('SGst is Required'),
-     cgst: Yup.number().required('CGst is Required'),
 });

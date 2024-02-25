@@ -1,4 +1,4 @@
 export const articleEndpoints = {
      BASE_ROUTE: '/article-stock',
-     ALL_CATEGORIES: '/article-stock/all',
+     ALL_ARTICLES: '/article-stock/all',
 };

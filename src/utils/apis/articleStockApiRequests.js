@@ -16,3 +16,11 @@ export const getArticleItemsPagesById = page => {
 export const getArticleByIdEndpoint = id => {
      return `${articleEndpoints.BASE_ROUTE}/${id}`;
 };
+
+export const getAllArticles = () => {
+     return `${articleEndpoints.ALL_ARTICLES}/${getCookiesObject().brandId}`;
+};
+
+export const getAllArticlesById = id => {
+     return `${articleEndpoints.BASE_ROUTE}/${id}`;
+};

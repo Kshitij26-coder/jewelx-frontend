@@ -6,6 +6,11 @@ import PageLoader from '../../component/loaders/PageLoader';
 import TableWithPagination from '../../component/form/Table';
 import { getTablePages } from '../../utils/getTablePages';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { getRequest } from '../../utils/apis/apiRequestHelper';
+import { articleEndpoints } from '../../utils/endpoints/articleStockEndpoints';
+import { useSnackbar } from 'notistack';
+import { useNavigate } from 'react-router';
+import { getAllArticles, getAllArticlesById, getAllItemsById } from '../../utils/apis/articleStockApiRequests';
 const Billing = () => {
      const columns = [
           'Article Name',
@@ -17,8 +22,9 @@ const Billing = () => {
           'Item',
           'Metal Rate',
           'Making Charges',
-          'Payable Amt',
           'Artifact Amt',
+          'Payable Amt',
+          'Article Id',
           'Remove',
      ];
      const [isEditing, setIsEditing] = useState(false);
@@ -29,10 +35,12 @@ const Billing = () => {
      const [totalRows, setTotalRows] = useState(1);
      const [page, setPage] = useState(1);
      const [articleInfo, setArticleInfo] = useState([]);
-
+     const navigate = useNavigate();
+     const { enqueueSnackbar } = useSnackbar();
      //state to amange form
      const [itemRate, setItemRate] = useState(0);
      const [payableAmt, setPayableAmt] = useState(0);
+     const [articleOptions, setArticleOptions] = useState([]);
 
      /**
       *
@@ -69,6 +77,34 @@ const Billing = () => {
      };
 
      /**
+      * Used to gt article info of all articles
+      */
+     const getAllArticleInfo = async () => {
+          try {
+               const data = await getRequest(getAllArticles(), navigate, enqueueSnackbar);
+               console.log(data);
+               setArticleOptions(data);
+          } catch (e) {
+               console.error(e);
+          }
+     };
+
+     const getArticleInfoById = async (id, setFieldValue) => {
+          try {
+               const data = await getRequest(getAllArticlesById(id), navigate, enqueueSnackbar);
+               console.log(data);
+               setFieldValue('articleName', data.articleName);
+               setFieldValue('grossWeight', data.grossWeight);
+               setFieldValue('netWeight', data.netWeight);
+               setFieldValue('purity', data.purity);
+               setFieldValue('stoneWeight', data.stoneWeight);
+               setFieldValue('huid', data.huid);
+          } catch (e) {
+               console.error(e);
+          }
+     };
+
+     /**
       *
       */
      const responseToRows = data => {
@@ -92,10 +128,6 @@ const Billing = () => {
           makingCharges: 0,
           artifactAmount: 0,
           payableAmount: 0,
-          netAmount: 0,
-          totalMakingCharges: '',
-          sgst: '',
-          cgst: '',
      };
 
      const handleSubmit = values => {
@@ -119,6 +151,10 @@ const Billing = () => {
                },
           ]);
      };
+
+     useEffect(() => {
+          getAllArticleInfo();
+     }, []);
      return (
           <div>
                <PageTitle title={'Billing'} />
@@ -138,6 +174,35 @@ const Billing = () => {
                               <Form>
                                    <h5 className="heading-small text-muted mb-4">Bill information</h5>
                                    <div className="row">
+                                        <div className="col-md-3">
+                                             <div className="form-group">
+                                                  <label className="form-control-label" htmlFor="input-articleName">
+                                                       Article Name
+                                                  </label>
+                                                  <Field
+                                                       as="select"
+                                                       className="form-control item"
+                                                       id="brandId"
+                                                       placeholder="Brand Name"
+                                                       name="articleId"
+                                                       onChange={async e => {
+                                                            console.log(e.target.value);
+                                                            await getArticleInfoById(e.target.value, setFieldValue);
+                                                            setFieldValue('articleId', Number(e.target.value));
+                                                            //await getSubsidiaries(e.target.value);
+                                                       }}
+                                                  >
+                                                       <option value="">Select Article</option>
+                                                       {articleOptions.length > 0 &&
+                                                            articleOptions.map(each => (
+                                                                 <option value={each.tagId} key={each.tagId}>
+                                                                      {each.articleName}
+                                                                 </option>
+                                                            ))}
+                                                  </Field>
+                                                  <ErrorMessage name="articleName" component="div" className="text-danger" />
+                                             </div>
+                                        </div>
                                         <div className="col-md-3">
                                              <div className="form-group">
                                                   <label className="form-control-label" htmlFor="input-articleName">
