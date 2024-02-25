@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/style.css';
 import imageLogo from '../assets/logo.png';
+import profile from '../../public/img/profile.jpg';
 
 export default function Header() {
      return (
@@ -39,6 +40,15 @@ export default function Header() {
                                         Profile
                                    </Link>
                               </li>
+                              <>
+                                   <Link to="/profile">
+                                        <img
+                                             src={profile}
+                                             alt="Profile"
+                                             style={{ height: '5rem', width: '5rem', borderRadius: '50%', marginBottom: '0rem' }}
+                                        />
+                                   </Link>
+                              </>
                          </ul>
                     </div>
                </div>

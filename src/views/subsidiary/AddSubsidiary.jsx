@@ -79,7 +79,7 @@ const AddSubsidiary = ({ update }) => {
      const getSubsidiaryDataById = async subsidiaryId => {
           try {
                const data = await getRequest(getSubsidiaryByUuidEndpoint(subsidiaryEndPoints.BASE_URL, subsidiaryId), navigate, enqueueSnackbar);
-              // console.log(data);
+               // console.log(data);
                setSubsidiaryInfo(data);
           } catch (e) {
                console.log(e);
@@ -129,7 +129,7 @@ const AddSubsidiary = ({ update }) => {
 
      return (
           <div>
-               <PageTitle title={update ? 'Update Subsidiary' : 'Add Subsidiary'} />
+               <PageTitle title={update ? 'Update Subsidiary' : 'Add Subsidiary'} back="/subsidiary" />
                <div className="container" style={{ padding: '3rem' }}>
                     <div className="w-100 p-5 card " style={{ padding: '20px' }}>
                          {update && <EditButton onClick={handleEdit} />}

@@ -24,9 +24,11 @@ import AddArticle from './views/article/AddArticle';
 import Article from './views/article/Article';
 import ArticleCategory from './views/category/ArticleCategory';
 import Accounting from './views/Accounting/Accounting';
-import CustomerOrder from './views/customerOrders/CustomerOrder';
+import AddCustomerOrder from './views/customerOrders/AddCustomerOrder';
 import Billing from './views/bill/Billing';
-import PurchaseUser from './views/userPurchase/PurchaseUser';
+import AddUserPurchase from './views/userPurchase/AddUserPurchase';
+import UserPurchase from './views/userPurchase/UserPurchase';
+import CustomerOrder from './views/customerOrders/CustomerOrder';
 import Sales from './views/bill/Sales';
 import AddCustomer from './views/customer/AddCustomer';
 import Customer from './views/customer/Customer';
@@ -136,6 +138,14 @@ export const routing = createBrowserRouter([
                     element: <Accounting />,
                },
                {
+                    path: '/customer-orders/add',
+                    element: <AddCustomerOrder update={false} />,
+               },
+               {
+                    path: '/customer-orders/update/*',
+                    element: <AddCustomerOrder update={true} />,
+               },
+               {
                     path: '/customer-orders',
                     element: <CustomerOrder />,
                },
@@ -148,8 +158,16 @@ export const routing = createBrowserRouter([
                     element: <Sales />,
                },
                {
-                    path: '/purchaseuser',
-                    element: <PurchaseUser />,
+                    path: '/user-purchase/add',
+                    element: <AddUserPurchase update={false} />,
+               },
+               {
+                    path: '/user-purchase/update/*',
+                    element: <AddUserPurchase update={true} />,
+               },
+               {
+                    path: '/user-purchase',
+                    element: <UserPurchase />,
                },
           ],
      },

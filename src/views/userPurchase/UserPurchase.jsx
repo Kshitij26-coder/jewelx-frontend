@@ -13,7 +13,7 @@ import { showSuccessSnackbar } from '../../utils/snackBar';
 import ViewButton from '../../component/edit/ViewButton';
 import TableTitle from '../../component/TableTitle';
 
-const CustomerOrder = () => {
+const UserPurchase = () => {
      const columns = [
           'Metal Name',
           'Customer Name',
@@ -22,9 +22,9 @@ const CustomerOrder = () => {
           'Net Weight',
           'Gross Weight',
           'Article Description',
-          'Order Status ',
-          'FullfillDate',
-          'Order Date',
+          'Metal Rate',
+          'Total Amount',
+          'Accounting',
           'Subsidiary Name',
      ];
      const navigate = useNavigate();
@@ -34,9 +34,10 @@ const CustomerOrder = () => {
      const [rows, setRows] = useState([]);
      const [totalRows, setTotalRows] = useState(1);
      const [page, setPage] = useState(1);
+
      return (
           <div>
-               <TableTitle pageTitle={'Customer Order'} to={'/customer-orders/add'} buttonTitle={'+Order'} back={'/'} />
+               <TableTitle pageTitle={'User Purchase'} to={'/user-purchase/add'} buttonTitle={'+Add'} back={'/user-purchase'} />
                {loader ? (
                     <PageLoader />
                ) : (
@@ -54,4 +55,4 @@ const CustomerOrder = () => {
      );
 };
 
-export default CustomerOrder;
+export default UserPurchase;

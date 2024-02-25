@@ -428,7 +428,7 @@ const Billing = () => {
                               handleSubmit(values);
                          }}
                     >
-                         {({ isSubmitting, setFieldValue }) => (
+                         {({ isSubmitting, setFieldValue, values }) => (
                               <Form>
                                    <h5 className="heading-small text-muted mb-4">Payment </h5>
                                    <div className="row">
@@ -525,6 +525,128 @@ const Billing = () => {
                                                   />
                                                   <ErrorMessage name="payableAmount" component="div" className="text-danger" />
                                              </div>
+                                        </div>
+                                        <div>
+                                             <div className="col-lg-4">
+                                                  <div className="form-group">
+                                                       <label className="form-control-label" htmlFor="input-transactionType">
+                                                            Transaction Type
+                                                       </label>
+                                                       <Field
+                                                            as="select"
+                                                            className="form-control"
+                                                            id="input-transactionType"
+                                                            name="transactionType"
+                                                            disabled={!isEditing}
+                                                       >
+                                                            <option value="">Select Transaction Type</option>
+                                                            <option value="c">Credit</option>
+                                                            <option value="d">Debit</option>
+                                                       </Field>
+                                                       <ErrorMessage name="transactionType" component="div" className="text-danger" />
+                                                  </div>
+                                             </div>
+                                             <div className="col-lg-4">
+                                                  <div className="form-group">
+                                                       <label className="form-control-label" htmlFor="input-transactionMode">
+                                                            Transaction Mode
+                                                       </label>
+                                                       <Field
+                                                            as="select"
+                                                            className="form-control"
+                                                            id="input-transactionMode"
+                                                            name="transactionMode"
+                                                            disabled={!isEditing}
+                                                       >
+                                                            <option value="">Select Transaction Mode</option>
+                                                            <option value="ca">Cash</option>
+                                                            <option value="on">Online</option>
+                                                            <option value="ch">Cheque</option>
+                                                            <option value="mp">Mixed Payment </option>
+                                                       </Field>
+                                                       <ErrorMessage name="transactionMode" component="div" className="text-danger" />
+                                                  </div>
+                                             </div>
+                                             {(values.transactionMode === 'mp' || values.transactionMode === 'ca') && (
+                                                  <div className="col-lg-4">
+                                                       <div className="form-group">
+                                                            <label className="form-control-label" htmlFor="input-cashAmount">
+                                                                 Cash Amount
+                                                            </label>
+                                                            <Field
+                                                                 type="number"
+                                                                 className="form-control"
+                                                                 id="input-cashAmount"
+                                                                 name="cashAmount"
+                                                                 placeholder="Cash Amount"
+                                                                 disabled={!isEditing}
+                                                            />
+                                                            <ErrorMessage name="cashAmount" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                             )}
+                                             {(values.transactionMode === 'mp' || values.transactionMode === 'on') && (
+                                                  <div className="col-lg-4">
+                                                       <div className="form-group">
+                                                            <label className="form-control-label" htmlFor="input-netbankingUTR">
+                                                                 Netbanking UTR
+                                                            </label>
+                                                            <Field
+                                                                 className="form-control"
+                                                                 id="input-netbankingUTR"
+                                                                 name="netbankingUTR"
+                                                                 placeholder="Netbanking UTR"
+                                                                 disabled={!isEditing}
+                                                            />
+                                                            <ErrorMessage name="netbankingUTR" component="div" className="text-danger" />
+                                                       </div>
+                                                       <div className="form-group">
+                                                            <label className="form-control-label" htmlFor="input-netbankingAmount">
+                                                                 Netbanking Amount
+                                                            </label>
+                                                            <Field
+                                                                 type="number"
+                                                                 className="form-control"
+                                                                 id="input-netbankingAmount"
+                                                                 name="netbankingAmount"
+                                                                 placeholder="Netbanking Amount"
+                                                                 disabled={!isEditing}
+                                                            />
+                                                            <ErrorMessage name="netbankingAmount" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                             )}
+                                             {(values.transactionMode === 'mp' || values.transactionMode === 'ch') && (
+                                                  <div className="col-lg-4 ">
+                                                       <div className="form-group">
+                                                            <label className="form-control-label" htmlFor="input-chequeNo">
+                                                                 Cheque No
+                                                            </label>
+                                                            <Field
+                                                                 className="form-control"
+                                                                 id="input-chequeNo"
+                                                                 name="chequeNo"
+                                                                 placeholder="Cheque No"
+                                                                 disabled={!isEditing}
+                                                            />
+                                                            <ErrorMessage name="chequeNo" component="div" className="text-danger" />
+                                                       </div>
+                                                       <div className="form-group">
+                                                            <label className="form-control-label" htmlFor="input-chequeAmount">
+                                                                 Cheque Amount
+                                                            </label>
+                                                            <Field
+                                                                 type="number"
+                                                                 className="form-control"
+                                                                 id="input-chequeAmount"
+                                                                 name="chequeAmount"
+                                                                 placeholder="Cheque Amount"
+                                                                 disabled={!isEditing}
+                                                            />
+                                                            <ErrorMessage name="chequeAmount" component="div" className="text-danger" />
+                                                       </div>
+                                                  </div>
+                                             )}
                                         </div>
                                    </div>
                               </Form>
