@@ -1,0 +1,74 @@
+{
+     "saleIdxId": 3,
+     "saleId": "c7459250-ab31-46cb-b8d4-78404b771b44",
+     "createdOn": "2024-02-23T23:48:12.604834",
+     "discount": 50.0,
+     "netAmount": 4500.0,
+     "payableAmount": 4550.0,
+     "cgst": 1.5,
+     "sgst": 1.5,
+     "customer": {
+          "idx_id": 1,
+          "name": "John Doe",
+          "mobileNumber": 1234567890
+     },
+     "accounting": {
+          "id": 1,
+          "accountingId": "0b125916-892a-4d02-b9d3-f5f9295ce9b9",
+          "closingBalance": 10000.0,
+          "transactionMode": "ca"
+     },
+     "customerOrderId": null,
+     "user": {
+          "idxId": 1,
+          "userId": "fe2530bf-f5af-4a57-9a6b-d00ac186810c",
+          "username": "kshitij",
+          "email": "kshitij26@gmail.com"
+     },
+     "itemSaleList": [
+          {
+               "articleStock": {
+                    "tagId": 1,
+                    "articleName": "Diamond Necklace",
+                    "barcode": "1111",
+                    "grossWeight": 10.2,
+                    "netWeight": 5.0,
+                    "purity": 19.0,
+                    "stoneWeight": 1.25,
+                    "huid": "KJ1234"
+               },
+               "idxId": 1,
+               "itemSaleId": "2d6944e3-379c-4a1a-a7e0-49b5259e9855",
+               "itemAmount": 1000.0,
+               "metalRate": 50,
+               "artifactAmount": 300.0,
+               "makingCharges": 200,
+               "payableAmount": 1200
+          }
+     ],
+     "subsidiary": {
+          "idxId": 1,
+          "subsidiaryId": "236becdf-3685-4ca2-a8fe-c964733b5f89",
+          "brand": {
+               "brandId": 1,
+               "name": "Mauli jewelers",
+               "imageUrl": "url"
+          },
+          "shopActNumber": "123456789013",
+          "subsidiaryName": "Sample Dukaan",
+          "address": "122 Sample St",
+          "city": "Pune",
+          "gstin": "12BBCDE1234F1Z5",
+          "logoUrl": "https://example.com/logo2.png",
+          "formHeader": "Kalyan Jewellers",
+          "formFooter": "Visit again",
+          "createdBy": {
+               "idxId": 1,
+               "userId": "fe2530bf-f5af-4a57-9a6b-d00ac186810c",
+               "username": "kshitij",
+               "email": "kshitij26@gmail.com"
+          },
+          "pinCode": null,
+          "active": false
+     }
+}
