@@ -50,7 +50,7 @@ const AddCustomer = ({ update }) => {
           try {
                const data = await getRequest(getCustomerByUUID(id), navigate, enqueueSnackbar);
                setData(data);
-               console.log(data);
+               // console.log(data);
           } catch (e) {
                console.error(e);
           }
@@ -67,7 +67,7 @@ const AddCustomer = ({ update }) => {
                };
                const data = await postRequest(dto, customerEndPoints.BASE_URL, navigate, enqueueSnackbar);
                showSuccessSnackbar('Customer Added', enqueueSnackbar);
-               console.log(data);
+               // console.log(data);
                setIsEditing(false);
                navigate('/customers');
                setButtonLoader(false);
@@ -87,7 +87,7 @@ const AddCustomer = ({ update }) => {
                };
                const data = await putRequest(getIdFromUrl(currentPath), dto, customerEndPoints.BASE_URL, navigate, enqueueSnackbar);
                //  showSuccessSnackbar('Customer Updated Added', enqueueSnackbar);
-               console.log(data);
+               //  console.log(data);
                setIsEditing(false);
                navigate('/customers');
                setButtonLoader(false);
@@ -108,6 +108,7 @@ const AddCustomer = ({ update }) => {
           console.log(cookie);
           getCustomerInfo(getIdFromUrl(currentPath));
      }, []);
+
      return (
           <div>
                <PageTitle title="Add Customer" back="/customers" />

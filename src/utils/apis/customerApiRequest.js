@@ -11,3 +11,8 @@ export const getCustomerById = page => {
 export const getCustomerByUUID = id => {
      return `${customerEndPoints.BASE_URL}/${id}`;
 };
+
+export const getCustomerByBrandId = () => {
+     return `${customerEndPoints.BASE_URL}/byBrand?brand=${getCookiesObject().brandId}
+     `;
+};

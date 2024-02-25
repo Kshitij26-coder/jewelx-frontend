@@ -6,29 +6,98 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import EditButton from '../../component/edit/EditButton';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
+import { getAllMetalsByBrand } from '../../utils/apis/metalApiRequest';
+import { getRequest, postRequest } from '../../utils/apis/apiRequestHelper';
+import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
+import { getCustomerByBrandId, getCustomerById } from '../../utils/apis/customerApiRequest';
+import { userPurchasesEndPoints } from '../../utils/endpoints/userPurchaseEndPoints';
+import { showSuccessSnackbar } from '../../utils/snackBar';
+import { getUomByBrand } from '../../utils/apis/uomApiRequest';
+import { getCookiesObject } from '../../utils/getCookiesObject';
 
 const PurchaseUser = ({ update }) => {
      const [isEditing, setIsEditing] = useState(update ? false : true);
      const [buttonLoader, setButtonLoader] = useState(false);
+     const navigate = useNavigate();
+     const { enqueueSnackbar } = useSnackbar();
+     const [metals, setMetals] = useState([]);
+     const [customers, setCustomers] = useState([]);
+     const [uoms, setUOMs] = useState([]);
+     const [cookies, setCookies] = useState(getCookiesObject());
 
      const initialValues = {
+          metalId: '',
+          customerId: '',
+          uom: '',
           articleDescription: '',
-          grossWeight: '',
-          netWeight: '',
-          purity: '',
-          metalRate: '',
+          grossWeight: 0,
+          netWeight: 0,
+          purity: 0,
+          metalRate: 0,
           totalAmount: 0,
           transactionType: '',
           transactionMode: '',
-          cashAmount: '',
+          cashAmount: 0,
           netbankingUTR: '',
-          netbankingAmount: '',
+          netbankingAmount: 0,
           chequeNo: '',
-          chequeAmount: '',
+          chequeAmount: 0,
      };
      const handleEdit = () => {
           setIsEditing(true);
      };
+
+     const getMetalsOptions = async () => {
+          try {
+               const data = await getRequest(getAllMetalsByBrand(), navigate, enqueueSnackbar);
+               //console.log(data);
+               setMetals(data);
+          } catch (e) {
+               console.log(e);
+          }
+     };
+     const getUOMOptions = async () => {
+          try {
+               const data = await getRequest(getUomByBrand(), navigate, enqueueSnackbar);
+               //console.log(data);
+               setUOMs(data);
+          } catch (e) {
+               console.log(e);
+          }
+     };
+
+     const getCustomersOptions = async () => {
+          try {
+               const data = await getRequest(getCustomerByBrandId(), navigate, enqueueSnackbar);
+               // console.log(data);
+               setCustomers(data);
+          } catch (e) {
+               console.log(e);
+          }
+     };
+
+     const submitHandeler = async values => {
+          try {
+               const dto = {
+                    ...values,
+                    brandId: cookies.brandId,
+                    userId: cookies.idxId,
+                    subsidiaryId: cookies.subsidiaryId == null ? 1 : cookie.subsidiaryId,
+               };
+               const data = await postRequest(dto, userPurchasesEndPoints.BASE_URL, navigate, enqueueSnackbar);
+               showSuccessSnackbar('Added Successfully', enqueueSnackbar);
+               setIsEditing(false);
+          } catch (e) {
+               console.log(e);
+          }
+     };
+
+     useEffect(() => {
+          getMetalsOptions();
+          getCustomersOptions();
+          getUOMOptions();
+     }, []);
 
      return (
           <div>
@@ -41,7 +110,7 @@ const PurchaseUser = ({ update }) => {
                               enableReinitialize
                               validationSchema={purchaseUserValidation}
                               onSubmit={values => {
-                                   handleSubmit(values);
+                                   submitHandeler(values);
                               }}
                          >
                               {({ isSubmitting, setFieldValue, values }) => (
@@ -61,6 +130,62 @@ const PurchaseUser = ({ update }) => {
                                                             disabled={!isEditing}
                                                        ></Field>
                                                        <ErrorMessage name="articleDescription" component="div" className="text-danger" />
+                                                  </div>
+                                             </div>
+                                             <div className="col-lg-6">
+                                                  <div className="form-group">
+                                                       <label className="form-control-label" htmlFor="input-metalId">
+                                                            Select Metal
+                                                       </label>
+                                                       <Field
+                                                            as="select"
+                                                            className="form-control"
+                                                            id="metalId"
+                                                            placeholder="metal"
+                                                            name="metalId"
+                                                            disabled={!isEditing}
+                                                            onChange={async e => {
+                                                                 setFieldValue('metalId', Number(e.target.value));
+                                                            }}
+                                                       >
+                                                            <option value="">Select Metal</option>
+
+                                                            {metals?.length > 0 &&
+                                                                 metals.map(each => (
+                                                                      <option value={each.metalId} key={each.metalId}>
+                                                                           {each.metalName}
+                                                                      </option>
+                                                                 ))}
+                                                       </Field>
+                                                       <ErrorMessage name="metalId" component="div" className="text-danger" />
+                                                  </div>
+                                             </div>
+                                             <div className="col-lg-6">
+                                                  <div className="form-group">
+                                                       <label className="form-control-label" htmlFor="input-customerId">
+                                                            Select Customer
+                                                       </label>
+                                                       <Field
+                                                            as="select"
+                                                            className="form-control"
+                                                            id="customerId"
+                                                            placeholder="customer"
+                                                            name="customerId"
+                                                            disabled={!isEditing}
+                                                            onChange={async e => {
+                                                                 setFieldValue('customerId', Number(e.target.value));
+                                                            }}
+                                                       >
+                                                            <option value="">Select Customer</option>
+
+                                                            {customers?.length > 0 &&
+                                                                 customers.map(each => (
+                                                                      <option value={each.idx_id} key={each.idx_id}>
+                                                                           {each.idx_id} {each.name}
+                                                                      </option>
+                                                                 ))}
+                                                       </Field>
+                                                       <ErrorMessage name="metalId" component="div" className="text-danger" />
                                                   </div>
                                              </div>
                                              <div className="col-lg-6">
@@ -124,7 +249,7 @@ const PurchaseUser = ({ update }) => {
                                                             placeholder="Metal Rate"
                                                             disabled={!isEditing}
                                                             onChange={e => {
-                                                                 handlePriceChange(e, setFieldValue);
+                                                                 // handlePriceChange(e, setFieldValue);
                                                                  setFieldValue('metalRate', e.target.value);
                                                             }}
                                                        />
@@ -270,8 +395,9 @@ const PurchaseUser = ({ update }) => {
                                         </div>
                                         {isEditing && (
                                              <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
-                                                  <button type="submit" className="btn btn-block submit-button" disabled={buttonLoader}>
-                                                       {buttonLoader ? <ButtonLoader /> : update ? 'Update' : 'Add'}
+                                                  <button type="submit" className="btn btn-block submit-button" disabled={false}>
+                                                       submit
+                                                       {/* {buttonLoader ? <ButtonLoader /> : update ? 'Update' : 'Add'} */}
                                                   </button>
                                              </div>
                                         )}
