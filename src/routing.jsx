@@ -4,7 +4,6 @@ import ServerError500 from './component/errorComponents/serverError/ServerError5
 import Registrationpage from './views/auth/Registrationpage';
 import Login from './views/auth/Login';
 import ForgotPassword from './views/auth/ForgotPassword';
-import Customer from './views/customer/Customer';
 import App from './App';
 import Index from './landingPage/Index';
 import DashBoard from './views/dashboard/DashBoard';
@@ -19,7 +18,7 @@ import SubsidiaryMaintain from './views/subsidiary/SubsidiaryMaintain';
 import MetalAdd from './views/metals/MetalAdd';
 import Metal from './views/metals/Metal';
 import MetalStock from './views/metals/MetalStock';
-import Download from './component/Download';
+import Download from './views/bill/Download';
 
 import AddArticle from './views/article/AddArticle';
 import Article from './views/article/Article';
@@ -28,6 +27,9 @@ import Accounting from './views/Accounting/Accounting';
 import CustomerOrder from './views/customerOrders/CustomerOrder';
 import Billing from './views/bill/Billing';
 import PurchaseUser from './views/userPurchase/PurchaseUser';
+import Sales from './views/bill/Sales';
+import AddCustomer from './views/customer/AddCustomer';
+import Customer from './views/customer/Customer';
 
 export const routing = createBrowserRouter([
      {
@@ -46,6 +48,14 @@ export const routing = createBrowserRouter([
                {
                     path: '/users/update',
                     element: <CreateUser update={true} />,
+               },
+               {
+                    path: '/customers/add',
+                    element: <AddCustomer update={false} />,
+               },
+               {
+                    path: '/customers/update/*',
+                    element: <AddCustomer update={true} />,
                },
                {
                     path: '/customers',
@@ -118,7 +128,7 @@ export const routing = createBrowserRouter([
                     element: <MetalStock />,
                },
                {
-                    path: '/invoice',
+                    path: '/invoice/*',
                     element: <Download />,
                },
                {
@@ -132,6 +142,10 @@ export const routing = createBrowserRouter([
                {
                     path: '/bill',
                     element: <Billing />,
+               },
+               {
+                    path: '/sales',
+                    element: <Sales />,
                },
                {
                     path: '/purchaseuser',
