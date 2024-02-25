@@ -10,6 +10,7 @@ import { userEndpoints } from '../../utils/endpoints/userEndpoints';
 import { getUsersByIdEndpoint } from '../../utils/apis/userApiRequests';
 import SuccessAlert from '../../component/alerts/SuccessAlert';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
+import Footer from '../../component/Footer';
 
 export default function Register() {
      const { enqueueSnackbar } = useSnackbar();
@@ -212,6 +213,7 @@ export default function Register() {
                          )}
                     </Formik>
                </div>
+               <Footer/>
           </div>
      );
 }

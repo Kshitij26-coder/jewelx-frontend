@@ -9,6 +9,7 @@ import ButtonLoader from '../../component/loaders/ButtonLoader';
 import { postRequest } from '../../utils/apis/apiRequestHelper';
 import { userEndpoints } from '../../utils/endpoints/userEndpoints';
 import Cookies from 'js-cookie';
+import Footer from '../../component/Footer';
 
 export default function Register() {
      const { enqueueSnackbar } = useSnackbar();
@@ -81,6 +82,8 @@ export default function Register() {
                          )}
                     </Formik>
                </div>
+
+<Footer/>
           </div>
      );
 }

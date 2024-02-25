@@ -4,9 +4,12 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { purchaseUserValidation } from '../../validation/purchaseUserValidation';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
+import EditButton from '../../component/edit/EditButton';
+import ButtonLoader from '../../component/loaders/ButtonLoader';
 
-const PurchaseUser = () => {
-     const [isEditing, setIsEditing] = useState(false);
+const PurchaseUser = ({ update }) => {
+     const [isEditing, setIsEditing] = useState(update ? false : true);
+     const [buttonLoader, setButtonLoader] = useState(false);
 
      const initialValues = {
           articleDescription: '',
@@ -29,12 +32,10 @@ const PurchaseUser = () => {
 
      return (
           <div>
-               <PageTitle title={'User Purchase '} />
-               <div className="container">
+               <PageTitle title={update ? 'Update Purchase' : 'Add Purchase'} back="/user-purchase" />
+               <div className="container" style={{ marginLeft: '3rem' }}>
                     <div className="w-100 p-5 card" style={{ padding: '20px' }}>
-                         <IconButton onClick={handleEdit} aria-label="edit" style={{ marginLeft: '90%', fontSize: '1.5rem', borderRadius: 0 }}>
-                              <EditIcon fontSize="medium" /> Edit
-                         </IconButton>
+                         {update && <EditButton onClick={handleEdit} />}
                          <Formik
                               initialValues={initialValues}
                               enableReinitialize
@@ -269,8 +270,8 @@ const PurchaseUser = () => {
                                         </div>
                                         {isEditing && (
                                              <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
-                                                  <button type="submit" className="btn btn-block submit-button" disabled={isSubmitting}>
-                                                       Purchase
+                                                  <button type="submit" className="btn btn-block submit-button" disabled={buttonLoader}>
+                                                       {buttonLoader ? <ButtonLoader /> : update ? 'Update' : 'Add'}
                                                   </button>
                                              </div>
                                         )}
