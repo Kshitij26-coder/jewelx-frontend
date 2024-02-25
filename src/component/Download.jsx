@@ -36,7 +36,11 @@ const Download = () => {
                                    <thead>
                                         <tr>
                                              <td colSpan={2} style={{ border: '1px solid #000' }}>
-                                                  {data.subsidiary.brand.imageUrl}
+                                                  {/* {data.subsidiary.brand.imageUrl} */}
+                                                  <img
+                                                       src="http://res.cloudinary.com/dqpof2sxy/image/upload/v1708803043/ptf08npfemdoklqgzx9c.jpg"
+                                                       style={{ height: '10rem', width: '10rem' }}
+                                                  />
                                              </td>
                                              <td colSpan="9" style={{ border: '1px solid #000' }}>
                                                   <h3 className="container" style={{ textAlign: 'center' }}>
@@ -53,7 +57,7 @@ const Download = () => {
                                                        {/* need to add phone number in subsidiary entity */}
                                                        <h6>GstIN : {data.subsidiary.gstin}</h6>
                                                   </td>
-                                                  <td>
+                                                  <td className="container" style={{ textAlign: 'center' }}>
                                                        <h6>Address : {data.subsidiary.address}</h6>
                                                   </td>
                                              </td>
@@ -193,8 +197,8 @@ const Download = () => {
                          </div>
 
                          {/* Download Button */}
-                         <div className="text-center">
-                              <button className="btn btn-primary" onClick={downloadPDF}>
+                         <div className="text-center" style={{ marginLeft: '100px', display: 'flex', justifyContent: 'flex-end', width: '200%' }}>
+                              <button className="submit-button " onClick={downloadPDF}>
                                    Download PDF
                               </button>
                          </div>

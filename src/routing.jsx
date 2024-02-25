@@ -19,6 +19,13 @@ import Feedback from './views/feedback/Feedback';
 import Article from './views/article/Article';
 import SubsidiaryMaintain from './views/subsidiary/SubsidiaryMaintain';
 import Metal from './views/metals/Metal';
+import MetalStock from './views/metals/MetalStock';
+import Download from './component/Download';
+
+import AddArticle from './views/article/AddArticle';
+import Article from './views/article/Article';
+import ArticleCategory from './views/category/ArticleCategory';
+import Accounting from './views/Accounting/Accounting';
 
 export const routing = createBrowserRouter([
      {
@@ -76,13 +83,42 @@ export const routing = createBrowserRouter([
                     element: <Metal/>,
                },
                {
+                    path: '/category',
+                    element: <ArticleCategory />,
+               },
+               {
+                    path: '/category',
+                    element: <ArticleCategory />,
+               },
+               {
                     path:'/article',
                     element: <Article />,
                },
                {
-                    path:'/subsidiarymaintain',
-                    element:<SubsidiaryMaintain/>
-               }
+                    path: '/article/add',
+                    element: <AddArticle update={false} />,
+               },
+               {
+                    path: '/article/update/*',
+                    element: <AddArticle update={true} />,
+               },
+               {
+                    path: '/maintenance',
+                    element: <SubsidiaryMaintain />,
+               },
+
+               {
+                    path: '/metal-stock',
+                    element: <MetalStock />,
+               },
+               {
+                    path: '/invoice',
+                    element: <Download />,
+               },
+               {
+                    path: '/accounts',
+                    element: <Accounting />,
+               },
           ],
      },
      {

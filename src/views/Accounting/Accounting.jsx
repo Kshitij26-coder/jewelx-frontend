@@ -3,18 +3,34 @@ import { getRequest, putRequest } from '../../utils/apis/apiRequestHelper';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import PageLoader from '../../component/loaders/PageLoader';
-import Switch from '../../component/form/Switch';
 import TableWithPagination from '../../component/form/Table';
 import { getCookiesObject } from '../../utils/getCookiesObject';
 import { getTablePages } from '../../utils/getTablePages';
 import { getSubsidiariesByIdEndpoint } from '../../utils/apis/subsidiaryApiRequests';
-import { subsidiaryEndPoints } from '../../utils/endpoints/subsidiaryEndPoints';
 import { showSuccessSnackbar } from '../../utils/snackBar';
 import ViewButton from '../../component/edit/ViewButton';
 import TableTitle from '../../component/TableTitle';
+import PageTitle from '../../component/PageTitle';
+import { getAccountingPagesById } from '../../utils/apis/accountingApiRequest';
+import UomBadge from '../../component/badges/UomBadge';
+import SilverBadge from '../../component/badges/SilverBadge';
 
-const Subsidiary = () => {
-     const columns = ['view', 'Id', 'Subsidiary Name', 'ShopAct No.', 'Gst No.', 'City', 'Pincode', 'Brand Id', 'Brand Name', 'Is Active'];
+const Accounting = () => {
+     const columns = [
+          'Id',
+          'Opening Bal',
+          'Closing Bal',
+          'Transaction Bal',
+          'Transaction Type',
+          'Date',
+          'Mode',
+          'Cheque No',
+          'Cheque Amt.',
+          'Cash Amt.',
+          'UTR',
+          'Net Baking Amt',
+          'Description',
+     ];
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
      const [cookies, setCookies] = useState(getCookiesObject());
@@ -28,11 +44,12 @@ const Subsidiary = () => {
       * @param {Number} page
       *
       */
-     const getSubsidaries = async page => {
+     const getAccounts = async page => {
           try {
                setLoader(true);
-               const data = await getRequest(getSubsidiariesByIdEndpoint(page), navigate, enqueueSnackbar);
+               const data = await getRequest(getAccountingPagesById(page), navigate, enqueueSnackbar);
                setLoader(false);
+               console.log(data);
                responseToRows(data.content);
                setTotalRows(data.totalElements);
           } catch (e) {
@@ -40,24 +57,7 @@ const Subsidiary = () => {
                console.log(e);
           }
      };
-     /**
-      *
-      * @param {Boolean} status
-      * @param {String} subsidiaryId
-      * @param {String} userId
-      * Used To set The Subsidiary Status as Active or InActive
-      */
-     const setisActive = async (status, subsidiaryId, userId) => {
-          try {
-               console.log(cookies);
-               let dto = { userIdxId: userId, isActive: status, subsidiaryId: subsidiaryId };
-               const data = await putRequest('', dto, subsidiaryEndPoints.ACTIVATE_STATUS, navigate, enqueueSnackbar);
 
-               showSuccessSnackbar(data, enqueueSnackbar);
-          } catch (e) {
-               console.log(e);
-          }
-     };
      /**
       *
       * @param {*} data
@@ -68,34 +68,31 @@ const Subsidiary = () => {
           let temp = [];
           data.map((each, index) => {
                temp[index] = {
-                    view: <ViewButton to={`/subsidiary/update/${each.subsidiaryId}`} />,
-                    Id: each.idxId,
-                    subsidiaryName: <h4>{each.subsidiaryName}</h4>,
-                    shopact: each.shopActNumber,
-                    gst: each.gstin,
-                    city: each.city,
-                    pincode: each.pinCode,
-                    brandId: each.brand.brandId,
-                    brandName: each.brand.name,
-                    isActive: (
-                         <Switch
-                              checked={each.active}
-                              onChange={async (e, value) => {
-                                   await setisActive(value, each.idxId, cookies.idxId);
-                              }}
-                         />
-                    ),
+                    id: each.id,
+                    openigBalance: <h4>₹{each.openigBalance}</h4>,
+                    closingBalance: <h4>₹{each.closingBalance}</h4>,
+                    transactionAmount: each.transactionAmount,
+                    transactionType: each.transactionType == 'c' ? <UomBadge code={'credit'} /> : <SilverBadge code={'debit'} />,
+                    transactionDate: each.transactionDate,
+                    transactionMode: each.transactionMode,
+                    chequeNo: each.chequeNo ? each.chequeNo : 'NA',
+                    chequeAmount: each.chequeAmount ? each.chequeAmount : 'NA',
+                    cashAmount: each.cashAmount ? each.cashAmount : 'NA',
+                    netBankingUTR: each.netBankingUTR ? each.netBankingUTR : 'NA',
+                    netBankingAmount: each.netBankingAmount ? each.netBankingAmount : 'NA',
+                    description: each.description,
                };
           });
           setRows(temp);
      };
 
      useEffect(() => {
-          getSubsidaries(0);
+          console.log(getAccountingPagesById(page));
+          getAccounts(0);
      }, []);
      return (
           <div>
-               <TableTitle pageTitle={'Subsidiary'} to={'/subsidiary/add'} buttonTitle={'+Add'} back={'/subsidiary'} />
+               <PageTitle title={'Accounts'} />
                {loader ? (
                     <PageLoader />
                ) : (
@@ -105,7 +102,7 @@ const Subsidiary = () => {
                          count={getTablePages(totalRows)}
                          page={page}
                          onPageChange={(e, newPage) => {
-                              getSubsidaries(newPage - 1);
+                              getAccounts(newPage - 1);
                          }}
                     />
                )}
@@ -113,4 +110,4 @@ const Subsidiary = () => {
      );
 };
 
-export default Subsidiary;
+export default Accounting;
