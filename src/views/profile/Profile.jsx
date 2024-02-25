@@ -89,10 +89,10 @@ const Profile = () => {
                          <div className="col-md-12">
                               <div className="card">
                                    <div className="text-center">
-                                        <div className="half-inside-outside ">
+                                        <div className="half-inside-outside">
                                              <img
                                                   alt="..."
-                                                  className="img-circle img-fluid img-thumbnail"
+                                                  className="img-circle img-fluid img-thumbnail "
                                                   src="https://t4.ftcdn.net/jpg/05/47/92/27/240_F_547922755_AazNubxrYOHUF3qHpJGl7FrE564utmH5.jpg"
                                              />
                                         </div>
