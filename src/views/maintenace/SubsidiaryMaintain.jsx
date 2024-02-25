@@ -4,16 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import PageLoader from '../../component/loaders/PageLoader';
 import TableWithPagination from '../../component/form/Table';
+import { getCookiesObject } from '../../utils/getCookiesObject';
 import { getTablePages } from '../../utils/getTablePages';
 import ViewButton from '../../component/edit/ViewButton';
 import TableTitle from '../../component/TableTitle';
-import { getMetalsByBrand } from '../../utils/apis/metalApiRequest';
-import { getCookiesObject } from '../../utils/getCookiesObject';
-import UomBadge from '../../component/badges/UomBadge';
-import SilverBadge from '../../component/badges/SilverBadge';
+import { getSubsidiaryMaintenanceById } from '../../utils/apis/subsidiaryMaintenanceApiRequest';
 
-const Metal = () => {
-     const columns = ['View', 'Metal Name', 'Rate', 'Description'];
+const SubsidiaryMaintain = () => {
+     const columns = ['view', 'Id', 'Maintanence Description', 'Amount', 'Created By Id', 'User Id', 'Brand Id.', 'Subsidiary Id'];
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
      const [cookies, setCookies] = useState(getCookiesObject());
@@ -25,15 +23,15 @@ const Metal = () => {
      /**
       *
       * @param {Number} page
-      *to get all metals data
+      *
       */
-     const getMetals = async page => {
+     const getSubsidiaryMaintences = async page => {
           try {
                setLoader(true);
-               const data = await getRequest(getMetalsByBrand(page), navigate, enqueueSnackbar);
+               const data = await getRequest(getSubsidiaryMaintenanceById(page), navigate, enqueueSnackbar);
+               console.log(data);
                setLoader(false);
                responseToRows(data.content);
-               console.log(data);
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);
@@ -48,26 +46,30 @@ const Metal = () => {
       * also used switch fpr active/inActive status
       */
      const responseToRows = data => {
+          console.log(data);
           let temp = [];
           data.map((each, index) => {
                temp[index] = {
-                    view: <ViewButton to={`/metal/update/${each.metalId}`} />,
-                    metalName:
-                         each.metalName.charAt(0).toLowerCase() === 'g' ? <UomBadge code={each.metalName} /> : <SilverBadge code={each.metalName} />,
-                    metalRate: <h4>₹{each.metalRate}</h4>,
-                    metalDesc: each.metalDescription,
+                    view: <ViewButton to={`/maintenance/update/${each.maintenanceId}`} />,
+                    Id: each.idxId,
+                    desc: each.maintenanceDescription,
+                    accId: -1 * each.accounting.transactAmount,
+                    created: each.createdBy.username,
+                    id: each.createdBy.userId,
+                    brandId: each.brand,
+                    subsidiaryId: each.subsidiary.subsidiaryName,
                };
           });
-
+          console.log(temp);
           setRows(temp);
      };
 
      useEffect(() => {
-          getMetals(0);
+          getSubsidiaryMaintences(0);
      }, []);
      return (
           <div>
-               <TableTitle pageTitle={'Metals'} to={'/metal/add'} buttonTitle={'+Add'} back={'/metal'} />
+               <TableTitle pageTitle={'Subsidiary Maintainance'} to={'/maintenance/add'} buttonTitle={'+Add'} back={'/'} />
                {loader ? (
                     <PageLoader />
                ) : (
@@ -77,7 +79,7 @@ const Metal = () => {
                          count={getTablePages(totalRows)}
                          page={page}
                          onPageChange={(e, newPage) => {
-                              getMetals(newPage - 1);
+                              getSubsidiaryMaintences(newPage - 1);
                          }}
                     />
                )}
@@ -85,4 +87,4 @@ const Metal = () => {
      );
 };
 
-export default Metal;
+export default SubsidiaryMaintain;
