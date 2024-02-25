@@ -15,9 +15,10 @@ import Uom from './views/UOM/Uom';
 import AddUom from './views/UOM/AddUom';
 import AddSubsidiary from './views/subsidiary/AddSubsidiary';
 import Subsidiary from './views/subsidiary/Subsidiary';
-
+import Feedback from './views/feedback/Feedback';
 import Article from './views/article/Article';
 import SubsidiaryMaintain from './views/subsidiary/SubsidiaryMaintain';
+import Metal from './views/metals/Metal';
 
 export const routing = createBrowserRouter([
      {
@@ -72,7 +73,7 @@ export const routing = createBrowserRouter([
                },
                {
                     path: '/metal',
-                    element: <Metal />,
+                    element: <Metal/>,
                },
                {
                     path:'/article',

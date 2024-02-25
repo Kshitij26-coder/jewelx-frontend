@@ -6,7 +6,7 @@ export const feedbackValidation = Yup.object().shape({
     email: Yup.string()
         .email('Invalid email')
         .required('Email is required'),
-    mobile: Yup.string()
+    mobileNumber: Yup.string()
         .matches(/^[0-9]+$/, 'Invalid phone number')
         .min(10, 'Mobile number must be at least 10 digits')
         .required('Mobile is required'),
