@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logojx from '../data/logo.png';
 import { isLoggedIn } from '../../utils/isLoggedIn';
+import profile from '../../../public/img/profile.jpg';
 export const Navigation = props => {
      const [loggedInStatus, setLoggedInStatus] = useState(false);
 
@@ -65,6 +66,15 @@ export const Navigation = props => {
                                                   Profile
                                              </Link>
                                         </li>
+                                        <>
+                                             <Link to="/profile">
+                                                  <img
+                                                       src={profile}
+                                                       alt="Profile"
+                                                       style={{ height: '5rem', width: '5rem', borderRadius: '50%', marginBottom: '0rem' }}
+                                                  />
+                                             </Link>
+                                        </>
                                    </>
                               ) : (
                                    <>

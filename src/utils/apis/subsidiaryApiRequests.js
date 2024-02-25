@@ -15,3 +15,10 @@ export const getSubsidiariesByIdEndpoint = page => {
 export const getSubsidiaryByUuidEndpoint = (endpoint, id) => {
      return `${endpoint}/${id}`;
 };
+
+
+export const getSubsidiaryByBrand = (endpoint, id) => {
+     return `${endpoint}/${id}`;
+};
+
+
