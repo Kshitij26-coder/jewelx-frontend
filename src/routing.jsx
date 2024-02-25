@@ -16,7 +16,7 @@ import AddUom from './views/UOM/AddUom';
 import AddSubsidiary from './views/subsidiary/AddSubsidiary';
 import Subsidiary from './views/subsidiary/Subsidiary';
 import Feedback from './views/feedback/Feedback';
-import Article from './views/article/Article';
+
 import SubsidiaryMaintain from './views/subsidiary/SubsidiaryMaintain';
 import Metal from './views/metals/Metal';
 import MetalStock from './views/metals/MetalStock';
@@ -26,6 +26,7 @@ import AddArticle from './views/article/AddArticle';
 import Article from './views/article/Article';
 import ArticleCategory from './views/category/ArticleCategory';
 import Accounting from './views/Accounting/Accounting';
+import MetalAdd from './views/metals/MetalAdd';
 
 export const routing = createBrowserRouter([
      {
@@ -83,8 +84,12 @@ export const routing = createBrowserRouter([
                     element: <Metal/>,
                },
                {
-                    path: '/category',
-                    element: <ArticleCategory />,
+                    path: '/metal/add',
+                    element: <MetalAdd update={false} />,
+               },
+               {
+                    path: '/metal/update/*',
+                    element: <MetalAdd update={true} />,
                },
                {
                     path: '/category',

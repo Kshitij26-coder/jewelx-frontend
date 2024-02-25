@@ -74,7 +74,7 @@ export default function Feedback() {
                                                         <ErrorMessage name="description" component="div" className="error-message" />
                                                     </div><br />
                                                     <div className="text-center pt-1 mb-5 pb-1">
-                                                        <button className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit" disabled={isSubmitting}>
+                                                        <button className="submit-button" type="submit" disabled={isSubmitting}>
                                                         {loader ? <ButtonLoader /> : 'submit'}
                                                         </button>
                                                     </div>
