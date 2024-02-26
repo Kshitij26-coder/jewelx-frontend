@@ -27,7 +27,7 @@ const Dashboard = () => {
 
      const getFiveTransaction = async () => {
           const data = await getRequest(getTransactionFive(), navigate, enqueueSnackbar);
-          getTransactionFive(data);
+          setFiveTransaction(data);
           console.log(data);
      };
 
