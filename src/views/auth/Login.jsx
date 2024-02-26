@@ -83,7 +83,7 @@ export default function Register() {
                     </Formik>
                </div>
 
-<Footer/>
+               <Footer />
           </div>
      );
 }

@@ -12,6 +12,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import CategoryIcon from '@mui/icons-material/Category';
 
 const AdminSideBar = [
      // { path: '/', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
@@ -24,17 +25,17 @@ const AdminSideBar = [
      // { path: '/calendar', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },
      // { path: '/uom', icon: <ScaleOutlinedIcon fontSize="large" />, option: 'Unit Of Measurement' },
 
-     { path: '/customer-orders', icon: <AddShoppingCartIcon fontSize="large" />, option: 'Orders' },
-     { path: '/user-purchase', icon: <ShoppingBagIcon fontSize="large" />, option: 'Purchase' },
+     { path: '/', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
      { path: '/subsidiary', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
-     { path: '/maintenance', icon: <EngineeringIcon fontSize="large" />, option: 'Maintenance' },
-     { path: '/customers', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },
-     { path: '/accounts', icon: <RequestQuoteOutlinedIcon fontSize="large" />, option: 'Accounts' },
      { path: '/metal-stock', icon: <DataThresholdingOutlinedIcon fontSize="large" />, option: 'Metal Stock' },
+     { path: '/category', icon: <CategoryIcon fontSize="large" />, option: 'Category' },
      { path: '/article', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },
-     { path: '/uom', icon: <ScaleOutlinedIcon fontSize="large" />, option: 'Unit Of Measurement' },
-     { path: '/metal', icon: <InventoryIcon fontSize="large" />, option: 'Metal' },
+     { path: '/customers', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },
+     { path: '/customer-orders', icon: <AddShoppingCartIcon fontSize="large" />, option: 'Orders' },
      { path: '/bill', icon: <ReceiptLongIcon fontSize="large" />, option: 'Billing' },
+     { path: '/user-purchase', icon: <ShoppingBagIcon fontSize="large" />, option: 'Purchase' },
+     { path: '/maintenance', icon: <EngineeringIcon fontSize="large" />, option: 'Maintenance' },
+     { path: '/accounts', icon: <RequestQuoteOutlinedIcon fontSize="large" />, option: 'Accounts' },
      { path: '/sales', icon: <AutoGraphOutlinedIcon fontSize="large" />, option: 'Sales' },
 ];
 
