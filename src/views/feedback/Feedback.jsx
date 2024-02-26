@@ -3,7 +3,6 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { feedbackValidation } from '../../validation/feedbackValidation';
 import './feedback.css';
 import logo from '../../assets/logo.png';
-import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import {feedbackEndPoints} from '../../utils/endpoints/feedbackEndPoints'
