@@ -14,6 +14,7 @@ import { putRequest } from '../../utils/apis/apiRequestHelper';
 import { userEndpoints } from '../../utils/endpoints/userEndpoints';
 import { useSnackbar } from 'notistack';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
+import ModalV from '../../component/ModalV';
 
 const Profile = () => {
      const [isEditing, setIsEditing] = useState(false);
@@ -23,6 +24,7 @@ const Profile = () => {
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
      const [buttonLoader, setButtonLoader] = useState(false);
+     const [open, setOpen] = useState(false);
      const handleSubmit = async values => {
           // Handle form submission
           try {
@@ -89,23 +91,31 @@ const Profile = () => {
                          <div className="col-md-12">
                               <div className="card">
                                    <div className="text-center">
-                                        <div className="half-inside-outside ">
+                                        <div className="half-inside-outside">
                                              <img
                                                   alt="..."
-                                                  className="img-circle img-fluid img-thumbnail"
+                                                  className="img-circle img-fluid img-thumbnail "
                                                   src="https://t4.ftcdn.net/jpg/05/47/92/27/240_F_547922755_AazNubxrYOHUF3qHpJGl7FrE564utmH5.jpg"
                                              />
                                         </div>
                                    </div>
                                    <div className="card-body " style={{ height: 'auto' }}>
                                         <div className="text-center">
+                                             <button className="btn btn-primary" onClick={() => setOpen(true)}>
+                                                  Update Picture
+                                             </button>
                                              <h3>{cookiesData.username}</h3>
                                              <div style={{ marginBottom: '20px' }}>
                                                   <h5>Brand Name : {cookiesData?.brand?.name}</h5>
                                              </div>
+
                                              <div className="h5 font-weight-300">
                                                   <i className="glyphicon glyphicon-map-marker" />
                                                   {getRolesfromAbbrev(cookiesData?.role)}
+                                             </div>
+
+                                             <div className="h5">
+                                                  <ModalV open={open} handleClose={() => setOpen(false)} />
                                              </div>
                                              <div className="h5">
                                                   <i className="glyphicon glyphicon-briefcase" /> {cookiesData?.email}

@@ -2,14 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { getRequest, putRequest } from '../../utils/apis/apiRequestHelper';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import PageTitle from '../../component/PageTitle';
 import PageLoader from '../../component/loaders/PageLoader';
-import Switch from '../../component/form/Switch';
 import TableWithPagination from '../../component/form/Table';
 import { getTablePages } from '../../utils/getTablePages';
-import { getSubsidiariesByIdEndpoint } from '../../utils/apis/subsidiaryApiRequests';
-import { subsidiaryEndPoints } from '../../utils/endpoints/subsidiaryEndPoints';
-import { showSuccessSnackbar } from '../../utils/snackBar';
 import ViewButton from '../../component/edit/ViewButton';
 import TableTitle from '../../component/TableTitle';
 import { getMetalsByBrand } from '../../utils/apis/metalApiRequest';
@@ -38,6 +33,7 @@ const Metal = () => {
                const data = await getRequest(getMetalsByBrand(page), navigate, enqueueSnackbar);
                setLoader(false);
                responseToRows(data.content);
+               console.log(data);
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);

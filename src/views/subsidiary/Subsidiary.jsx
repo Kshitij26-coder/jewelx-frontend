@@ -95,7 +95,7 @@ const Subsidiary = () => {
      }, []);
      return (
           <div>
-               <TableTitle pageTitle={'Subsidiary'} to={'/subsidiary/add'} buttonTitle={'+Add'} back={'/subsidiary'} />
+               <TableTitle pageTitle={'Subsidiary'} to={'/subsidiary/add'} buttonTitle={'+Add'} back={'/'} />
                {loader ? (
                     <PageLoader />
                ) : (

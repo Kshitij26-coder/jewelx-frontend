@@ -13,7 +13,7 @@ import { brandEndpoints } from '../../utils/endpoints/BrandEndPoints';
 import Footer from '../../component/Footer';
 import { roles } from '../../utils/roles';
 import { subsidiaryEndPoints } from '../../utils/endpoints/subsidiaryEndPoints';
-import { getSubsidiariesByIdEndpoint } from '../../utils/apis/subsidiaryApiRequests';
+import { getSubsidiariesByIdEndpoint, getSubsidiaryByBrand } from '../../utils/apis/subsidiaryApiRequests';
 
 export default function Registrationpage() {
      const { enqueueSnackbar } = useSnackbar();
@@ -43,11 +43,7 @@ export default function Registrationpage() {
       */
      const getSubsidiaries = async id => {
           try {
-               const data = await getRequest(
-                    getSubsidiariesByIdEndpoint(subsidiaryEndPoints.GET_SUBSIDIARIES_BY_BRAND, id),
-                    navigate,
-                    enqueueSnackbar,
-               );
+               const data = await getRequest(getSubsidiaryByBrand(subsidiaryEndPoints.GET_ALL_SUBSIDIARIES, id), navigate, enqueueSnackbar);
                setSubsidiaryOptions(data);
           } catch (e) {
                console.log(e);

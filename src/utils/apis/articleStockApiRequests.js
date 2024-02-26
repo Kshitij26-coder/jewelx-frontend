@@ -9,10 +9,18 @@ export const getAllItemsById = () => {
 export const getArticleItemsPagesById = page => {
      const cookie = getCookiesObject();
      return `${articleEndpoints.BASE_ROUTE}?page=${page}&size=${import.meta.env.VITE_PAGE_SIZE}&role=${cookie.role}&subsidiary=${
-          cookie.subsidiaryId ? null : 0
+          cookie.subsidiaryId ? cookie.subsidiaryId : 0
      }&brand=${cookie.brandId}`;
 };
 
 export const getArticleByIdEndpoint = id => {
+     return `${articleEndpoints.BASE_ROUTE}/${id}`;
+};
+
+export const getAllArticles = () => {
+     return `${articleEndpoints.ALL_ARTICLES}/${getCookiesObject().brandId}`;
+};
+
+export const getAllArticlesById = id => {
      return `${articleEndpoints.BASE_ROUTE}/${id}`;
 };

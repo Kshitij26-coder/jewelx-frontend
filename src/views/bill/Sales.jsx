@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getRequest, putRequest } from '../../utils/apis/apiRequestHelper';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import PageTitle from '../../component/PageTitle';
 import PageLoader from '../../component/loaders/PageLoader';
 import Switch from '../../component/form/Switch';
 import TableWithPagination from '../../component/form/Table';
@@ -11,12 +10,27 @@ import { getTablePages } from '../../utils/getTablePages';
 import { getSubsidiariesByIdEndpoint } from '../../utils/apis/subsidiaryApiRequests';
 import { subsidiaryEndPoints } from '../../utils/endpoints/subsidiaryEndPoints';
 import { showSuccessSnackbar } from '../../utils/snackBar';
-import ViewButton from '../../component/edit/ViewButton';
-import TableTitle from '../../component/TableTitle';
-import { getArticleItemsPagesById } from '../../utils/apis/articleStockApiRequests';
+import PageTitle from '../../component/PageTitle';
+import { getAllSales } from '../../utils/apis/salesApiRequest';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import { getPaymentMode } from '../../utils/getPaymentMode.jsx';
 
-const Article = () => {
-     const columns = ['view', 'Id', 'Article Name', 'Gross Wt', 'Net Wt', 'Purity', 'Stone Wt', 'HUID', 'category'];
+const Sales = () => {
+     const columns = [
+          'Sale Id',
+          'Customer Id',
+          'Customer Name',
+          'Subsidiary Name',
+          'Transaction Mode',
+          'Customer Order Id',
+          'Accounting Id',
+          'cgst',
+          'sgst',
+          'Discount',
+          'Net Amount',
+          'Payable Amount',
+          'Invoice',
+     ];
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
      const [cookies, setCookies] = useState(getCookiesObject());
@@ -30,17 +44,16 @@ const Article = () => {
       * @param {Number} page
       *
       */
-     const getArticleItems = async page => {
+     const getSales = async page => {
           try {
                setLoader(true);
-               const data = await getRequest(getArticleItemsPagesById(page), navigate, enqueueSnackbar);
-               console.log(data);
+               const data = await getRequest(getAllSales(page), navigate, enqueueSnackbar);
+               //     console.log(data);
                setLoader(false);
                responseToRows(data.content);
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);
-               //  showSuccessSnackbar('data is empty', enqueueSnackbar);
                console.log(e);
           }
      };
@@ -55,26 +68,37 @@ const Article = () => {
           let temp = [];
           data.map((each, index) => {
                temp[index] = {
-                    view: <ViewButton to={`/article/update/${each.tagId}`} />,
-                    Id: each.barcode,
-                    subsidiaryName: <h4>{each.articleName}</h4>,
-                    grossWeight: each.grossWeight,
-                    netWeight: each.netWeight,
-                    purity: each.purity,
-                    stoneWeight: each.stoneWeight,
-                    huid: each.huid,
-                    category: each.category,
+                    // view: <ViewButton to={`/subsidiary/update/${each.subsidiaryId}`} />,
+                    Id: each.saleIdxId,
+                    custId: each.customer.idx_id,
+                    custname: <h4>{each.customer.name}</h4>,
+                    subsidiaryName: <h4>{each.subsidiary.subsidiaryName}</h4>,
+                    transMode: getPaymentMode(each.accounting.transactionMode),
+                    custOrderId: each.customerOrderid ? each.customerOrderid : 'NA',
+                    accId: each.accounting.id,
+                    cgst: `${each.cgst}%`,
+                    sgst: `${each.sgst}%`,
+                    dis: <h4>{`₹${each.discount}`}</h4>,
+                    netAmt: <h4>{`₹${each.netAmount}`}</h4>,
+                    payAmt: <h4>{`₹${each.payableAmount}`}</h4>,
+                    invoice: (
+                         <Link to={`/invoice/${each.saleId}`}>
+                              {' '}
+                              <ReceiptIcon fontSize="large" />
+                         </Link>
+                    ),
                };
           });
           setRows(temp);
      };
 
      useEffect(() => {
-          getArticleItems(0);
+          getSales(0);
      }, []);
      return (
           <div>
-               <TableTitle pageTitle={'Article Stock'} to={'/article/add'} buttonTitle={'+Add'} back={'/article'} />
+               {/* <TableTitle pageTitle={'Sales'} to={'/subsidiary/add'} buttonTitle={'+Add'} back={'/subsidiary'} /> */}
+               <PageTitle title={'Sales'} />
                {loader ? (
                     <PageLoader />
                ) : (
@@ -84,7 +108,7 @@ const Article = () => {
                          count={getTablePages(totalRows)}
                          page={page}
                          onPageChange={(e, newPage) => {
-                              getArticleItems(newPage - 1);
+                              getSales(newPage - 1);
                          }}
                     />
                )}
@@ -92,4 +116,4 @@ const Article = () => {
      );
 };
 
-export default Article;
+export default Sales;

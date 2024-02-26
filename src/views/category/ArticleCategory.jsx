@@ -66,7 +66,7 @@ const ArticleCategory = () => {
                     userId: cookies.idxId,
                };
                const data = await postRequest(dto, articleCategoryEndpoints.BASE_ROUTE, navigate, enqueueSnackbar);
-               showSuccessSnackbar('don', enqueueSnackbar);
+               showSuccessSnackbar('Added Successfully', enqueueSnackbar);
                // const data = await postRequest();
                setIsEditing(false);
                setRefresh(!refresh);

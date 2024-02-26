@@ -2,21 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { getRequest, putRequest } from '../../utils/apis/apiRequestHelper';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import PageTitle from '../../component/PageTitle';
 import PageLoader from '../../component/loaders/PageLoader';
-import Switch from '../../component/form/Switch';
 import TableWithPagination from '../../component/form/Table';
 import { getCookiesObject } from '../../utils/getCookiesObject';
 import { getTablePages } from '../../utils/getTablePages';
-import { getSubsidiariesByIdEndpoint } from '../../utils/apis/subsidiaryApiRequests';
-import { subsidiaryEndPoints } from '../../utils/endpoints/subsidiaryEndPoints';
-import { showSuccessSnackbar } from '../../utils/snackBar';
 import ViewButton from '../../component/edit/ViewButton';
 import TableTitle from '../../component/TableTitle';
-import { getArticleItemsPagesById } from '../../utils/apis/articleStockApiRequests';
+import { getSubsidiaryMaintenanceById } from '../../utils/apis/subsidiaryMaintenanceApiRequest';
 
-const Article = () => {
-     const columns = ['view', 'Id', 'Article Name', 'Gross Wt', 'Net Wt', 'Purity', 'Stone Wt', 'HUID', 'category'];
+const SubsidiaryMaintain = () => {
+     const columns = ['view', 'Id', 'Maintanence Description', 'Amount', 'Created By Id', 'User Id', 'Brand Id.', 'Subsidiary Id'];
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
      const [cookies, setCookies] = useState(getCookiesObject());
@@ -30,17 +25,16 @@ const Article = () => {
       * @param {Number} page
       *
       */
-     const getArticleItems = async page => {
+     const getSubsidiaryMaintences = async page => {
           try {
                setLoader(true);
-               const data = await getRequest(getArticleItemsPagesById(page), navigate, enqueueSnackbar);
+               const data = await getRequest(getSubsidiaryMaintenanceById(page), navigate, enqueueSnackbar);
                console.log(data);
                setLoader(false);
                responseToRows(data.content);
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);
-               //  showSuccessSnackbar('data is empty', enqueueSnackbar);
                console.log(e);
           }
      };
@@ -52,29 +46,30 @@ const Article = () => {
       * also used switch fpr active/inActive status
       */
      const responseToRows = data => {
+          console.log(data);
           let temp = [];
           data.map((each, index) => {
                temp[index] = {
-                    view: <ViewButton to={`/article/update/${each.tagId}`} />,
-                    Id: each.barcode,
-                    subsidiaryName: <h4>{each.articleName}</h4>,
-                    grossWeight: each.grossWeight,
-                    netWeight: each.netWeight,
-                    purity: each.purity,
-                    stoneWeight: each.stoneWeight,
-                    huid: each.huid,
-                    category: each.category,
+                    view: <ViewButton to={`/maintenance/update/${each.maintenanceId}`} />,
+                    Id: each.idxId,
+                    desc: each.maintenanceDescription,
+                    accId: -1 * each.accounting.transactAmount,
+                    created: each.createdBy.username,
+                    id: each.createdBy.userId,
+                    brandId: each.brand,
+                    subsidiaryId: each.subsidiary.subsidiaryName,
                };
           });
+          console.log(temp);
           setRows(temp);
      };
 
      useEffect(() => {
-          getArticleItems(0);
+          getSubsidiaryMaintences(0);
      }, []);
      return (
           <div>
-               <TableTitle pageTitle={'Article Stock'} to={'/article/add'} buttonTitle={'+Add'} back={'/article'} />
+               <TableTitle pageTitle={'Subsidiary Maintainance'} to={'/maintenance/add'} buttonTitle={'+Add'} back={'/'} />
                {loader ? (
                     <PageLoader />
                ) : (
@@ -84,7 +79,7 @@ const Article = () => {
                          count={getTablePages(totalRows)}
                          page={page}
                          onPageChange={(e, newPage) => {
-                              getArticleItems(newPage - 1);
+                              getSubsidiaryMaintences(newPage - 1);
                          }}
                     />
                )}
@@ -92,4 +87,4 @@ const Article = () => {
      );
 };
 
-export default Article;
+export default SubsidiaryMaintain;

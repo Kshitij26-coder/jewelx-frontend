@@ -28,6 +28,7 @@ const MetalStock = () => {
      const [isEditing, setIsEditing] = useState(false);
      const [metals, setMetals] = useState([]);
      const [uom, setUom] = useState([]);
+     const [refresh, setRefresh] = useState(false);
      /**
       *
       * @param {Number} page
@@ -80,9 +81,10 @@ const MetalStock = () => {
                     subsidiaryid: cookies.subsidiaryId == null ? 1 : cookies.subsidiaryId,
                };
                const data = await postRequest(dto, metalStockEndPoints.BASE_ROUTE, navigate, enqueueSnackbar);
-               showSuccessSnackbar('don', enqueueSnackbar);
+               showSuccessSnackbar('Added SuccessFull', enqueueSnackbar);
                // const data = await postRequest();
                setIsEditing(false);
+               setRefresh(!refresh);
           } catch (e) {
                console.log(e);
           }
@@ -115,10 +117,12 @@ const MetalStock = () => {
      };
 
      useEffect(() => {
-          getMetalStock(0);
           getUomOptions();
           getMetalsOptions();
      }, []);
+     useEffect(() => {
+          getMetalStock(0);
+     }, [refresh]);
      return (
           <div>
                {/* <TableTitle pageTitle={'Metals Stock'} to={'/metal-stock'} buttonTitle={'+Add'} back={'/metal'} /> */}

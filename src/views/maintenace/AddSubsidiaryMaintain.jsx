@@ -4,51 +4,104 @@ import { subsidiaryMaintenenceValid } from '../../validation/subsidiaryMaintenen
 import '../../styles/style.css';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import PageTitle from '../../component/PageTitle';
 import { getCookiesObject } from '../../utils/getCookiesObject';
-import { postRequest } from '../../utils/apis/apiRequestHelper';
-import { metalEndPoints } from '../../utils/endpoints/metalEndPoints';
+import { getRequest, postRequest, putRequest } from '../../utils/apis/apiRequestHelper';
 import { showSuccessSnackbar } from '../../utils/snackBar';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
+import { getSubsidiaryMaintenanceByUUID } from '../../utils/apis/subsidiaryMaintenanceApiRequest';
+import { maintenanceEndPoints } from '../../utils/endpoints/maintenanceEndPoints';
+import { getIdFromUrl } from '../../utils/getIdFromUrl';
+import EditButton from '../../component/edit/EditButton';
 
-const SubsidiaryMaintain = () => {
-     const [isEditing, setIsEditing] = useState(false);
+const AddSubsidiaryMaintain = update => {
+     const [isEditing, setIsEditing] = useState(update ? false : true);
      const navigate = useNavigate();
-     const [cookies, setCookies] = useState({});
+     const [cookie, setCookie] = useState(getCookiesObject());
      const { enqueueSnackbar } = useSnackbar();
      const [buttonLoader, setButtonLoader] = useState(false);
+
+     const location = useLocation();
+     const currentPath = location.pathname;
 
      const initialValues = {
           maintenanceDescription: '',
           transactionType: '',
           transactionMode: '',
-          cashAmount: '',
-          netbankingUTR: '',
-          netbankingAmount: '',
-          chequeNo: '',
-          chequeAmount: '',
+          cashAmount: 0,
+          netBankingUTR: 0,
+          netBankingAmount: 0,
+          chequeNo: 0,
+          chequeAmount: 0,
+     };
+     const [data, setData] = useState(initialValues);
+     const handleSubmit = async (values, { setSubmitting }) => {
+          update ? await handleUpdateSubsidiaryMaintenace(values) : await handleAddSubsidiaryMaintenace(values);
      };
 
-     const handleSubmit = async (values, { setSubmitting }) => {
+     const getSubsidiaryMaintenaceInfo = async id => {
           try {
+               const data = await getRequest(getSubsidiaryMaintenanceByUUID(id), navigate, enqueueSnackbar);
+               setData(data);
+               console.log(data);
+          } catch (e) {
+               console.error(e);
+          }
+     };
+
+     const handleAddSubsidiaryMaintenace = async values => {
+          try {
+               console.log('hitt');
                setButtonLoader(true);
-               const dto = { ...values, subsidiaryId: '', userID: cookies.idxId };
-               const data = await postRequest(dto, metalEndPoints.BASE_URL, navigate, enqueueSnackbar);
-               setSubmitting(false);
+               const dto = {
+                    ...values,
+                    brandId: cookie.brandId,
+                    userId: cookie.idxId,
+                    subsidiaryId: cookie.subsidiaryId != null ? cookie.subsidiaryId : 1,
+               };
+               console.log(maintenanceEndPoints.BASE_ROUTE);
+               const data = await postRequest(dto, maintenanceEndPoints.BASE_ROUTE, navigate, enqueueSnackbar);
+               console.log(data);
+               showSuccessSnackbar('Subsidiary Added', enqueueSnackbar);
                setIsEditing(false);
-               showSuccessSnackbar(data, enqueueSnackbar);
+               navigate('/maintenance');
+
                setButtonLoader(false);
           } catch (e) {
-               console.log(e);
                setButtonLoader(false);
+               console.error(e);
+          }
+     };
+
+     const handleUpdateSubsidiaryMaintenace = async values => {
+          try {
+               setButtonLoader(true);
+               const dto = {
+                    ...values,
+                    brandId: cookie.brandId,
+                    userID: cookie.idxId,
+                    subsidiaryId: cookie.subsidiaryId != null ? cookie.subsidiaryId : 1,
+               };
+               const data = await putRequest(getIdFromUrl(currentPath), dto, maintenanceEndPoints.BASE_ROUTE, navigate, enqueueSnackbar);
+               console.log(data);
+               setIsEditing(false);
+               navigate('/maintenance');
+               setButtonLoader(false);
+          } catch (e) {
+               setButtonLoader(false);
+               console.error(e);
           }
      };
 
      const handleEdit = () => {
           setIsEditing(true);
      };
+     useEffect(() => {
+          // setCookies(getCookiesObject());
+          update && getSubsidiaryMaintenaceInfo(getIdFromUrl(currentPath));
+     }, []);
 
      const calculateTotalAmount = values => {
           const cash = parseFloat(values.cashAmount) || 0;
@@ -56,25 +109,24 @@ const SubsidiaryMaintain = () => {
           const cheque = parseFloat(values.chequeAmount) || 0;
           return cash + netbanking + cheque;
      };
-     useEffect(() => {
-          setCookies(getCookiesObject());
-     }, []);
 
      return (
           <div>
-               <PageTitle title="Subsidiary Maintenance" />
+               <PageTitle title="Subsidiary Maintenance" back="/maintenance" />
                <div className="container">
                     <div className="w-100 p-5 card" style={{ padding: '20px' }}>
-                         <IconButton onClick={handleEdit} aria-label="edit" style={{ marginLeft: '90%', fontSize: '1.5rem', borderRadius: 0 }}>
+                         {/* <IconButton onClick={handleEdit} aria-label="edit" style={{ marginLeft: '90%', fontSize: '1.5rem', borderRadius: 0 }}>
                               <EditIcon fontSize="medium" /> Edit
-                         </IconButton>
+                         </IconButton> */}
+                         {update && <EditButton onClick={handleEdit} />}
                          <Formik
-                              initialValues={initialValues}
+                              initialValues={update ? data : initialValues}
                               enableReinitialize
                               validationSchema={subsidiaryMaintenenceValid}
-                              onSubmit={handleSubmit}
+                              onSubmit={handleAddSubsidiaryMaintenace}
                          >
-                              {({ isSubmitting, values, setFieldValue }) => (
+                              {/* {({ isSubmitting, values, setFieldValue }) => ( */}
+                              {({ isValid, values }) => (
                                    <Form>
                                         <h5 className="heading-small text-muted mb-4">Maintenance information</h5>
                                         <div className="pl-md-4">
@@ -134,7 +186,7 @@ const SubsidiaryMaintain = () => {
                                                             <ErrorMessage name="transactionMode" component="div" className="text-danger" />
                                                        </div>
                                                   </div>
-                                                  {(values.transactionMode === 'All Mode' || values.transactionMode === 'Cash') && (
+                                                  {(values.transactionMode === 'mp' || values.transactionMode === 'ca') && (
                                                        <div className="col-lg-6">
                                                             <div className="form-group">
                                                                  <label className="form-control-label" htmlFor="input-cashAmount">
@@ -152,38 +204,38 @@ const SubsidiaryMaintain = () => {
                                                             </div>
                                                        </div>
                                                   )}
-                                                  {(values.transactionMode === 'All Mode' || values.transactionMode === 'Online') && (
+                                                  {(values.transactionMode === 'mp' || values.transactionMode === 'on') && (
                                                        <div className="col-lg-6">
                                                             <div className="form-group">
-                                                                 <label className="form-control-label" htmlFor="input-netbankingUTR">
+                                                                 <label className="form-control-label" htmlFor="input-netBankingUTR">
                                                                       Netbanking UTR
                                                                  </label>
                                                                  <Field
                                                                       className="form-control"
-                                                                      id="input-netbankingUTR"
-                                                                      name="netbankingUTR"
+                                                                      id="input-netBankingUTR"
+                                                                      name="netBankingUTR"
                                                                       placeholder="Netbanking UTR"
                                                                       disabled={!isEditing}
                                                                  />
-                                                                 <ErrorMessage name="netbankingUTR" component="div" className="text-danger" />
+                                                                 <ErrorMessage name="netBankingUTR" component="div" className="text-danger" />
                                                             </div>
                                                             <div className="form-group">
-                                                                 <label className="form-control-label" htmlFor="input-netbankingAmount">
+                                                                 <label className="form-control-label" htmlFor="input-netBankingAmount">
                                                                       Netbanking Amount
                                                                  </label>
                                                                  <Field
                                                                       type="number"
                                                                       className="form-control"
-                                                                      id="input-netbankingAmount"
-                                                                      name="netbankingAmount"
+                                                                      id="input-netBankingAmount"
+                                                                      name="netBankingAmount"
                                                                       placeholder="Netbanking Amount"
                                                                       disabled={!isEditing}
                                                                  />
-                                                                 <ErrorMessage name="netbankingAmount" component="div" className="text-danger" />
+                                                                 <ErrorMessage name="netBankingAmount" component="div" className="text-danger" />
                                                             </div>
                                                        </div>
                                                   )}
-                                                  {(values.transactionMode === 'All Mode' || values.transactionMode === 'Cheque') && (
+                                                  {(values.transactionMode === 'mp' || values.transactionMode === 'ch') && (
                                                        <div className="col-lg-6">
                                                             <div className="form-group">
                                                                  <label className="form-control-label" htmlFor="input-chequeNo">
@@ -224,8 +276,11 @@ const SubsidiaryMaintain = () => {
                                         </div>
                                         {isEditing && (
                                              <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
-                                                  <button type="submit" className="btn btn-block submit-button" disabled={isSubmitting}>
-                                                       Submit
+                                                  {/* <button type="submit" className="btn btn-block submit-button" disabled={isSubmitting}> */}
+                                                  {/* Submit
+                                                  </button> */}
+                                                  <button type="submit" className="btn btn-block submit-button">
+                                                       {buttonLoader ? <ButtonLoader /> : update ? 'Update' : 'Add'}
                                                   </button>
                                              </div>
                                         )}
@@ -238,4 +293,4 @@ const SubsidiaryMaintain = () => {
      );
 };
 
-export default SubsidiaryMaintain;
+export default AddSubsidiaryMaintain;
