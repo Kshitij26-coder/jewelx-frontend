@@ -26,17 +26,14 @@ const AdminSideBar = [
      // { path: '/uom', icon: <ScaleOutlinedIcon fontSize="large" />, option: 'Unit Of Measurement' },
 
      { path: '/', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
-     { path: '/subsidiary', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
-     { path: '/metal-stock', icon: <DataThresholdingOutlinedIcon fontSize="large" />, option: 'Metal Stock' },
-     { path: '/category', icon: <CategoryIcon fontSize="large" />, option: 'Category' },
-     { path: '/article', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },
+     { path: '/users', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Users' },
+     { path: '/contacts', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
      { path: '/customers', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },
-     { path: '/customer-orders', icon: <AddShoppingCartIcon fontSize="large" />, option: 'Orders' },
-     { path: '/bill', icon: <ReceiptLongIcon fontSize="large" />, option: 'Billing' },
-     { path: '/user-purchase', icon: <ShoppingBagIcon fontSize="large" />, option: 'Purchase' },
-     { path: '/maintenance', icon: <EngineeringIcon fontSize="large" />, option: 'Maintenance' },
-     { path: '/accounts', icon: <RequestQuoteOutlinedIcon fontSize="large" />, option: 'Accounts' },
-     { path: '/sales', icon: <AutoGraphOutlinedIcon fontSize="large" />, option: 'Sales' },
+     { path: '/invoice', icon: <AutoGraphOutlinedIcon fontSize="large" />, option: 'Sales' },
+     { path: '/faq', icon: <RequestQuoteOutlinedIcon fontSize="large" />, option: 'Accounts' },
+     { path: '/calendar', icon: <DataThresholdingOutlinedIcon fontSize="large" />, option: 'Metal Stock' },
+     { path: '/calendar', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },
+     { path: '/uom', icon: <ScaleOutlinedIcon fontSize="large" />, option: 'Unit Of Measurement' },
 ];
 
 export default AdminSideBar;

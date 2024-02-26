@@ -22,16 +22,24 @@ const Dashboard = () => {
      const [metals, setMetals] = useState([]);
 
      const getDailyTransaction = async () => {
-          const data = await getRequest(getTransactionDaily(), navigate, enqueueSnackbar); // change in dashBordEndPoints.js brandId and SubsidiaryId to  cookie.brandId & for subsidiaryId
-          setDailyTransaction(data);
-          console.log(data);
+          try {
+               const data = await getRequest(getTransactionDaily(), navigate, enqueueSnackbar); // change in dashBordEndPoints.js brandId and SubsidiaryId to  cookie.brandId & for subsidiaryId
+               setDailyTransaction(data);
+               console.log(data);
+          } catch (e) {
+               console.error('Error fetching transactions:', e);
+          }
      };
 
      const getFiveTransaction = async () => {
-          const data = await getRequest(getTransactionFive(), navigate, enqueueSnackbar); // change in dashBordEndPoints.js brandId and SubsidiaryId to  cookie.brandId & for subsidiaryId
-          setFiveTransaction(data);
-          setLineChartData(data);
-          console.log(data);
+          try {
+               const data = await getRequest(getTransactionFive(), navigate, enqueueSnackbar); // change in dashBordEndPoints.js brandId and SubsidiaryId to  cookie.brandId & for subsidiaryId
+               setFiveTransaction(data);
+               setLineChartData(data);
+               console.log(data);
+          } catch (e) {
+               console.error('Error fetching transactions:', e);
+          }
      };
 
      const getMetalsOptions = async () => {
