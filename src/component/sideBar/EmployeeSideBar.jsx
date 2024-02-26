@@ -24,7 +24,6 @@ const EmployeeSideBar = [
      // { path: '/invoice', icon: <CalendarTodayOutlinedIcon fontSize="large" />, option: 'Sales' },
 
      { path: '/', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
-     { path: '/subsidiary', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
      { path: '/metal-stock', icon: <DataThresholdingOutlinedIcon fontSize="large" />, option: 'Metal Stock' },
      { path: '/category', icon: <CategoryIcon fontSize="large" />, option: 'Category' },
      { path: '/article', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },
