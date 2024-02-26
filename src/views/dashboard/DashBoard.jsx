@@ -3,6 +3,10 @@ import Chart from 'chart.js/auto';
 import Card from './Card';
 import '../dashboard/style.css';
 import PageTitle from '../../component/PageTitle';
+import { getRequest } from '../../utils/apis/apiRequestHelper';
+import { getTransactionDaily, getTransactionFive } from '../../utils/apis/dashBoardApiRequest';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 const Dashboard = () => {
      const pieChartRef = useRef(null);
@@ -10,9 +14,27 @@ const Dashboard = () => {
 
      const [pieChartData, setPieChartData] = useState([30, 40, 30]);
      const [lineChartData, setLineChartData] = useState([1000, 1500, 1200, 1700, 1400, 1800]);
+     const navigate = useNavigate();
+     const { enqueueSnackbar } = useSnackbar();
+     const [dailyTransaction, setDailyTransaction] = useState(); //single value coming
+     const [fiveTransaction, setFiveTransaction] = useState([]); //list of data coming
+
+     const getDailyTransaction = async () => {
+          const data = await getRequest(getTransactionDaily(), navigate, enqueueSnackbar);
+          setDailyTransaction(data);
+          console.log(data);
+     };
+
+     const getFiveTransaction = async () => {
+          const data = await getRequest(getTransactionFive(), navigate, enqueueSnackbar);
+          getTransactionFive(data);
+          console.log(data);
+     };
 
      useEffect(() => {
           const pieChartContext = pieChartRef.current.getContext('2d');
+          getDailyTransaction();
+          getFiveTransaction();
           if (pieChartRef.current.chart) {
                pieChartRef.current.chart.destroy();
           }
