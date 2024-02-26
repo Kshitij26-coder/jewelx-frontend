@@ -4,7 +4,6 @@ import ServerError500 from './component/errorComponents/serverError/ServerError5
 import Registrationpage from './views/auth/Registrationpage';
 import Login from './views/auth/Login';
 import ForgotPassword from './views/auth/ForgotPassword';
-import Customer from './views/customer/Customer';
 import App from './App';
 import Index from './landingPage/Index';
 import DashBoard from './views/dashboard/DashBoard';
@@ -15,11 +14,10 @@ import Uom from './views/UOM/Uom';
 import AddUom from './views/UOM/AddUom';
 import AddSubsidiary from './views/subsidiary/AddSubsidiary';
 import Subsidiary from './views/subsidiary/Subsidiary';
-import SubsidiaryMaintain from './views/subsidiary/SubsidiaryMaintain';
 import MetalAdd from './views/metals/MetalAdd';
 import Metal from './views/metals/Metal';
 import MetalStock from './views/metals/MetalStock';
-import Download from './component/Download';
+import Download from './views/bill/Download';
 
 import AddArticle from './views/article/AddArticle';
 import Article from './views/article/Article';
@@ -30,6 +28,11 @@ import Billing from './views/bill/Billing';
 import AddUserPurchase from './views/userPurchase/AddUserPurchase';
 import UserPurchase from './views/userPurchase/UserPurchase';
 import CustomerOrder from './views/customerOrders/CustomerOrder';
+import Sales from './views/bill/Sales';
+import AddCustomer from './views/customer/AddCustomer';
+import Customer from './views/customer/Customer';
+import AddSubsidiaryMaintain from './views/maintenace/AddSubsidiaryMaintain';
+import SubsidiaryMaintain from './views/maintenace/SubsidiaryMaintain';
 
 export const routing = createBrowserRouter([
      {
@@ -50,9 +53,30 @@ export const routing = createBrowserRouter([
                     element: <CreateUser update={true} />,
                },
                {
+                    path: '/customers/add',
+                    element: <AddCustomer update={false} />,
+               },
+               {
+                    path: '/customers/update/*',
+                    element: <AddCustomer update={true} />,
+               },
+               {
                     path: '/customers',
                     element: <Customer />,
                },
+               {
+                    path: '/maintenance/add',
+                    element: <AddSubsidiaryMaintain update={false} />,
+               },
+               {
+                    path: '/maintenance/update/*',
+                    element: <AddSubsidiaryMaintain update={true} />,
+               },
+               {
+                    path: '/maintenance',
+                    element: <SubsidiaryMaintain />,
+               },
+
                {
                     path: '/profile',
                     element: <Profile />,
@@ -110,17 +134,13 @@ export const routing = createBrowserRouter([
                     path: '/article/update/*',
                     element: <AddArticle update={true} />,
                },
-               {
-                    path: '/maintenance',
-                    element: <SubsidiaryMaintain />,
-               },
 
                {
                     path: '/metal-stock',
                     element: <MetalStock />,
                },
                {
-                    path: '/invoice',
+                    path: '/invoice/*',
                     element: <Download />,
                },
                {
@@ -142,6 +162,10 @@ export const routing = createBrowserRouter([
                {
                     path: '/bill',
                     element: <Billing />,
+               },
+               {
+                    path: '/sales',
+                    element: <Sales />,
                },
                {
                     path: '/user-purchase/add',

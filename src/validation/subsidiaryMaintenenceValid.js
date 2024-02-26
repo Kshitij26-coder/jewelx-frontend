@@ -5,8 +5,8 @@ export const subsidiaryMaintenenceValid = Yup.object().shape({
      transactionMode: Yup.string().required('Transaction Mode is required'),
      transactionType: Yup.string().required('Transaction Type is required'),
      cashAmount: Yup.string().required('Cash Amount is required'),
-     netbankingUTR: Yup.string().required('Netbanking UTR is required'),
-     netbankingAmount: Yup.string().required('Netbanking Amountis required'),
+     netBankingUTR: Yup.string().required('Netbanking UTR is required'),
+     netBankingAmount: Yup.string().required('Netbanking Amountis required'),
      chequeNo: Yup.number().required('ChequeNo is required'),
      chequeAmount: Yup.string().required('ChequeAmount is required'),
 });

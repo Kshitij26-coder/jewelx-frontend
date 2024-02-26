@@ -8,10 +8,10 @@ import { getCookiesObject } from '../../utils/getCookiesObject';
 import { getTablePages } from '../../utils/getTablePages';
 import ViewButton from '../../component/edit/ViewButton';
 import TableTitle from '../../component/TableTitle';
-import { getCustomerById } from '../../utils/apis/customerApiRequest';
+import { getSubsidiaryMaintenanceById } from '../../utils/apis/subsidiaryMaintenanceApiRequest';
 
-const Customer = () => {
-     const columns = ['view', 'Id', 'Customer Name', ' Mobile No.', 'Opening Balance', 'Aadhar No.', 'Pan No.', 'Address', 'Pincode', 'DOB', 'DOA'];
+const SubsidiaryMaintain = () => {
+     const columns = ['view', 'Id', 'Maintanence Description', 'Amount', 'Created By Id', 'User Id', 'Brand Id.', 'Subsidiary Id'];
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
      const [cookies, setCookies] = useState(getCookiesObject());
@@ -25,10 +25,10 @@ const Customer = () => {
       * @param {Number} page
       *
       */
-     const getCustomers = async page => {
+     const getSubsidiaryMaintences = async page => {
           try {
                setLoader(true);
-               const data = await getRequest(getCustomerById(page), navigate, enqueueSnackbar);
+               const data = await getRequest(getSubsidiaryMaintenanceById(page), navigate, enqueueSnackbar);
                console.log(data);
                setLoader(false);
                responseToRows(data.content);
@@ -46,31 +46,30 @@ const Customer = () => {
       * also used switch fpr active/inActive status
       */
      const responseToRows = data => {
+          console.log(data);
           let temp = [];
           data.map((each, index) => {
                temp[index] = {
-                    view: <ViewButton to={`/customers/update/${each.customerID}`} />,
-                    Id: each.idx_id,
-                    name: <h4>{each.name}</h4>,
-                    moNo: each.mobileNumber,
-                    OpeningBal: each.openingBalance,
-                    adharNo: each.aadharId,
-                    panNo: each.panId,
-                    address: each.address,
-                    pincode: each.pincode,
-                    dob: each.dateOfBirth,
-                    doa: each.anniversaryDate,
+                    view: <ViewButton to={`/maintenance/update/${each.maintenanceId}`} />,
+                    Id: each.idxId,
+                    desc: each.maintenanceDescription,
+                    accId: -1 * each.accounting.transactAmount,
+                    created: each.createdBy.username,
+                    id: each.createdBy.userId,
+                    brandId: each.brand,
+                    subsidiaryId: each.subsidiary.subsidiaryName,
                };
           });
+          console.log(temp);
           setRows(temp);
      };
 
      useEffect(() => {
-          getCustomers(0);
+          getSubsidiaryMaintences(0);
      }, []);
      return (
           <div>
-               <TableTitle pageTitle={'Customer'} to={'/customers/add'} buttonTitle={'+Add'} back={'/'} />
+               <TableTitle pageTitle={'Subsidiary Maintainance'} to={'/maintenance/add'} buttonTitle={'+Add'} back={'/'} />
                {loader ? (
                     <PageLoader />
                ) : (
@@ -80,7 +79,7 @@ const Customer = () => {
                          count={getTablePages(totalRows)}
                          page={page}
                          onPageChange={(e, newPage) => {
-                              getCustomers(newPage - 1);
+                              getSubsidiaryMaintences(newPage - 1);
                          }}
                     />
                )}
@@ -88,4 +87,4 @@ const Customer = () => {
      );
 };
 
-export default Customer;
+export default SubsidiaryMaintain;

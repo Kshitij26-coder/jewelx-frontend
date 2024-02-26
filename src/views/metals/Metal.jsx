@@ -33,6 +33,7 @@ const Metal = () => {
                const data = await getRequest(getMetalsByBrand(page), navigate, enqueueSnackbar);
                setLoader(false);
                responseToRows(data.content);
+               console.log(data);
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);

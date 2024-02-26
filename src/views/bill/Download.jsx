@@ -1,9 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import data from '../../data.json';
-import { Margin } from '@mui/icons-material';
+import saledata from '../../../data.json';
+import { getIdFromUrl } from '../../utils/getIdFromUrl';
+import PageLoader from '../../component/loaders/PageLoader';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getRequest } from '../../utils/apis/apiRequestHelper';
+import { getSaleByIdEndPoint } from '../../utils/apis/salesApiRequest';
+import { useSnackbar } from 'notistack';
+import PageTitle from '../../component/PageTitle';
 const Download = () => {
+     const [loader, setLoader] = useState(false);
+     const navigate = useNavigate();
+     const { enqueueSnackbar } = useSnackbar();
+     const location = useLocation();
+     const currentPath = location.pathname;
+     const [data, setData] = useState(saledata);
+
+     const getSaleDataByid = async id => {
+          try {
+               setLoader(true);
+               const data = await getRequest(getSaleByIdEndPoint(id), navigate, enqueueSnackbar);
+               console.log(data);
+               setData(data);
+               setLoader(false);
+          } catch (e) {
+               setLoader(false);
+               console.error(e);
+          }
+     };
      const downloadPDF = () => {
           const input = document.getElementById('invoice');
 
@@ -21,7 +46,7 @@ const Download = () => {
           });
      };
      useEffect(() => {
-          console.log(data);
+          getSaleDataByid(getIdFromUrl(currentPath));
      }, []);
 
      return (
@@ -29,7 +54,7 @@ const Download = () => {
                <div className="row justify-content-center">
                     <div className="col-md-6 ">
                          <div className="invoice-header text-center">
-                              <h2>Jewelry Shop Invoice</h2>
+                              <PageTitle title="Invoice" />
                          </div>
                          <div id="invoice">
                               <table className="table">
@@ -44,33 +69,33 @@ const Download = () => {
                                              </td>
                                              <td colSpan="9" style={{ border: '1px solid #000' }}>
                                                   <h3 className="container" style={{ textAlign: 'center' }}>
-                                                       {data.subsidiary.brand.name}
+                                                       {data?.subsidiary?.brand?.name}
                                                   </h3>
                                                   <h4 className="container" style={{ textAlign: 'center' }}>
-                                                       {data.subsidiary.subsidiaryName}
+                                                       {data?.subsidiary?.subsidiaryName}
                                                   </h4>
                                                   <h5 className="container" style={{ textAlign: 'center' }}>
-                                                       {data.subsidiary.formHeader}
+                                                       {data?.subsidiary?.formHeader}
                                                   </h5>
                                                   <td>
                                                        <h6>Phone No. : {7775996634}</h6>
                                                        {/* need to add phone number in subsidiary entity */}
-                                                       <h6>GstIN : {data.subsidiary.gstin}</h6>
+                                                       <h6>GstIN : {data?.subsidiary?.gstin}</h6>
                                                   </td>
                                                   <td className="container" style={{ textAlign: 'center' }}>
-                                                       <h6>Address : {data.subsidiary.address}</h6>
+                                                       <h6>Address : {data?.subsidiary?.address}</h6>
                                                   </td>
                                              </td>
                                         </tr>
                                         <tr>
                                              <td colSpan="6" style={{ border: '1px solid #000' }}>
-                                                  <h6>Bill To : {data.customer.name}</h6>
-                                                  <h6>Customer Id : {data.customer.idx_id}</h6>
-                                                  <h6>Phone : {data.customer.mobileNumber}</h6>
+                                                  <h6>Bill To : {data?.customer?.name}</h6>
+                                                  <h6>Customer Id : {data?.customer?.idx_id}</h6>
+                                                  <h6>Phone : {data?.customer?.mobileNumber}</h6>
                                              </td>
                                              <td colSpan="5" style={{ border: '1px solid #000' }}>
-                                                  <h6>Invoice Number : {data.saleIdxId}</h6>
-                                                  <h6>Invoice Date :{data.createdOn.slice(0, 10)}</h6>
+                                                  <h6>Invoice Number : {data?.saleIdxId}</h6>
+                                                  <h6>Invoice Date :{data?.createdOn.slice(0, 10)}</h6>
                                              </td>
                                         </tr>
                                         <tr>
@@ -110,8 +135,8 @@ const Download = () => {
                                         </tr>
                                    </thead>
                                    <tbody>
-                                        {data.itemSaleList.length > 0 &&
-                                             data.itemSaleList.map((each, index) => (
+                                        {data?.itemSaleList.length > 0 &&
+                                             data?.itemSaleList.map((each, index) => (
                                                   <>
                                                        <tr>
                                                             <td colSpan="0.5" className="col-1" style={{ border: '1px solid #000' }}>
@@ -156,7 +181,7 @@ const Download = () => {
                                              </td>
 
                                              <td style={{ border: '1px solid #000' }}>
-                                                  <h6>{-data.discount}</h6>
+                                                  <h6>{-data?.discount}</h6>
                                              </td>
                                         </tr>
                                         <tr style={{ border: '1px solid #000' }}>
@@ -165,7 +190,7 @@ const Download = () => {
                                              </td>
 
                                              <td style={{ border: '1px solid #000' }}>
-                                                  <h6>{data.cgst}</h6>
+                                                  <h6>{data?.cgst}</h6>
                                              </td>
                                         </tr>
                                         <tr style={{ border: '1px solid #000' }}>
@@ -174,7 +199,7 @@ const Download = () => {
                                              </td>
 
                                              <td style={{ border: '1px solid #000' }}>
-                                                  <h6>{data.sgst}</h6>
+                                                  <h6>{data?.sgst}</h6>
                                              </td>
                                         </tr>
 
@@ -184,12 +209,12 @@ const Download = () => {
                                              </td>
 
                                              <td style={{ border: '1px solid #000' }}>
-                                                  <h5>{data.payableAmount}</h5>
+                                                  <h5>{data?.payableAmount}</h5>
                                              </td>
                                         </tr>
                                         <tr style={{ border: '1px solid #000' }}>
                                              <td colSpan="11" style={{ border: '1px solid #000', textAlign: 'center' }}>
-                                                  <h3>{data.subsidiary.formFooter}</h3>
+                                                  <h3>{data?.subsidiary?.formFooter}</h3>
                                              </td>
                                         </tr>
                                    </tbody>
@@ -197,7 +222,11 @@ const Download = () => {
                          </div>
 
                          {/* Download Button */}
-                         <div className="text-center" style={{ marginLeft: '100px', display: 'flex', justifyContent: 'flex-end', width: '200%' }}>
+                         <hr style={{ width: '240%', background: '#1111' }} />
+                         <div
+                              className="text-center"
+                              style={{ marginLeft: '40%', display: 'flex', justifyContent: 'flex-end', width: '200%', marginBottom: '3rem' }}
+                         >
                               <button className="submit-button " onClick={downloadPDF}>
                                    Download PDF
                               </button>

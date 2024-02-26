@@ -21,13 +21,13 @@ const OwnerSideBar = [
      { path: '/subsidiary', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
      { path: '/maintenance', icon: <EngineeringIcon fontSize="large" />, option: 'Maintenance' },
      { path: '/customers', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },
-     { path: '/invoice', icon: <AutoGraphOutlinedIcon fontSize="large" />, option: 'Sales' },
      { path: '/accounts', icon: <RequestQuoteOutlinedIcon fontSize="large" />, option: 'Accounts' },
      { path: '/metal-stock', icon: <DataThresholdingOutlinedIcon fontSize="large" />, option: 'Metal Stock' },
      { path: '/article', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },
      { path: '/uom', icon: <ScaleOutlinedIcon fontSize="large" />, option: 'Unit Of Measurement' },
      { path: '/metal', icon: <InventoryIcon fontSize="large" />, option: 'Metal' },
      { path: '/bill', icon: <ReceiptLongIcon fontSize="large" />, option: 'Billing' },
+     { path: '/sales', icon: <AutoGraphOutlinedIcon fontSize="large" />, option: 'Sales' },
 ];
 
 export default OwnerSideBar;

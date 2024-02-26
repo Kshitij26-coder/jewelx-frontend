@@ -14,6 +14,8 @@ import { putRequest } from '../../utils/apis/apiRequestHelper';
 import { userEndpoints } from '../../utils/endpoints/userEndpoints';
 import { useSnackbar } from 'notistack';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
+import Modal from '../../component/Modal';
+import ModalV from '../../component/Modal';
 
 const Profile = () => {
      const [isEditing, setIsEditing] = useState(false);
@@ -23,6 +25,7 @@ const Profile = () => {
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
      const [buttonLoader, setButtonLoader] = useState(false);
+     const [open, setOpen] = useState(false);
      const handleSubmit = async values => {
           // Handle form submission
           try {
@@ -99,13 +102,21 @@ const Profile = () => {
                                    </div>
                                    <div className="card-body " style={{ height: 'auto' }}>
                                         <div className="text-center">
+                                             <button className="btn btn-primary" onClick={() => setOpen(true)}>
+                                                  Update Picture
+                                             </button>
                                              <h3>{cookiesData.username}</h3>
                                              <div style={{ marginBottom: '20px' }}>
                                                   <h5>Brand Name : {cookiesData?.brand?.name}</h5>
                                              </div>
+
                                              <div className="h5 font-weight-300">
                                                   <i className="glyphicon glyphicon-map-marker" />
                                                   {getRolesfromAbbrev(cookiesData?.role)}
+                                             </div>
+
+                                             <div className="h5">
+                                                  <ModalV open={open} handleClose={() => setOpen(false)} />
                                              </div>
                                              <div className="h5">
                                                   <i className="glyphicon glyphicon-briefcase" /> {cookiesData?.email}
