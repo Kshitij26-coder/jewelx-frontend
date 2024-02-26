@@ -8,6 +8,13 @@ import Typography from '@mui/material/Typography';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 import { styled } from '@mui/material/styles';
+import { getCookiesObject } from '../utils/getCookiesObject';
+import { showSuccessSnackbar } from '../utils/snackBar';
+import { enqueueSnackbar, useSnackbar } from 'notistack';
+import axios from 'axios';
+import { postRequest } from '../utils/apis/apiRequestHelper';
+import { useNavigate } from 'react-router-dom';
+import ButtonLoader from './loaders/ButtonLoader';
 const style = {
      position: 'absolute',
      top: '50%',
@@ -33,8 +40,31 @@ const VisuallyHiddenInput = styled('input')({
      width: 1,
 });
 
-export default function ModalV({ open, handleClose }) {
+const ModalV = ({ open, handleClose }) => {
      const [selectedFile, setSelectedFile] = React.useState(null);
+     const { enqueueSnackbar } = useSnackbar();
+     const [loader, setLoader] = React.useState(false);
+     const navigate = useNavigate();
+
+     const uploadImageFunction = async () => {
+          //write image upload logic to url using multipartform data
+          try {
+               setLoader(true);
+               const formData = new FormData();
+               formData.append('image', selectedFile);
+               const response = await axios.post(`http://localhost:8080/brand/cloud/${getCookiesObject().brandId}`, formData, {
+                    headers: {
+                         'Content-Type': 'multipart/form-data', // Set the content type header
+                         // Add any additional headers if needed
+                    },
+               });
+               showSuccessSnackbar('Image updated successfully', enqueueSnackbar);
+               console.log('Response:', response.data); // Log the response data
+               setLoader(false);
+          } catch (error) {
+               console.error('Error uploading file:', error);
+          }
+     };
 
      const handleFileChange = event => {
           setSelectedFile(event.target.files[0]);
@@ -79,14 +109,16 @@ export default function ModalV({ open, handleClose }) {
                                              <img src={URL.createObjectURL(selectedFile)} alt="Uploaded" style={{ maxWidth: '100%' }} />
                                         </div>
                                         <Button
+                                             onClick={uploadImageFunction}
                                              component="label"
                                              className="submit-button"
                                              role={undefined}
                                              variant="contained"
                                              tabIndex={-1}
+                                             disabled={loader}
                                              style={{ marginTop: '2rem', marginLeft: '20%' }}
                                         >
-                                             Upload file
+                                             {loader ? <ButtonLoader /> : 'Upload file'}
                                         </Button>
                                    </>
                               )}
@@ -95,4 +127,5 @@ export default function ModalV({ open, handleClose }) {
                </Modal>
           </div>
      );
-}
+};
+export default ModalV;

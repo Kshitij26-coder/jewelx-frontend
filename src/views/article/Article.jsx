@@ -40,6 +40,7 @@ const Article = () => {
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);
+               //  showSuccessSnackbar('data is empty', enqueueSnackbar);
                console.log(e);
           }
      };

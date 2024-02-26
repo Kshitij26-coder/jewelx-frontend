@@ -14,8 +14,7 @@ import { putRequest } from '../../utils/apis/apiRequestHelper';
 import { userEndpoints } from '../../utils/endpoints/userEndpoints';
 import { useSnackbar } from 'notistack';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
-import Modal from '../../component/Modal';
-import ModalV from '../../component/Modal';
+import ModalV from '../../component/ModalV';
 
 const Profile = () => {
      const [isEditing, setIsEditing] = useState(false);

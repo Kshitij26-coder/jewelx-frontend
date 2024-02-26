@@ -30,7 +30,7 @@ const AddSubsidiary = ({ update }) => {
           shopActNumber: '',
           subsidiaryName: '',
           gstin: '',
-          cashBalance: '',
+          cashBalance: 0,
           address: '',
           city: '',
           pinCode: '',
@@ -189,23 +189,25 @@ const AddSubsidiary = ({ update }) => {
                                                             <ErrorMessage name="gstin" component="div" className="text-danger" />
                                                        </div>
                                                   </div>
-                                                  <div className="col-lg-6">
-                                                       <div className="form-group">
-                                                            <label className="form-control-label" htmlFor="input-cashBalance">
-                                                                 Cash Balance
-                                                            </label>
-                                                            <Field
-                                                                 className="form-control"
-                                                                 id="input-cashBalance"
-                                                                 name="cashBalance"
-                                                                 placeholder="Cash Balance"
-                                                                 disabled={!isEditing}
-                                                                 type="number"
-                                                                 onChange={e => setFieldValue('cashBalance', Number(e.target.value))}
-                                                            />
-                                                            <ErrorMessage name="cashBalance" component="div" className="text-danger" />
+                                                  {!update && (
+                                                       <div className="col-lg-6">
+                                                            <div className="form-group">
+                                                                 <label className="form-control-label" htmlFor="input-cashBalance">
+                                                                      Cash Balance
+                                                                 </label>
+                                                                 <Field
+                                                                      className="form-control"
+                                                                      id="input-cashBalance"
+                                                                      name="cashBalance"
+                                                                      placeholder="Cash Balance"
+                                                                      disabled={!isEditing}
+                                                                      type="number"
+                                                                      onChange={e => setFieldValue('cashBalance', Number(e.target.value))}
+                                                                 />
+                                                                 <ErrorMessage name="cashBalance" component="div" className="text-danger" />
+                                                            </div>
                                                        </div>
-                                                  </div>
+                                                  )}
                                                   <div className="col-lg-6">
                                                        <div className="form-group">
                                                             <label className="form-control-label" htmlFor="input-address">
