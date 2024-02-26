@@ -12,4 +12,5 @@ export const articleValidation = Yup.object().shape({
           .integer('HUID must be an integer')
           .max(999999, 'HUID must be at most 6 digits')
           .required('HUID is required'),
+     purity: Yup.number().typeError('Purity must be a number').required('Purity is required'),
 });
