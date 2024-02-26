@@ -48,7 +48,7 @@ const Sales = () => {
           try {
                setLoader(true);
                const data = await getRequest(getAllSales(page), navigate, enqueueSnackbar);
-               console.log(data);
+               //     console.log(data);
                setLoader(false);
                responseToRows(data.content);
                setTotalRows(data.totalElements);
