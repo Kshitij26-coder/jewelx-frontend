@@ -11,6 +11,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import CategoryIcon from '@mui/icons-material/Category';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 const EmployeeSideBar = [
