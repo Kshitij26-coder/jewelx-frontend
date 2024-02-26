@@ -11,7 +11,7 @@ import TableTitle from '../../component/TableTitle';
 import { getSubsidiaryMaintenanceById } from '../../utils/apis/subsidiaryMaintenanceApiRequest';
 
 const SubsidiaryMaintain = () => {
-     const columns = ['view', 'Id', 'Maintanence Description', 'Amount', 'Created By Id', 'User Id', 'Brand Id.', 'Subsidiary Id'];
+     const columns = ['Id', 'Maintanence Description', 'Amount', 'Created By Id', 'User Id', 'Brand Id.', 'Subsidiary Id'];
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
      const [cookies, setCookies] = useState(getCookiesObject());
@@ -50,7 +50,7 @@ const SubsidiaryMaintain = () => {
           let temp = [];
           data.map((each, index) => {
                temp[index] = {
-                    view: <ViewButton to={`/maintenance/update/${each.maintenanceId}`} />,
+                    // view: <ViewButton to={`/maintenance/update/${each.maintenanceId}`} />,
                     Id: each.idxId,
                     desc: each.maintenanceDescription,
                     accId: -1 * each.accounting.transactAmount,

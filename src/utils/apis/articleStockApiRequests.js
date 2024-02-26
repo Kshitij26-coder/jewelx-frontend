@@ -24,3 +24,7 @@ export const getAllArticles = () => {
 export const getAllArticlesById = id => {
      return `${articleEndpoints.BASE_ROUTE}/${id}`;
 };
+
+export const getAllArticlesByStatus = () => {
+     return `${articleEndpoints.BASE_ROUTE}/status/${getCookiesObject().subsidiaryId == null ? 1 : getCookiesObject().subsidiaryId}`;
+};
