@@ -9,7 +9,7 @@ export const getAllItemsById = () => {
 export const getArticleItemsPagesById = page => {
      const cookie = getCookiesObject();
      return `${articleEndpoints.BASE_ROUTE}?page=${page}&size=${import.meta.env.VITE_PAGE_SIZE}&role=${cookie.role}&subsidiary=${
-          cookie.subsidiaryId ? null : 0
+          cookie.subsidiaryId ? cookie.subsidiaryId : 0
      }&brand=${cookie.brandId}`;
 };
 

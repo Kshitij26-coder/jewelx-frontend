@@ -7,16 +7,18 @@ import DataThresholdingOutlinedIcon from '@mui/icons-material/DataThresholdingOu
 import DiamondOutlinedIcon from '@mui/icons-material/DiamondOutlined';
 import ScaleOutlinedIcon from '@mui/icons-material/ScaleOutlined';
 import FaceRetouchingNaturalOutlinedIcon from '@mui/icons-material/FaceRetouchingNaturalOutlined';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 
 const AdminSideBar = [
      { path: '/', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
      { path: '/users', icon: <PeopleOutlinedIcon fontSize="large" />, option: 'Users' },
-     { path: '/contacts', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
+     // { path: '/subsidiary', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
      { path: '/customers', icon: <FaceRetouchingNaturalOutlinedIcon fontSize="large" />, option: 'Customers' },
-     { path: '/invoice', icon: <AutoGraphOutlinedIcon fontSize="large" />, option: 'Sales' },
-     { path: '/faq', icon: <RequestQuoteOutlinedIcon fontSize="large" />, option: 'Accounts' },
-     { path: '/calendar', icon: <DataThresholdingOutlinedIcon fontSize="large" />, option: 'Metal Stock' },
-     { path: '/calendar', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },
+     { path: '/sales', icon: <AutoGraphOutlinedIcon fontSize="large" />, option: 'Sales' },
+     { path: '/bill', icon: <ReceiptLongIcon fontSize="large" />, option: 'Billing' },
+     { path: '/accounts', icon: <RequestQuoteOutlinedIcon fontSize="large" />, option: 'Accounts' },
+     { path: '/metal-stock', icon: <DataThresholdingOutlinedIcon fontSize="large" />, option: 'Metal Stock' },
+     { path: '/article', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },
      { path: '/uom', icon: <ScaleOutlinedIcon fontSize="large" />, option: 'Unit Of Measurement' },
 ];
 
