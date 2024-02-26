@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import PageTitle from '../../component/PageTitle';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { billingValidation } from '../../validation/billingValidation';
+import { billingValidation, paymentValidation } from '../../validation/billingValidation';
 import PageLoader from '../../component/loaders/PageLoader';
 import TableWithPagination from '../../component/form/Table';
 import { getTablePages } from '../../utils/getTablePages';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { getRequest } from '../../utils/apis/apiRequestHelper';
+import { getRequest, postRequest } from '../../utils/apis/apiRequestHelper';
 import { articleEndpoints } from '../../utils/endpoints/articleStockEndpoints';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router';
 import { getAllArticles, getAllArticlesById, getAllItemsById } from '../../utils/apis/articleStockApiRequests';
+import { showSuccessSnackbar } from '../../utils/snackBar';
+import { getCustomerByBrandId } from '../../utils/apis/customerApiRequest';
+import { getCookiesObject } from '../../utils/getCookiesObject';
+import { saleEndPoints } from '../../utils/endpoints/saleEndPoints';
 const Billing = () => {
      const columns = [
           'Article Name',
@@ -24,6 +28,7 @@ const Billing = () => {
           'Making Charges',
           'Artifact Amt',
           'Payable Amt',
+          'Customer Id',
           'Article Id',
           'Remove',
      ];
@@ -36,12 +41,29 @@ const Billing = () => {
      const [page, setPage] = useState(1);
      const [articleInfo, setArticleInfo] = useState([]);
      const navigate = useNavigate();
+     const [cookies, setCookies] = useState(getCookiesObject());
      const { enqueueSnackbar } = useSnackbar();
      //state to amange form
      const [itemRate, setItemRate] = useState(0);
      const [payableAmt, setPayableAmt] = useState(0);
      const [articleOptions, setArticleOptions] = useState([]);
-
+     const [customers, setCustomers] = useState([]);
+     const [customerId, setCustomerId] = useState('');
+     const [buttonLoader, setButtonLoader] = useState(false);
+     const [paymentInitialVlaues, setPaymentInitialVlaues] = useState({
+          payableAmount: 0,
+          netAmount: 0,
+          totalMakingCharges: 0,
+          sgst: 0,
+          cgst: 0,
+          transactionType: '',
+          transactionMode: '',
+          cashAmount: '',
+          netBankingUTR: '',
+          netBankingAmount: '',
+          chequeNo: 0,
+          chequeAmount: '',
+     });
      /**
       *
       * @param {*} e
@@ -152,9 +174,99 @@ const Billing = () => {
           ]);
      };
 
+     const handleCalculateBill = () => {
+          let netAmount = 0;
+          let sgst = 0;
+          let cgst = 0;
+          let payableAmount = 0;
+          let totalMakingCharges = 0;
+          rows.forEach(row => {
+               netAmount += row.payableAmount;
+               totalMakingCharges += row.makingCharges == null ? 0 : Number(row.makingCharges);
+          });
+          cgst = netAmount * 0.015;
+          sgst = netAmount * 0.015;
+          console.log(`netAmount: ${netAmount}`);
+          console.log(`making: ${totalMakingCharges}`);
+          console.log(`cgst: ${cgst}`);
+          console.log(`payable: ${payableAmount}`);
+
+          setPaymentInitialVlaues({
+               payableAmount: netAmount + cgst + sgst,
+               netAmount: netAmount,
+               totalMakingCharges: totalMakingCharges,
+               sgst: sgst,
+               cgst: cgst,
+               transactionType: '',
+               transactionMode: '',
+               cashAmount: 0,
+               netBankingUTR: '',
+               netBankingAmount: 0,
+               chequeNo: 0,
+               chequeAmount: 0,
+               discount: 0,
+               customerId: '',
+          });
+     };
+
+     const handleDiscountChange = (e, setFieldValue) => {
+          // console.log(e.target.value);
+          // console.log(setFieldValue);
+          // console.log(e.target.form.elements.discount);
+          // console.log(e.target.form.elements.value);
+          setFieldValue('payableAmount', 1000);
+          const discount = Number(e.target.form.elements.discount.value);
+          const netAmount = Number(e.target.form.elements.netAmount.value);
+          if (!isNaN(discount) && !isNaN(netAmount)) {
+               const discountAmount = netAmount - discount;
+               const cgst = discountAmount * 0.015;
+               const sgst = discountAmount * 0.015;
+               const payable = discountAmount + cgst + sgst;
+               setFieldValue('payableAmount', payable);
+               setFieldValue('cgst', cgst);
+               setFieldValue('sgst', sgst);
+          }
+     };
+
+     const getCustomersOptions = async () => {
+          try {
+               const data = await getRequest(getCustomerByBrandId(), navigate, enqueueSnackbar);
+               console.log(data);
+               setCustomers(data);
+          } catch (e) {
+               console.log(e);
+          }
+     };
+
+     const handeGenerateSale = async values => {
+          try {
+               setButtonLoader(true);
+               const dto = {
+                    ...values,
+                    saleItems: rows,
+                    customerId: customerId,
+                    subsidiaryId: cookies.subsidiaryId ? cookies.subsidiaryId : 1,
+                    userId: cookies.idxId,
+                    brandId: cookies.brandId,
+                    transactionDescription: `bill genearation of customer id ${customerId}`,
+               };
+               const data = await postRequest(dto, saleEndPoints.BASE_URL, navigate, enqueueSnackbar);
+               showSuccessSnackbar('bill created successfully', enqueueSnackbar);
+               navigate('/sales');
+               setButtonLoader(false);
+          } catch (e) {
+               console.error(e);
+          }
+     };
+
      useEffect(() => {
           getAllArticleInfo();
+          getCustomersOptions();
      }, []);
+
+     useEffect(() => {
+          handleCalculateBill();
+     }, [rows]);
      return (
           <div>
                <PageTitle title={'Billing'} />
@@ -176,6 +288,35 @@ const Billing = () => {
                                    <div className="row">
                                         <div className="col-md-3">
                                              <div className="form-group">
+                                                  <label className="form-control-label" htmlFor="input-customerId">
+                                                       Select Customer
+                                                  </label>
+                                                  <Field
+                                                       as="select"
+                                                       className="form-control"
+                                                       id="customerId"
+                                                       placeholder="customer"
+                                                       name="customerId"
+                                                       disabled={false}
+                                                       onChange={async e => {
+                                                            setFieldValue('customerId', Number(e.target.value));
+                                                            setCustomerId(e.target.value);
+                                                       }}
+                                                  >
+                                                       <option value="">Select Customer</option>
+
+                                                       {customers?.length > 0 &&
+                                                            customers.map(each => (
+                                                                 <option value={each.idx_id} key={each.idx_id}>
+                                                                      {each.idx_id} {each.name}
+                                                                 </option>
+                                                            ))}
+                                                  </Field>
+                                                  <ErrorMessage name="metalId" component="div" className="text-danger" />
+                                             </div>
+                                        </div>
+                                        <div className="col-md-3">
+                                             <div className="form-group">
                                                   <label className="form-control-label" htmlFor="input-articleName">
                                                        Article Name
                                                   </label>
@@ -183,14 +324,35 @@ const Billing = () => {
                                                        as="select"
                                                        className="form-control item"
                                                        id="brandId"
-                                                       placeholder="Brand Name"
-                                                       name="articleId"
+                                                       placeholder="Select Article"
+                                                       name="tagId"
                                                        onChange={async e => {
-                                                            console.log(e.target.value);
                                                             await getArticleInfoById(e.target.value, setFieldValue);
-                                                            setFieldValue('articleId', Number(e.target.value));
-                                                            //await getSubsidiaries(e.target.value);
+                                                            setFieldValue('tagId', Number(e.target.value));
                                                        }}
+                                                  >
+                                                       <option value="">Select Article</option>
+                                                       {articleOptions.length > 0 &&
+                                                            articleOptions.map(each => (
+                                                                 <option value={each.tagId} key={each.tagId}>
+                                                                      {each.articleName}
+                                                                 </option>
+                                                            ))}
+                                                  </Field>
+                                                  <ErrorMessage name="tagId" component="div" className="text-danger" />
+                                             </div>
+                                        </div>
+                                        {/* <div className="col-md-3">
+                                             <div className="form-group">
+                                                  <label className="form-control-label" htmlFor="input-articleName">
+                                                       Article Name
+                                                  </label>
+                                                  <Field
+                                                       as="select"
+                                                       className="form-control item"
+                                                       id="brandId"
+                                                       placeholder="Select Article"
+                                                       name="customerId"
                                                   >
                                                        <option value="">Select Article</option>
                                                        {articleOptions.length > 0 &&
@@ -202,7 +364,7 @@ const Billing = () => {
                                                   </Field>
                                                   <ErrorMessage name="articleName" component="div" className="text-danger" />
                                              </div>
-                                        </div>
+                                        </div> */}
                                         <div className="col-md-3">
                                              <div className="form-group">
                                                   <label className="form-control-label" htmlFor="input-articleName">
@@ -213,7 +375,7 @@ const Billing = () => {
                                                        id="articleName"
                                                        placeholder="Article Name"
                                                        name="articleName"
-                                                       disabled={!isEditing}
+                                                       disabled={true}
                                                   ></Field>
                                                   <ErrorMessage name="articleName" component="div" className="text-danger" />
                                              </div>
@@ -229,7 +391,7 @@ const Billing = () => {
                                                        id="grossWeight"
                                                        name="grossWeight"
                                                        placeholder="Gross Weight"
-                                                       disabled={!isEditing}
+                                                       disabled={true}
                                                   />
                                                   <ErrorMessage name="grossWeight" component="div" className="text-danger" />
                                              </div>
@@ -245,7 +407,7 @@ const Billing = () => {
                                                        id="netWeight"
                                                        name="netWeight"
                                                        placeholder="Net Weight"
-                                                       disabled={!isEditing}
+                                                       disabled={true}
                                                   />
                                                   <ErrorMessage name="netWeight" component="div" className="text-danger" />
                                              </div>
@@ -255,13 +417,7 @@ const Billing = () => {
                                                   <label className="form-control-label" htmlFor="input-purity">
                                                        Purity
                                                   </label>
-                                                  <Field
-                                                       className="form-control"
-                                                       id="purity"
-                                                       name="purity"
-                                                       placeholder="Purity"
-                                                       disabled={!isEditing}
-                                                  />
+                                                  <Field className="form-control" id="purity" name="purity" placeholder="Purity" disabled={true} />
                                                   <ErrorMessage name="purity" component="div" className="text-danger" />
                                              </div>
                                         </div>
@@ -276,7 +432,7 @@ const Billing = () => {
                                                        id="stoneWeight"
                                                        placeholder="Stone Weight"
                                                        name="stoneWeight"
-                                                       disabled={!isEditing}
+                                                       disabled={true}
                                                   ></Field>
                                                   <ErrorMessage name="stoneWeight" component="div" className="text-danger" />
                                              </div>
@@ -292,7 +448,7 @@ const Billing = () => {
                                                        id="huid"
                                                        name="huid"
                                                        placeholder="huid"
-                                                       disabled={!isEditing}
+                                                       disabled={true}
                                                   />
                                                   <ErrorMessage name="huid" component="div" className="text-danger" />
                                              </div>
@@ -389,7 +545,6 @@ const Billing = () => {
                                                   <ErrorMessage name="payableAmount" component="div" className="text-danger" />
                                              </div>
                                         </div>
-
                                         <div>
                                              <div className="form-group">
                                                   {isEditing && (
@@ -421,11 +576,12 @@ const Billing = () => {
                     style={{ height: 'auto', marginLeft: '50px', padding: '10px', width: '96%', marginTop: '30px' }}
                >
                     <Formik
-                         initialValues={initialValues}
+                         initialValues={paymentInitialVlaues}
                          enableReinitialize
-                         validationSchema={billingValidation}
+                         validationSchema={paymentValidation}
                          onSubmit={values => {
-                              handleSubmit(values);
+                              //handleSubmit(values);
+                              handeGenerateSale(values);
                          }}
                     >
                          {({ isSubmitting, setFieldValue, values }) => (
@@ -437,13 +593,7 @@ const Billing = () => {
                                                   <label className="form-control-label" htmlFor="input-sgst">
                                                        S-Gst
                                                   </label>
-                                                  <Field
-                                                       className="form-control"
-                                                       id="sgst"
-                                                       placeholder="S-Gst "
-                                                       name="sgst"
-                                                       disabled={!isEditing}
-                                                  ></Field>
+                                                  <Field className="form-control" id="sgst" placeholder="S-Gst " name="sgst" disabled={true}></Field>
                                                   <ErrorMessage name="sgst" component="div" className="text-danger" />
                                              </div>
                                         </div>
@@ -458,7 +608,7 @@ const Billing = () => {
                                                        id="cgst"
                                                        name="cgst"
                                                        placeholder="C-Gst"
-                                                       disabled={!isEditing}
+                                                       disabled={true}
                                                   />
                                                   <ErrorMessage name="cgst" component="div" className="text-danger" />
                                              </div>
@@ -474,7 +624,7 @@ const Billing = () => {
                                                        id="totalMakingCharges"
                                                        name="totalMakingCharges"
                                                        placeholder="Total Making Charges"
-                                                       disabled={!isEditing}
+                                                       disabled={true}
                                                   />
                                                   <ErrorMessage name="totalMakingCharges" component="div" className="text-danger" />
                                              </div>
@@ -489,7 +639,12 @@ const Billing = () => {
                                                        id="discount"
                                                        name="discount"
                                                        placeholder="Discount"
-                                                       disabled={!isEditing}
+                                                       disabled={false}
+                                                       onChange={e => {
+                                                            handleDiscountChange(e, setFieldValue);
+                                                            console.log('Discount');
+                                                            setFieldValue('discount', e.target.value);
+                                                       }}
                                                   />
                                                   <ErrorMessage name="discount" component="div" className="text-danger" />
                                              </div>
@@ -505,7 +660,7 @@ const Billing = () => {
                                                        id="netAmount"
                                                        placeholder="Net Amount"
                                                        name="netAmount"
-                                                       disabled={!isEditing}
+                                                       disabled={true}
                                                   ></Field>
                                                   <ErrorMessage name="netAmount" component="div" className="text-danger" />
                                              </div>
@@ -521,7 +676,7 @@ const Billing = () => {
                                                        id="payableAmount"
                                                        name="payableAmount"
                                                        placeholder="Payable Amount"
-                                                       disabled={!isEditing}
+                                                       disabled={true}
                                                   />
                                                   <ErrorMessage name="payableAmount" component="div" className="text-danger" />
                                              </div>
@@ -537,7 +692,7 @@ const Billing = () => {
                                                             className="form-control"
                                                             id="input-transactionType"
                                                             name="transactionType"
-                                                            disabled={!isEditing}
+                                                            disabled={false}
                                                        >
                                                             <option value="">Select Transaction Type</option>
                                                             <option value="c">Credit</option>
@@ -556,7 +711,7 @@ const Billing = () => {
                                                             className="form-control"
                                                             id="input-transactionMode"
                                                             name="transactionMode"
-                                                            disabled={!isEditing}
+                                                            disabled={false}
                                                        >
                                                             <option value="">Select Transaction Mode</option>
                                                             <option value="ca">Cash</option>
@@ -579,7 +734,7 @@ const Billing = () => {
                                                                  id="input-cashAmount"
                                                                  name="cashAmount"
                                                                  placeholder="Cash Amount"
-                                                                 disabled={!isEditing}
+                                                                 disabled={false}
                                                             />
                                                             <ErrorMessage name="cashAmount" component="div" className="text-danger" />
                                                        </div>
@@ -594,11 +749,11 @@ const Billing = () => {
                                                             <Field
                                                                  className="form-control"
                                                                  id="input-netbankingUTR"
-                                                                 name="netbankingUTR"
-                                                                 placeholder="Netbanking UTR"
-                                                                 disabled={!isEditing}
+                                                                 name="netBankingUTR"
+                                                                 placeholder="netBankingUTR"
+                                                                 disabled={false}
                                                             />
-                                                            <ErrorMessage name="netbankingUTR" component="div" className="text-danger" />
+                                                            <ErrorMessage name="netBankingUTR" component="div" className="text-danger" />
                                                        </div>
                                                        <div className="form-group">
                                                             <label className="form-control-label" htmlFor="input-netbankingAmount">
@@ -608,11 +763,11 @@ const Billing = () => {
                                                                  type="number"
                                                                  className="form-control"
                                                                  id="input-netbankingAmount"
-                                                                 name="netbankingAmount"
+                                                                 name="netBankingAmount"
                                                                  placeholder="Netbanking Amount"
-                                                                 disabled={!isEditing}
+                                                                 disabled={false}
                                                             />
-                                                            <ErrorMessage name="netbankingAmount" component="div" className="text-danger" />
+                                                            <ErrorMessage name="netBankingAmount" component="div" className="text-danger" />
                                                        </div>
                                                   </div>
                                              )}
@@ -627,7 +782,7 @@ const Billing = () => {
                                                                  id="input-chequeNo"
                                                                  name="chequeNo"
                                                                  placeholder="Cheque No"
-                                                                 disabled={!isEditing}
+                                                                 disabled={false}
                                                             />
                                                             <ErrorMessage name="chequeNo" component="div" className="text-danger" />
                                                        </div>
@@ -641,9 +796,18 @@ const Billing = () => {
                                                                  id="input-chequeAmount"
                                                                  name="chequeAmount"
                                                                  placeholder="Cheque Amount"
-                                                                 disabled={!isEditing}
+                                                                 disabled={false}
                                                             />
                                                             <ErrorMessage name="chequeAmount" component="div" className="text-danger" />
+                                                       </div>
+                                                       <div>
+                                                            <div className="form-group">
+                                                                 <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
+                                                                      <button type="submit" className="btn btn-block submit-button" disabled={false}>
+                                                                           Generate
+                                                                      </button>
+                                                                 </div>
+                                                            </div>
                                                        </div>
                                                   </div>
                                              )}
@@ -652,20 +816,6 @@ const Billing = () => {
                               </Form>
                          )}
                     </Formik>
-                    <div>
-                         <div className="form-group">
-                              {!isEditing && (
-                                   <button
-                                        className="submit-button"
-                                        onClick={() => {
-                                             setIsEditing(true);
-                                        }}
-                                   >
-                                        Edit
-                                   </button>
-                              )}
-                         </div>
-                    </div>
                </div>
           </div>
      );

@@ -106,7 +106,7 @@ const AddCustomer = ({ update }) => {
 
      useEffect(() => {
           console.log(cookie);
-          getCustomerInfo(getIdFromUrl(currentPath));
+          update && getCustomerInfo(getIdFromUrl(currentPath));
      }, []);
 
      return (

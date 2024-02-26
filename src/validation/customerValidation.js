@@ -17,6 +17,5 @@ export const customerValidationSchema = Yup.object().shape({
      mobileNumber: Yup.string()
           .required('Mobile Number is required')
           .matches(/^[0-9]{10}$/, 'Mobile Number must be exactly 10 digits long'),
-     dateOfBirth: Yup.date().required('Date of Birth is required'),
      openingBalance: Yup.number().required('Opening Balance is required'),
 });

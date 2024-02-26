@@ -60,8 +60,9 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
                throw new Error("Can't connect to server");
           } else {
                // Something happened in setting up the request that triggered an error
+               console.log(err);
                showErrorSnackbar('Something went wrong', enqueueSnackbar);
-               navigate('/error500');
+               // navigate('/error500');
                //throw new Error('Something went wrong');
           }
      }
