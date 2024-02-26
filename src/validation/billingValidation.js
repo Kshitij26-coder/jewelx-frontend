@@ -23,7 +23,7 @@ export const paymentValidation = Yup.object().shape({
      transactionType: Yup.string().required('Transaction Type is required'),
      transactionMode: Yup.string().required('Transaction Mode is required'),
      cashAmount: Yup.string().required('Cash Amount is required'),
-     netBankingUTR: Yup.string().required('Netbanking UTR is required if not Use 0'),
+     // netBankingUTR: Yup.string().required('Netbanking UTR is required if not Use 0'),
      netBankingAmount: Yup.string().required('Netbanking Amount is required if not Use 0'),
      chequeNo: Yup.number().required('ChequeNo is required if not Use 0'),
      chequeAmount: Yup.string().required('ChequeAmount is required if not Use 0'),
