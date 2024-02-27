@@ -255,6 +255,7 @@ const MetalStock = () => {
                          page={page}
                          onPageChange={(e, newPage) => {
                               getMetalStock(newPage - 1);
+                              setPage(newPage);
                          }}
                     />
                )}

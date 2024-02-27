@@ -81,6 +81,7 @@ const Customer = () => {
                          page={page}
                          onPageChange={(e, newPage) => {
                               getCustomers(newPage - 1);
+                              setPage(newPage);
                          }}
                     />
                )}

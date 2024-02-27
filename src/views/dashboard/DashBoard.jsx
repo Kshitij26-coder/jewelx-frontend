@@ -111,7 +111,7 @@ const Dashboard = () => {
                const newPieData = pieChartData.map(() => Math.floor(Math.random() * 100));
                setPieChartData(newPieData);
 
-               const newLineData = lineChartData.map(() => Math.floor(Math.random() * 2000));
+               // const newLineData = lineChartData.map(() => Math.floor(Math.random() * 2000));
                // setLineChartData(newLineData);
 
                newPieChart.data.datasets[0].data = newPieData;
@@ -132,7 +132,7 @@ const Dashboard = () => {
                <div className="container">
                     <div className="col-md-3">
                          <Card title="Daily Transaction" footer="Income Footer" height={'200px'}>
-                              <p>Daily Total Transaction :{dailyTransaction}</p>
+                              <p>Daily Total Transaction :₹{dailyTransaction}</p>
                          </Card>
                     </div>
 
@@ -143,7 +143,7 @@ const Dashboard = () => {
                                    {fiveTransaction.map((each, index) => (
                                         <p key={index}>
                                              <li>
-                                                  {`Transaction ${index} :`} {each}
+                                                  {`Transaction ${index} :`} ₹{each}
                                              </li>
                                         </p>
                                    ))}

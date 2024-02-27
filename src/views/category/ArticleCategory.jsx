@@ -38,6 +38,7 @@ const ArticleCategory = () => {
                setLoader(true);
                const data = await getRequest(getAlCategoriesPagesById(page), navigate, enqueueSnackbar);
                setLoader(false);
+               console.log(data);
                responseToRows(data.content);
                setTotalRows(data.totalElements);
           } catch (e) {
@@ -84,7 +85,7 @@ const ArticleCategory = () => {
           let temp = [];
           data.map((each, index) => {
                temp[index] = {
-                    srNo: index,
+                    srNo: each.id,
                     categoryName: each.categoryName,
                     metalName:
                          each.metal.metalName.charAt(0).toLowerCase() === 'g' ? (
@@ -207,7 +208,8 @@ const ArticleCategory = () => {
                          count={getTablePages(totalRows)}
                          page={page}
                          onPageChange={(e, newPage) => {
-                              getMetalStock(newPage - 1);
+                              getCategories(newPage - 1);
+                              setPage(newPage);
                          }}
                     />
                )}

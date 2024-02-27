@@ -78,6 +78,7 @@ const Metal = () => {
                          page={page}
                          onPageChange={(e, newPage) => {
                               getMetals(newPage - 1);
+                              setPage(newPage);
                          }}
                     />
                )}

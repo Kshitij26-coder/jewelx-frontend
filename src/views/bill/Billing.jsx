@@ -10,7 +10,7 @@ import { getRequest, postRequest } from '../../utils/apis/apiRequestHelper';
 import { articleEndpoints } from '../../utils/endpoints/articleStockEndpoints';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router';
-import { getAllArticles, getAllArticlesById, getAllItemsById } from '../../utils/apis/articleStockApiRequests';
+import { getAllArticles, getAllArticlesById, getAllArticlesByStatus, getAllItemsById } from '../../utils/apis/articleStockApiRequests';
 import { showSuccessSnackbar } from '../../utils/snackBar';
 import { getCustomerByBrandId } from '../../utils/apis/customerApiRequest';
 import { getCookiesObject } from '../../utils/getCookiesObject';
@@ -103,7 +103,7 @@ const Billing = () => {
       */
      const getAllArticleInfo = async () => {
           try {
-               const data = await getRequest(getAllArticles(), navigate, enqueueSnackbar);
+               const data = await getRequest(getAllArticlesByStatus(), navigate, enqueueSnackbar);
                console.log(data);
                setArticleOptions(data);
           } catch (e) {
@@ -335,7 +335,7 @@ const Billing = () => {
                                                        {articleOptions.length > 0 &&
                                                             articleOptions.map(each => (
                                                                  <option value={each.tagId} key={each.tagId}>
-                                                                      {each.articleName}
+                                                                      {each.tagId} {each.articleName}
                                                                  </option>
                                                             ))}
                                                   </Field>
