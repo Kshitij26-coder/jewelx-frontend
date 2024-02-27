@@ -15,6 +15,7 @@ import { userEndpoints } from '../../utils/endpoints/userEndpoints';
 import { useSnackbar } from 'notistack';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
 import ModalV from '../../component/ModalV';
+import profile from '../../../public/img/profile.jpg';
 
 const Profile = () => {
      const [isEditing, setIsEditing] = useState(false);
@@ -94,7 +95,8 @@ const Profile = () => {
                                              <img
                                                   alt="..."
                                                   className="img-circle img-fluid img-thumbnail "
-                                                  src="https://t4.ftcdn.net/jpg/05/47/92/27/240_F_547922755_AazNubxrYOHUF3qHpJGl7FrE564utmH5.jpg"
+                                                  src={getCookiesObject().brand.imageUrl == null ? profile : getCookiesObject().brand.imageUrl}
+                                                  style={{ height: '30rem', width: '30rem' }}
                                              />
                                         </div>
                                    </div>
