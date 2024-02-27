@@ -19,7 +19,7 @@ import ModalV from '../../component/ModalV';
 const Profile = () => {
      const [isEditing, setIsEditing] = useState(false);
      const [formData, setFormData] = useState(null);
-     const [cookiesData, setCookiesData] = useState({});
+     const [cookiesData, setCookiesData] = useState(getCookiesObject());
      const [initialValues, setInitialValues] = useState({});
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
@@ -70,9 +70,8 @@ const Profile = () => {
           setIsEditing(true);
      };
      useEffect(() => {
-          setCookiesData(getCookiesObject());
           let data = getCookiesObject();
-          // console.log(data);
+          console.log(data);
           setInitialValues({
                userName: data?.username,
                email: data?.email,
@@ -101,9 +100,11 @@ const Profile = () => {
                                    </div>
                                    <div className="card-body " style={{ height: 'auto' }}>
                                         <div className="text-center">
-                                             <button className="btn btn-primary" onClick={() => setOpen(true)}>
-                                                  Update Picture
-                                             </button>
+                                             {cookiesData.role == 'O' && (
+                                                  <button className="btn btn-primary" onClick={() => setOpen(true)}>
+                                                       Update Picture
+                                                  </button>
+                                             )}
                                              <h3>{cookiesData.username}</h3>
                                              <div style={{ marginBottom: '20px' }}>
                                                   <h5>Brand Name : {cookiesData?.brand?.name}</h5>
