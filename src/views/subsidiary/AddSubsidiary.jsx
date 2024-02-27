@@ -68,7 +68,7 @@ const AddSubsidiary = ({ update }) => {
                setButtonLoader(false);
           } catch (e) {
                setButtonLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
      /**
@@ -82,7 +82,7 @@ const AddSubsidiary = ({ update }) => {
                // console.log(data);
                setSubsidiaryInfo(data);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
      /**
@@ -102,7 +102,7 @@ const AddSubsidiary = ({ update }) => {
                setButtonLoader(false);
           } catch (e) {
                setButtonLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
      /**

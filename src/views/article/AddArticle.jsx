@@ -53,10 +53,10 @@ const AddArticle = ({ update }) => {
      const getArticleData = async id => {
           try {
                const data = await getRequest(getArticleByIdEndpoint(id), navigate, enqueueSnackbar);
-               console.log(data);
+               //console.log(data);
                setArticleData(data);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -81,7 +81,7 @@ const AddArticle = ({ update }) => {
                setButtonLoader(false);
                navigate('/article');
           } catch (e) {
-               console.log(e);
+               console.error(e);
                setButtonLoader(false);
           }
      };
@@ -105,7 +105,7 @@ const AddArticle = ({ update }) => {
                setButtonLoader(false);
                navigate('/article');
           } catch (e) {
-               console.log(e);
+               console.error(e);
                setButtonLoader(false);
           }
      };
@@ -117,9 +117,9 @@ const AddArticle = ({ update }) => {
           try {
                const data = await getRequest(getAllCategoriesById(), navigate, enqueueSnackbar);
                setCategories(data);
-              // console.log(data);
+               // console.log(data);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 

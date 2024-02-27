@@ -37,7 +37,7 @@ const Subsidiary = () => {
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
      /**
@@ -49,13 +49,13 @@ const Subsidiary = () => {
       */
      const setisActive = async (status, subsidiaryId, userId) => {
           try {
-               console.log(cookies);
+               //console.log(cookies);
                let dto = { userIdxId: userId, isActive: status, subsidiaryId: subsidiaryId };
                const data = await putRequest('', dto, subsidiaryEndPoints.ACTIVATE_STATUS, navigate, enqueueSnackbar);
 
                showSuccessSnackbar(data, enqueueSnackbar);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
      /**

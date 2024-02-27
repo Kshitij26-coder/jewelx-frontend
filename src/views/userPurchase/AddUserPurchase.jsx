@@ -54,7 +54,7 @@ const PurchaseUser = ({ update }) => {
                //console.log(data);
                setMetals(data);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
      const getUOMOptions = async () => {
@@ -63,7 +63,7 @@ const PurchaseUser = ({ update }) => {
                //console.log(data);
                setUOMs(data);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -73,7 +73,7 @@ const PurchaseUser = ({ update }) => {
                // console.log(data);
                setCustomers(data);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -91,7 +91,7 @@ const PurchaseUser = ({ update }) => {
                navigate('/user-purchase');
                setIsEditing(false);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 

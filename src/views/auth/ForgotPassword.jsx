@@ -27,7 +27,7 @@ export default function Register() {
                setLoader(false);
           } catch (error) {
                setLoader(false);
-               console.log(error);
+               console.error(error);
           }
      };
 
@@ -40,7 +40,7 @@ export default function Register() {
                setLoader(false);
           } catch (e) {
                setLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -52,7 +52,7 @@ export default function Register() {
                navigate('/login'); // Redirect to login page after password change
           } catch (error) {
                setLoader(false);
-               console.log(error);
+               console.error(error);
                //showErrorSnackbar(enqueueSnackbar, 'Failed to change password. Please try again.');
           }
      };

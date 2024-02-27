@@ -33,7 +33,7 @@ export default function Registrationpage() {
                const data = await getRequest(brandEndpoints.ALL_BRAND, navigate, enqueueSnackbar);
                setBrandOptions(data);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -46,7 +46,7 @@ export default function Registrationpage() {
                const data = await getRequest(getSubsidiaryByBrand(subsidiaryEndPoints.GET_ALL_SUBSIDIARIES, id), navigate, enqueueSnackbar);
                setSubsidiaryOptions(data);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -64,7 +64,7 @@ export default function Registrationpage() {
                navigate('/login');
           } catch (e) {
                setLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
 

@@ -55,7 +55,7 @@ const CustomerOrder = ({ update }) => {
                showSuccessSnackbar(data, enqueueSnackbar);
                setButtonLoader(false);
           } catch (e) {
-               console.log(e);
+               console.error(e);
                setButtonLoader(false);
           }
      };

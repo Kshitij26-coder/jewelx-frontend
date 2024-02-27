@@ -21,7 +21,7 @@ const AddMetalStock = () => {
                showSuccessSnackbar(data, enqueueSnackbar);
                navigate('/uom');
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -34,7 +34,7 @@ const AddMetalStock = () => {
                navigate('/uom');
           } catch (e) {
                setButtonLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -43,7 +43,7 @@ const AddMetalStock = () => {
                const data = await getRequest(getUomById(uomId), navigate, enqueueSnackbar);
                setuomInfo(data);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 

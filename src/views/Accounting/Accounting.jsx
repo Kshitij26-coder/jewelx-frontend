@@ -49,12 +49,12 @@ const Accounting = () => {
                setLoader(true);
                const data = await getRequest(getAccountingPagesById(page), navigate, enqueueSnackbar);
                setLoader(false);
-               console.log(data);
+               //console.log(data);
                responseToRows(data.content);
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
 

@@ -38,12 +38,12 @@ const ArticleCategory = () => {
                setLoader(true);
                const data = await getRequest(getAlCategoriesPagesById(page), navigate, enqueueSnackbar);
                setLoader(false);
-               console.log(data);
+              // console.log(data);
                responseToRows(data.content);
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -55,7 +55,7 @@ const ArticleCategory = () => {
                const data = await getRequest(getAllMetalsByBrand(), navigate, enqueueSnackbar);
                setMetals(data);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -72,7 +72,7 @@ const ArticleCategory = () => {
                setIsEditing(false);
                setRefresh(!refresh);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
      /**

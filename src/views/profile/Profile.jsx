@@ -54,7 +54,7 @@ const Profile = () => {
                setIsEditing(false);
           } catch (e) {
                setIsEditing(false);
-               console.log(e);
+               console.error(e);
           }
      };
 

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const TableTitle = ({ pageTitle, to, buttonTitle, back }) => {
      useEffect(() => {
-          console.log(back);
+          //console.log(back);
      }, []);
      return (
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>

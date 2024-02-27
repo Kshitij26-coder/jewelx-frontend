@@ -34,7 +34,7 @@ const CreateUom = ({ update }) => {
                showSuccessSnackbar(data, enqueueSnackbar);
                navigate('/uom');
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -47,7 +47,7 @@ const CreateUom = ({ update }) => {
                navigate('/uom');
           } catch (e) {
                setButtonLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -56,7 +56,7 @@ const CreateUom = ({ update }) => {
                const data = await getRequest(getUomById(uomId), navigate, enqueueSnackbar);
                setuomInfo(data);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 

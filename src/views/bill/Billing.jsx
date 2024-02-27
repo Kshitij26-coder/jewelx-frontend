@@ -104,7 +104,7 @@ const Billing = () => {
      const getAllArticleInfo = async () => {
           try {
                const data = await getRequest(getAllArticlesByStatus(), navigate, enqueueSnackbar);
-               console.log(data);
+               // console.log(data);
                setArticleOptions(data);
           } catch (e) {
                console.error(e);
@@ -114,7 +114,7 @@ const Billing = () => {
      const getArticleInfoById = async (id, setFieldValue) => {
           try {
                const data = await getRequest(getAllArticlesById(id), navigate, enqueueSnackbar);
-               console.log(data);
+               //console.log(data);
                setFieldValue('articleName', data.articleName);
                setFieldValue('grossWeight', data.grossWeight);
                setFieldValue('netWeight', data.netWeight);
@@ -154,7 +154,7 @@ const Billing = () => {
 
      const handleSubmit = values => {
           setIsEditing(false);
-          console.log(values);
+          //console.log(values);
           setArticleInfo([...articleInfo, values]);
           let rowWiseBill = { ...values };
           setRows([
@@ -186,10 +186,10 @@ const Billing = () => {
           });
           cgst = netAmount * 0.015;
           sgst = netAmount * 0.015;
-          console.log(`netAmount: ${netAmount}`);
-          console.log(`making: ${totalMakingCharges}`);
-          console.log(`cgst: ${cgst}`);
-          console.log(`payable: ${payableAmount}`);
+          // console.log(`netAmount: ${netAmount}`);
+          // console.log(`making: ${totalMakingCharges}`);
+          // console.log(`cgst: ${cgst}`);
+          // console.log(`payable: ${payableAmount}`);
 
           setPaymentInitialVlaues({
                payableAmount: netAmount + cgst + sgst,
@@ -231,7 +231,7 @@ const Billing = () => {
      const getCustomersOptions = async () => {
           try {
                const data = await getRequest(getCustomerByBrandId(), navigate, enqueueSnackbar);
-               console.log(data);
+               //console.log(data);
                setCustomers(data);
           } catch (e) {
                console.log(e);
@@ -642,7 +642,7 @@ const Billing = () => {
                                                        disabled={false}
                                                        onChange={e => {
                                                             handleDiscountChange(e, setFieldValue);
-                                                            console.log('Discount');
+                                                            // console.log('Discount');
                                                             setFieldValue('discount', e.target.value);
                                                        }}
                                                   />

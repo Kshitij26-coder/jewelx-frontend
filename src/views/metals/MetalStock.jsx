@@ -43,7 +43,7 @@ const MetalStock = () => {
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -55,7 +55,7 @@ const MetalStock = () => {
                const data = await getRequest(getAllMetalsByBrand(), navigate, enqueueSnackbar);
                setMetals(data);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -68,7 +68,7 @@ const MetalStock = () => {
                setUom(data);
                return data;
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -86,7 +86,7 @@ const MetalStock = () => {
                setIsEditing(false);
                setRefresh(!refresh);
           } catch (e) {
-               console.log(e);
+               console.error(e);
           }
      };
      /**

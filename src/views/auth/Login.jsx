@@ -26,7 +26,7 @@ export default function Register() {
                navigate('/');
           } catch (e) {
                setLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
 

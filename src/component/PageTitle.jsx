@@ -3,7 +3,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
 const PageTitle = ({ title, back }) => {
      useEffect(() => {
-          console.log({ title, back });
+         // console.log({ title, back });
      }, []);
      return (
           <div>

@@ -29,13 +29,13 @@ const SubsidiaryMaintain = () => {
           try {
                setLoader(true);
                const data = await getRequest(getSubsidiaryMaintenanceById(page), navigate, enqueueSnackbar);
-               console.log(data);
+               //console.log(data);
                setLoader(false);
                responseToRows(data.content);
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -46,7 +46,7 @@ const SubsidiaryMaintain = () => {
       * also used switch fpr active/inActive status
       */
      const responseToRows = data => {
-          console.log(data);
+          //console.log(data);
           let temp = [];
           data.map((each, index) => {
                temp[index] = {
@@ -60,7 +60,7 @@ const SubsidiaryMaintain = () => {
                     subsidiaryId: each.subsidiary.subsidiaryName,
                };
           });
-          console.log(temp);
+          //console.log(temp);
           setRows(temp);
      };
 

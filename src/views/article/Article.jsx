@@ -34,14 +34,14 @@ const Article = () => {
           try {
                setLoader(true);
                const data = await getRequest(getArticleItemsPagesById(page), navigate, enqueueSnackbar);
-               console.log(data);
+               //console.log(data);
                setLoader(false);
                responseToRows(data.content);
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);
                //  showSuccessSnackbar('data is empty', enqueueSnackbar);
-               console.log(e);
+               console.error(e);
           }
      };
 

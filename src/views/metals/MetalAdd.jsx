@@ -54,7 +54,7 @@ const MetalAdd = ({ update }) => {
                navigate('/metal');
                setButtonLoader(false);
           } catch (e) {
-               console.log(e);
+               console.error(e);
                setButtonLoader(false);
           }
      };
@@ -73,7 +73,7 @@ const MetalAdd = ({ update }) => {
                setButtonLoader(false);
           } catch (e) {
                setButtonLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
 
@@ -86,7 +86,7 @@ const MetalAdd = ({ update }) => {
                const apiData = await getRequest(getMetalByMetalId(metalId), navigate, enqueueSnackbar);
                setData(apiData);
           } catch (error) {
-               console.log(error);
+               console.error(error);
           }
      };
      /**

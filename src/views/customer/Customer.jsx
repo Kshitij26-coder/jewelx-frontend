@@ -29,13 +29,13 @@ const Customer = () => {
           try {
                setLoader(true);
                const data = await getRequest(getCustomerById(page), navigate, enqueueSnackbar);
-               console.log(data);
+              // console.log(data);
                setLoader(false);
                responseToRows(data.content);
                setTotalRows(data.totalElements);
           } catch (e) {
                setLoader(false);
-               console.log(e);
+               console.error(e);
           }
      };
 

@@ -60,7 +60,7 @@ const ModalV = ({ open, handleClose }) => {
                     },
                });
                showSuccessSnackbar('Image updated successfully', enqueueSnackbar);
-               console.log('Response:', response.data); // Log the response data
+               //console.log('Response:', response.data); // Log the response data
                setLoader(false);
                let cookie = getCookiesObject();
                cookie.brand.imageUrl = response.data;
@@ -78,7 +78,7 @@ const ModalV = ({ open, handleClose }) => {
      };
 
      React.useEffect(() => {
-          console.log(getCookiesObject());
+          // console.log(getCookiesObject());
      }, []);
      return (
           <div>

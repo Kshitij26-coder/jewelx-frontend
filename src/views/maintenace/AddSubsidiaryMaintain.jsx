@@ -45,7 +45,7 @@ const AddSubsidiaryMaintain = ({ update }) => {
           try {
                const data = await getRequest(getSubsidiaryMaintenanceByUUID(id), navigate, enqueueSnackbar);
                setData(data);
-               console.log(data);
+               // console.log(data);
           } catch (e) {
                console.error(e);
           }
@@ -53,7 +53,6 @@ const AddSubsidiaryMaintain = ({ update }) => {
 
      const handleAddSubsidiaryMaintenace = async values => {
           try {
-               console.log('hitt');
                setButtonLoader(true);
                const dto = {
                     ...values,
@@ -61,9 +60,7 @@ const AddSubsidiaryMaintain = ({ update }) => {
                     userId: cookie.idxId,
                     subsidiaryId: cookie.subsidiaryId != null ? cookie.subsidiaryId : 1,
                };
-               console.log(maintenanceEndPoints.BASE_ROUTE);
                const data = await postRequest(dto, maintenanceEndPoints.BASE_ROUTE, navigate, enqueueSnackbar);
-               console.log(data);
                showSuccessSnackbar('Subsidiary Added', enqueueSnackbar);
                setIsEditing(false);
                navigate('/maintenance');
@@ -85,7 +82,7 @@ const AddSubsidiaryMaintain = ({ update }) => {
                     subsidiaryId: cookie.subsidiaryId != null ? cookie.subsidiaryId : 1,
                };
                const data = await putRequest(getIdFromUrl(currentPath), dto, maintenanceEndPoints.BASE_ROUTE, navigate, enqueueSnackbar);
-               console.log(data);
+               //console.log(data);
                setIsEditing(false);
                navigate('/maintenance');
                setButtonLoader(false);
@@ -98,14 +95,7 @@ const AddSubsidiaryMaintain = ({ update }) => {
      const handleEdit = () => {
           setIsEditing(true);
      };
-     useEffect(() => {
-          // setCookies(getCookiesObject());
-          console.log(update);
-          // if (update) {
-          //      console.log('in');
-          //      getSubsidiaryMaintenaceInfo(getIdFromUrl(currentPath));
-          // }
-     }, []);
+     useEffect(() => {}, []);
 
      const calculateTotalAmount = values => {
           const cash = parseFloat(values.cashAmount) || 0;
