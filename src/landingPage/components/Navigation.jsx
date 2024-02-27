@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import logojx from '../data/logo.png';
 import { isLoggedIn } from '../../utils/isLoggedIn';
 import profile from '../../../public/img/profile.jpg';
+import { getCookiesObject } from '../../utils/getCookiesObject';
 export const Navigation = props => {
      const [loggedInStatus, setLoggedInStatus] = useState(false);
 
@@ -69,7 +70,7 @@ export const Navigation = props => {
                                         <>
                                              <Link to="/profile">
                                                   <img
-                                                       src={profile}
+                                                       src={getCookiesObject().brand.imageUrl == null ? profile : getCookiesObject().brand.imageUrl}
                                                        alt="Profile"
                                                        style={{ height: '5rem', width: '5rem', borderRadius: '50%', marginBottom: '0rem' }}
                                                   />

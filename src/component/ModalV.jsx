@@ -15,6 +15,7 @@ import axios from 'axios';
 import { postRequest } from '../utils/apis/apiRequestHelper';
 import { useNavigate } from 'react-router-dom';
 import ButtonLoader from './loaders/ButtonLoader';
+import Cookies from 'js-cookie';
 const style = {
      position: 'absolute',
      top: '50%',
@@ -61,6 +62,12 @@ const ModalV = ({ open, handleClose }) => {
                showSuccessSnackbar('Image updated successfully', enqueueSnackbar);
                console.log('Response:', response.data); // Log the response data
                setLoader(false);
+               let cookie = getCookiesObject();
+               cookie.brand.imageUrl = response.data;
+               console.log(cookie);
+               Cookies.set('user', JSON.stringify(cookie), { expires: 3 });
+               setSelectedFile(null);
+               handleClose();
           } catch (error) {
                console.error('Error uploading file:', error);
           }
@@ -70,6 +77,9 @@ const ModalV = ({ open, handleClose }) => {
           setSelectedFile(event.target.files[0]);
      };
 
+     React.useEffect(() => {
+          console.log(getCookiesObject());
+     }, []);
      return (
           <div>
                <Modal
