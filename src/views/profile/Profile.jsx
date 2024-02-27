@@ -92,7 +92,7 @@ const Profile = () => {
                               <div className="card">
                                    <div className="text-center">
                                         <div className="half-inside-outside">
-                                             <div className="position-relative" onClick={() => setOpen(true)}>
+                                             <div className="position-relative" onClick={() => cookiesData.role == 'O' && setOpen(true)}>
                                                   <img
                                                        alt="..."
                                                        className="img-circle img-fluid img-thumbnail "
@@ -109,11 +109,6 @@ const Profile = () => {
                                    </div>
                                    <div className="card-body " style={{ height: 'auto' }}>
                                         <div className="text-center">
-                                             {cookiesData.role == 'O' && (
-                                                  <button className="btn btn-primary" onClick={() => setOpen(true)}>
-                                                       Update Picture
-                                                  </button>
-                                             )}
                                              <h3>{cookiesData.username}</h3>
                                              <div style={{ marginBottom: '20px' }}>
                                                   <h5>Brand Name : {cookiesData?.brand?.name}</h5>
