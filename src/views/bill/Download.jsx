@@ -9,6 +9,10 @@ import { getRequest } from '../../utils/apis/apiRequestHelper';
 import { getSaleByIdEndPoint } from '../../utils/apis/salesApiRequest';
 import { useSnackbar } from 'notistack';
 import PageTitle from '../../component/PageTitle';
+import { getCookiesObject } from '../../utils/getCookiesObject';
+import profile from '../../../public/img/profile.jpg';
+import hallmark from '../../../public/img/hallmark.png';
+
 const Download = () => {
      const [loader, setLoader] = useState(false);
      const navigate = useNavigate();
@@ -21,7 +25,7 @@ const Download = () => {
           try {
                setLoader(true);
                const data = await getRequest(getSaleByIdEndPoint(id), navigate, enqueueSnackbar);
-               console.log(data);
+               // console.log(data);
                setData(data);
                setLoader(false);
           } catch (e) {
@@ -63,9 +67,10 @@ const Download = () => {
                                              <td colSpan={2} style={{ border: '1px solid #000' }}>
                                                   {/* {data.subsidiary.brand.imageUrl} */}
                                                   <img
-                                                       src="http://res.cloudinary.com/dqpof2sxy/image/upload/v1708803043/ptf08npfemdoklqgzx9c.jpg"
+                                                       src={getCookiesObject().brand.imageUrl == null ? profile : getCookiesObject().brand.imageUrl}
                                                        style={{ height: '10rem', width: '10rem' }}
                                                   />
+                                                  <img src={hallmark} style={{ height: '10rem', width: '10rem' }} />
                                              </td>
                                              <td colSpan="9" style={{ border: '1px solid #000' }}>
                                                   <h3 className="container" style={{ textAlign: 'center' }}>

@@ -87,7 +87,6 @@ const Accounting = () => {
      };
 
      useEffect(() => {
-          console.log(getAccountingPagesById(page));
           getAccounts(0);
      }, []);
      return (
@@ -103,6 +102,7 @@ const Accounting = () => {
                          page={page}
                          onPageChange={(e, newPage) => {
                               getAccounts(newPage - 1);
+                              setPage(newPage);
                          }}
                     />
                )}

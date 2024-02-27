@@ -80,6 +80,7 @@ const SubsidiaryMaintain = () => {
                          page={page}
                          onPageChange={(e, newPage) => {
                               getSubsidiaryMaintences(newPage - 1);
+                              setPage(newPage);
                          }}
                     />
                )}

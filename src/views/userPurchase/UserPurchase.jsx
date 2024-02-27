@@ -93,6 +93,7 @@ const UserPurchase = () => {
                          page={page}
                          onPageChange={(e, newPage) => {
                               getAllUserPurchaseInfo(newPage - 1);
+                              setPage(newPage);
                          }}
                     />
                )}

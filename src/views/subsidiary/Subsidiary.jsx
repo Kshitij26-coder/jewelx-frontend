@@ -106,6 +106,7 @@ const Subsidiary = () => {
                          page={page}
                          onPageChange={(e, newPage) => {
                               getSubsidaries(newPage - 1);
+                              setPage(newPage);
                          }}
                     />
                )}

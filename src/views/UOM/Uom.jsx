@@ -62,6 +62,7 @@ const Uom = () => {
                          page={page}
                          onPageChange={(e, newPage) => {
                               getUom(newPage - 1);
+                              setPage(newPage);
                          }}
                     />
                )}

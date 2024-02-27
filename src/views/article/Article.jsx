@@ -16,7 +16,7 @@ import TableTitle from '../../component/TableTitle';
 import { getArticleItemsPagesById } from '../../utils/apis/articleStockApiRequests';
 
 const Article = () => {
-     const columns = ['view', 'Id', 'Article Name', 'Gross Wt', 'Net Wt', 'Purity', 'Stone Wt', 'HUID', 'category'];
+     const columns = ['view', 'Id', 'Article Name', 'Gross Wt', 'Net Wt', 'Purity', 'Stone Wt', 'HUID', 'category', 'status'];
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
      const [cookies, setCookies] = useState(getCookiesObject());
@@ -64,6 +64,12 @@ const Article = () => {
                     stoneWeight: each.stoneWeight,
                     huid: each.huid,
                     category: each.categoryInfo.categoryName,
+                    status:
+                         each.status == 'sold' ? (
+                              <div className="btn btn-danger w-100">{each.status}</div>
+                         ) : (
+                              <div className="btn btn-primary w-100">{each.status}</div>
+                         ),
                };
           });
           setRows(temp);
@@ -85,6 +91,7 @@ const Article = () => {
                          page={page}
                          onPageChange={(e, newPage) => {
                               getArticleItems(newPage - 1);
+                              setPage(newPage);
                          }}
                     />
                )}

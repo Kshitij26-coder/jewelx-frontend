@@ -109,6 +109,7 @@ const Sales = () => {
                          page={page}
                          onPageChange={(e, newPage) => {
                               getSales(newPage - 1);
+                              setPage(newPage);
                          }}
                     />
                )}
