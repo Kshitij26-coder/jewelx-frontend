@@ -138,7 +138,6 @@ const ModalV = ({ open, handleClose }) => {
                                                   role={undefined}
                                                   variant="contained"
                                                   tabIndex={-1}
-                                                  disabled={loader}
                                                   style={{ marginTop: '2rem', width: '5rem' }}
                                                   onClick={handleCancel}
                                              >
