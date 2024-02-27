@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import emailjs from 'emailjs-com';
 import React from 'react';
+import { postRequest } from '../../utils/apis/apiRequestHelper';
+import { feedBackEndPoints } from '../../utils/endpoints/feedBackEndPoints';
+import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
+import { showSuccessSnackbar } from '../../utils/snackBar';
 
 const initialState = {
      name: '',
@@ -8,8 +13,9 @@ const initialState = {
      message: '',
 };
 export const Contact = props => {
-     const [{ name, email, message }, setState] = useState(initialState);
-
+     const [{ name, email, mobileNumber, description }, setState] = useState(initialState);
+     const { enqueueSnackbar } = useSnackbar();
+     const navigate = useNavigate();
      const handleChange = e => {
           const { name, value } = e.target;
           setState(prevState => ({ ...prevState, [name]: value }));
@@ -18,19 +24,16 @@ export const Contact = props => {
 
      const handleSubmit = e => {
           e.preventDefault();
-          {
-               /* replace below with your own Service ID, Template ID and Public Key from your EmailJS account */
+          try {
+               const data = postRequest({ name, email, mobileNumber, description }, feedBackEndPoints.BASE_ROUTE, navigate, enqueueSnackbar);
+               showSuccessSnackbar('Feedback sent successfully', enqueueSnackbar);
+               window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth',
+               });
+          } catch (e) {
+               console.error(e);
           }
-
-          emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target, 'YOUR_PUBLIC_KEY').then(
-               result => {
-                    console.log(result.text);
-                    clearState();
-               },
-               error => {
-                    console.log(error.text);
-               },
-          );
      };
      return (
           <div>
@@ -44,7 +47,7 @@ export const Contact = props => {
                                    </div>
                                    <form name="sentMessage" validate onSubmit={handleSubmit}>
                                         <div className="row">
-                                             <div className="col-md-6">
+                                             <div className="col-md-4">
                                                   <div className="form-group">
                                                        <input
                                                             type="text"
@@ -58,7 +61,7 @@ export const Contact = props => {
                                                        <p className="help-block text-danger"></p>
                                                   </div>
                                              </div>
-                                             <div className="col-md-6">
+                                             <div className="col-md-4">
                                                   <div className="form-group">
                                                        <input
                                                             type="email"
@@ -72,10 +75,24 @@ export const Contact = props => {
                                                        <p className="help-block text-danger"></p>
                                                   </div>
                                              </div>
+                                             <div className="col-md-4">
+                                                  <div className="form-group">
+                                                       <input
+                                                            type="number"
+                                                            id="email"
+                                                            name="mobileNumber"
+                                                            className="form-control"
+                                                            placeholder="mobileNumber"
+                                                            required
+                                                            onChange={handleChange}
+                                                       />
+                                                       <p className="help-block text-danger"></p>
+                                                  </div>
+                                             </div>
                                         </div>
                                         <div className="form-group">
                                              <textarea
-                                                  name="message"
+                                                  name="description"
                                                   id="message"
                                                   className="form-control"
                                                   rows="4"

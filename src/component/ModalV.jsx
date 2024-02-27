@@ -77,9 +77,10 @@ const ModalV = ({ open, handleClose }) => {
           setSelectedFile(event.target.files[0]);
      };
 
-     React.useEffect(() => {
-          // console.log(getCookiesObject());
-     }, []);
+     const handleCancel = event => {
+          setSelectedFile(null);
+     };
+
      return (
           <div>
                <Modal
@@ -101,7 +102,7 @@ const ModalV = ({ open, handleClose }) => {
                                    {!selectedFile && (
                                         <Button
                                              component="label"
-                                             className="submit-button"
+                                             className="submit-button w-100"
                                              role={undefined}
                                              variant="contained"
                                              tabIndex={-1}
@@ -118,18 +119,32 @@ const ModalV = ({ open, handleClose }) => {
                                              <Typography variant="h6">Uploaded Image Preview:</Typography>
                                              <img src={URL.createObjectURL(selectedFile)} alt="Uploaded" style={{ maxWidth: '100%' }} />
                                         </div>
-                                        <Button
-                                             onClick={uploadImageFunction}
-                                             component="label"
-                                             className="submit-button"
-                                             role={undefined}
-                                             variant="contained"
-                                             tabIndex={-1}
-                                             disabled={loader}
-                                             style={{ marginTop: '2rem', marginLeft: '20%' }}
-                                        >
-                                             {loader ? <ButtonLoader /> : 'Upload file'}
-                                        </Button>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                             <Button
+                                                  onClick={uploadImageFunction}
+                                                  component="label"
+                                                  className="submit-button"
+                                                  role={undefined}
+                                                  variant="contained"
+                                                  tabIndex={-1}
+                                                  disabled={loader}
+                                                  style={{ marginTop: '2rem', width: '10rem' }}
+                                             >
+                                                  {loader ? <ButtonLoader /> : 'Upload file'}
+                                             </Button>
+                                             <Button
+                                                  component="label"
+                                                  color="error"
+                                                  role={undefined}
+                                                  variant="contained"
+                                                  tabIndex={-1}
+                                                  disabled={loader}
+                                                  style={{ marginTop: '2rem', width: '5rem' }}
+                                                  onClick={handleCancel}
+                                             >
+                                                  Cancel
+                                             </Button>
+                                        </div>
                                    </>
                               )}
                          </Box>

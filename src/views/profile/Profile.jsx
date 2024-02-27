@@ -16,7 +16,7 @@ import { useSnackbar } from 'notistack';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
 import ModalV from '../../component/ModalV';
 import profile from '../../../public/img/profile.jpg';
-
+import './profile.css';
 const Profile = () => {
      const [isEditing, setIsEditing] = useState(false);
      const [formData, setFormData] = useState(null);
@@ -92,12 +92,19 @@ const Profile = () => {
                               <div className="card">
                                    <div className="text-center">
                                         <div className="half-inside-outside">
-                                             <img
-                                                  alt="..."
-                                                  className="img-circle img-fluid img-thumbnail "
-                                                  src={getCookiesObject().brand.imageUrl == null ? profile : getCookiesObject().brand.imageUrl}
-                                                  style={{ height: '30rem', width: '30rem' }}
-                                             />
+                                             <div className="position-relative" onClick={() => setOpen(true)}>
+                                                  <img
+                                                       alt="..."
+                                                       className="img-circle img-fluid img-thumbnail "
+                                                       src={getCookiesObject().brand.imageUrl == null ? profile : getCookiesObject().brand.imageUrl}
+                                                       style={{ height: '30rem', width: '30rem' }}
+                                                  />
+                                                  {cookiesData.role == 'O' && (
+                                                       <div className="glass-effect-overlay">
+                                                            <span className="update-text">Update Image</span>
+                                                       </div>
+                                                  )}
+                                             </div>
                                         </div>
                                    </div>
                                    <div className="card-body " style={{ height: 'auto' }}>
