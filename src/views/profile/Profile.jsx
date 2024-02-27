@@ -277,7 +277,7 @@ const Profile = () => {
                                                   </div>
                                                   {/* Submit button */}
                                                   {isEditing && (
-                                                       <button type="submit" className="btn btn-primary btn-lg" disabled={false}>
+                                                       <button type="submit" className="btn btn-block submit-button" disabled={false}>
                                                             Submit
                                                        </button>
                                                   )}

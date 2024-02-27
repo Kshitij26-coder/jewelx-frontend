@@ -117,7 +117,7 @@ const AddArticle = ({ update }) => {
           try {
                const data = await getRequest(getAllCategoriesById(), navigate, enqueueSnackbar);
                setCategories(data);
-               console.log(data);
+              // console.log(data);
           } catch (e) {
                console.log(e);
           }

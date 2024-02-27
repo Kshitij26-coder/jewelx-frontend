@@ -64,7 +64,7 @@ const ModalV = ({ open, handleClose }) => {
                setLoader(false);
                let cookie = getCookiesObject();
                cookie.brand.imageUrl = response.data;
-               console.log(cookie);
+               //console.log(cookie);
                Cookies.set('user', JSON.stringify(cookie), { expires: 3 });
                setSelectedFile(null);
                handleClose();
