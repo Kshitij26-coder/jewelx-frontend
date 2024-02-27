@@ -71,7 +71,7 @@ const Profile = () => {
      };
      useEffect(() => {
           let data = getCookiesObject();
-          console.log(data);
+          //console.log(data);
           setInitialValues({
                userName: data?.username,
                email: data?.email,
