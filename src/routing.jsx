@@ -34,6 +34,7 @@ import AddCustomer from './views/customer/AddCustomer';
 import Customer from './views/customer/Customer';
 import AddSubsidiaryMaintain from './views/maintenace/AddSubsidiaryMaintain';
 import SubsidiaryMaintain from './views/maintenace/SubsidiaryMaintain';
+import MetalAdd from './views/metals/MetalAdd';
 
 export const routing = createBrowserRouter([
      {
