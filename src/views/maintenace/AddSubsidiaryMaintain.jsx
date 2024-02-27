@@ -16,7 +16,7 @@ import { maintenanceEndPoints } from '../../utils/endpoints/maintenanceEndPoints
 import { getIdFromUrl } from '../../utils/getIdFromUrl';
 import EditButton from '../../component/edit/EditButton';
 
-const AddSubsidiaryMaintain = update => {
+const AddSubsidiaryMaintain = ({ update }) => {
      const [isEditing, setIsEditing] = useState(update ? false : true);
      const navigate = useNavigate();
      const [cookie, setCookie] = useState(getCookiesObject());
@@ -100,7 +100,11 @@ const AddSubsidiaryMaintain = update => {
      };
      useEffect(() => {
           // setCookies(getCookiesObject());
-          update && getSubsidiaryMaintenaceInfo(getIdFromUrl(currentPath));
+          console.log(update);
+          // if (update) {
+          //      console.log('in');
+          //      getSubsidiaryMaintenaceInfo(getIdFromUrl(currentPath));
+          // }
      }, []);
 
      const calculateTotalAmount = values => {

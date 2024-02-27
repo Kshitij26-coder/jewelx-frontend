@@ -800,17 +800,17 @@ const Billing = () => {
                                                             />
                                                             <ErrorMessage name="chequeAmount" component="div" className="text-danger" />
                                                        </div>
-                                                       <div>
-                                                            <div className="form-group">
-                                                                 <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
-                                                                      <button type="submit" className="btn btn-block submit-button" disabled={false}>
-                                                                           Generate
-                                                                      </button>
-                                                                 </div>
-                                                            </div>
-                                                       </div>
                                                   </div>
                                              )}
+                                             <div>
+                                                  <div className="form-group col-lg-4">
+                                                       <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
+                                                            <button type="submit" className="btn btn-block submit-button" disabled={false}>
+                                                                 Generate
+                                                            </button>
+                                                       </div>
+                                                  </div>
+                                             </div>
                                         </div>
                                    </div>
                               </Form>

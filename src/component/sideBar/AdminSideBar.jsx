@@ -26,7 +26,6 @@ const AdminSideBar = [
      // { path: '/uom', icon: <ScaleOutlinedIcon fontSize="large" />, option: 'Unit Of Measurement' },
 
      { path: '/', icon: <DashboardOutlinedIcon fontSize="large" />, option: 'Dashboard' },
-     { path: '/subsidiary', icon: <StoreOutlinedIcon fontSize="large" />, option: 'Subsidiary' },
      { path: '/metal-stock', icon: <DataThresholdingOutlinedIcon fontSize="large" />, option: 'Metal Stock' },
      { path: '/category', icon: <CategoryIcon fontSize="large" />, option: 'Category' },
      { path: '/article', icon: <DiamondOutlinedIcon fontSize="large" />, option: 'Article Stock' },

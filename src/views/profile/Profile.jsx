@@ -15,11 +15,12 @@ import { userEndpoints } from '../../utils/endpoints/userEndpoints';
 import { useSnackbar } from 'notistack';
 import ButtonLoader from '../../component/loaders/ButtonLoader';
 import ModalV from '../../component/ModalV';
+import profile from '../../../public/img/profile.jpg';
 
 const Profile = () => {
      const [isEditing, setIsEditing] = useState(false);
      const [formData, setFormData] = useState(null);
-     const [cookiesData, setCookiesData] = useState({});
+     const [cookiesData, setCookiesData] = useState(getCookiesObject());
      const [initialValues, setInitialValues] = useState({});
      const navigate = useNavigate();
      const { enqueueSnackbar } = useSnackbar();
@@ -70,9 +71,8 @@ const Profile = () => {
           setIsEditing(true);
      };
      useEffect(() => {
-          setCookiesData(getCookiesObject());
           let data = getCookiesObject();
-          // console.log(data);
+          //console.log(data);
           setInitialValues({
                userName: data?.username,
                email: data?.email,
@@ -95,15 +95,18 @@ const Profile = () => {
                                              <img
                                                   alt="..."
                                                   className="img-circle img-fluid img-thumbnail "
-                                                  src="https://t4.ftcdn.net/jpg/05/47/92/27/240_F_547922755_AazNubxrYOHUF3qHpJGl7FrE564utmH5.jpg"
+                                                  src={getCookiesObject().brand.imageUrl == null ? profile : getCookiesObject().brand.imageUrl}
+                                                  style={{ height: '30rem', width: '30rem' }}
                                              />
                                         </div>
                                    </div>
                                    <div className="card-body " style={{ height: 'auto' }}>
                                         <div className="text-center">
-                                             <button className="btn btn-primary" onClick={() => setOpen(true)}>
-                                                  Update Picture
-                                             </button>
+                                             {cookiesData.role == 'O' && (
+                                                  <button className="btn btn-primary" onClick={() => setOpen(true)}>
+                                                       Update Picture
+                                                  </button>
+                                             )}
                                              <h3>{cookiesData.username}</h3>
                                              <div style={{ marginBottom: '20px' }}>
                                                   <h5>Brand Name : {cookiesData?.brand?.name}</h5>
@@ -274,7 +277,7 @@ const Profile = () => {
                                                   </div>
                                                   {/* Submit button */}
                                                   {isEditing && (
-                                                       <button type="submit" className="btn btn-primary btn-lg" disabled={false}>
+                                                       <button type="submit" className="btn btn-block submit-button" disabled={false}>
                                                             Submit
                                                        </button>
                                                   )}

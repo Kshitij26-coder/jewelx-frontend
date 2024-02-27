@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../styles/style.css';
 import imageLogo from '../assets/logo.png';
 import profile from '../../public/img/profile.jpg';
+import { getCookiesObject } from '../utils/getCookiesObject';
 
 export default function Header() {
      return (
@@ -43,7 +44,7 @@ export default function Header() {
                               <>
                                    <Link to="/profile">
                                         <img
-                                             src={profile}
+                                             src={getCookiesObject().brand.imageUrl == null ? profile : getCookiesObject().brand.imageUrl}
                                              alt="Profile"
                                              style={{ height: '5rem', width: '5rem', borderRadius: '50%', marginBottom: '0rem' }}
                                         />

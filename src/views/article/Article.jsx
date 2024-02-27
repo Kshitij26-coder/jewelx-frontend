@@ -63,7 +63,7 @@ const Article = () => {
                     purity: each.purity,
                     stoneWeight: each.stoneWeight,
                     huid: each.huid,
-                    category: each.category,
+                    category: each.categoryInfo.categoryName,
                };
           });
           setRows(temp);

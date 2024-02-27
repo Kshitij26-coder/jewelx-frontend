@@ -83,10 +83,12 @@ const PurchaseUser = ({ update }) => {
                     ...values,
                     brandId: cookies.brandId,
                     userId: cookies.idxId,
-                    subsidiaryId: cookies.subsidiaryId == null ? 1 : cookie.subsidiaryId,
+                    subsidiaryId: cookies.subsidiaryId == null ? 1 : cookies.subsidiaryId,
                };
                const data = await postRequest(dto, userPurchasesEndPoints.BASE_URL, navigate, enqueueSnackbar);
+
                showSuccessSnackbar('Added Successfully', enqueueSnackbar);
+               navigate('/user-purchase');
                setIsEditing(false);
           } catch (e) {
                console.log(e);
