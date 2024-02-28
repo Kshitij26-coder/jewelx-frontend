@@ -46,14 +46,21 @@ export let postRequest = async (data, endpoint, navigate, enqueueSnackbar) => {
                     //logout the user
                     showErrorSnackbar('Unauthorized Access', enqueueSnackbar);
                     navigate('/login');
+               } else if (err.response.status === 500) {
+                    showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
+                    navigate('/error500');
+                    throw new Error(
+                         err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
+                    );
+               } else {
+                    showErrorSnackbar(
+                         err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
+                         enqueueSnackbar,
+                    );
+                    throw new Error(
+                         err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
+                    );
                }
-               showErrorSnackbar(
-                    err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
-                    enqueueSnackbar,
-               );
-               throw new Error(
-                    err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
-               );
           } else if (err.request) {
                // The request was made but no response was received
                showErrorSnackbar("Can't connect to server", enqueueSnackbar);
@@ -88,9 +95,17 @@ export let getRequest = async (endpoint, navigate, enqueueSnackbar) => {
                     //logout the user
                     showErrorSnackbar('Unauthorized Access', enqueueSnackbar);
                     navigate('/login');
+               } else if (err.response.status === 500) {
+                    showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
+                    navigate('/error500');
+                    throw new Error(
+                         err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
+                    );
                } else {
                     showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
-                    throw new Error(err.response.data.message);
+                    throw new Error(
+                         err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
+                    );
                }
           } else if (err.request) {
                // The request was made but no response was received
@@ -128,9 +143,17 @@ export let putRequest = async (id, data, endpoint, navigate, enqueueSnackbar) =>
                     //logout the user
                     showErrorSnackbar('Unauthorized Access', enqueueSnackbar);
                     navigate('/login');
+               } else if (err.response.status === 500) {
+                    showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
+                    navigate('/error500');
+                    throw new Error(
+                         err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
+                    );
                } else {
                     showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
-                    throw new Error(err.response.data.message);
+                    throw new Error(
+                         err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
+                    );
                }
           } else if (err.request) {
                // The request was made but no response was received
@@ -166,9 +189,16 @@ export let deleteRequest = async (endpoint, id, navigate, enqueueSnackbar) => {
                     //logout the user
                     showErrorSnackbar('Unauthorized Access', enqueueSnackbar);
                     navigate('/login');
+               } else if (err.response.status === 500) {
+                    showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
+                    navigate('/error500');
+                    throw new Error(
+                         err.response.data.message ? err.response.data.message : err.response.data ? err.response.data : 'Something Went Wrong',
+                    );
+               } else {
+                    showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
+                    throw new Error(err.response.data.message);
                }
-               showErrorSnackbar(err.response.data.message ? err.response.data.message : err.response.data, enqueueSnackbar);
-               throw new Error(err.response.data.message);
           } else if (err.request) {
                // The request was made but no response was received
                showErrorSnackbar('Connection Failed', enqueueSnackbar);

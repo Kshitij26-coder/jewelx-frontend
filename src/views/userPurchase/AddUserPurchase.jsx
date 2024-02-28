@@ -51,7 +51,7 @@ const PurchaseUser = ({ update }) => {
      const getMetalsOptions = async () => {
           try {
                const data = await getRequest(getAllMetalsByBrand(), navigate, enqueueSnackbar);
-               //console.log(data);
+               console.log(data);
                setMetals(data);
           } catch (e) {
                console.error(e);
@@ -79,6 +79,7 @@ const PurchaseUser = ({ update }) => {
 
      const submitHandeler = async values => {
           try {
+               setButtonLoader(true);
                const dto = {
                     ...values,
                     brandId: cookies.brandId,
@@ -90,7 +91,9 @@ const PurchaseUser = ({ update }) => {
                showSuccessSnackbar('Added Successfully', enqueueSnackbar);
                navigate('/user-purchase');
                setIsEditing(false);
+               setButtonLoader(false);
           } catch (e) {
+               setButtonLoader(false);
                console.error(e);
           }
      };
@@ -147,14 +150,15 @@ const PurchaseUser = ({ update }) => {
                                                             name="metalId"
                                                             disabled={!isEditing}
                                                             onChange={async e => {
-                                                                 setFieldValue('metalId', Number(e.target.value));
+                                                                 setFieldValue('metalId', Number(e.target.value.id));
+                                                                 setFieldValue('metalRate', e.target.value.rate);
                                                             }}
                                                        >
                                                             <option value="">Select Metal</option>
 
                                                             {metals?.length > 0 &&
                                                                  metals.map(each => (
-                                                                      <option value={each.metalId} key={each.metalId}>
+                                                                      <option value={{ id: each.metalId, rate: each.metalRate }} key={each.metalId}>
                                                                            {each.metalName}
                                                                       </option>
                                                                  ))}
@@ -395,14 +399,16 @@ const PurchaseUser = ({ update }) => {
                                                   </div>
                                              )}
                                         </div>
-                                        {isEditing && (
-                                             <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
-                                                  <button type="submit" className="btn btn-block submit-button" disabled={false}>
-                                                       submit
-                                                       {/* {buttonLoader ? <ButtonLoader /> : update ? 'Update' : 'Add'} */}
-                                                  </button>
-                                             </div>
-                                        )}
+                                        {isEditing &&
+                                             (buttonLoader ? (
+                                                  <ButtonLoader />
+                                             ) : (
+                                                  <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
+                                                       <button type="submit" className="btn btn-block submit-button" disabled={buttonLoader}>
+                                                            submit
+                                                       </button>
+                                                  </div>
+                                             ))}
                                    </Form>
                               )}
                          </Formik>

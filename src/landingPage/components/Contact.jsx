@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import emailjs from 'emailjs-com';
 import React from 'react';
 import { postRequest } from '../../utils/apis/apiRequestHelper';
 import { feedBackEndPoints } from '../../utils/endpoints/feedBackEndPoints';

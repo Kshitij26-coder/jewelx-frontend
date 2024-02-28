@@ -9,7 +9,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 import { styled } from '@mui/material/styles';
 import { getCookiesObject } from '../utils/getCookiesObject';
-import { showSuccessSnackbar } from '../utils/snackBar';
+import { showErrorSnackbar, showSuccessSnackbar } from '../utils/snackBar';
 import { enqueueSnackbar, useSnackbar } from 'notistack';
 import axios from 'axios';
 import { postRequest } from '../utils/apis/apiRequestHelper';
@@ -53,10 +53,10 @@ const ModalV = ({ open, handleClose }) => {
                setLoader(true);
                const formData = new FormData();
                formData.append('image', selectedFile);
-               const response = await axios.post(`http://localhost:8080/brand/cloud/${getCookiesObject().brandId}`, formData, {
+               const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/brand/cloud/${getCookiesObject().brandId}`, formData, {
                     headers: {
                          'Content-Type': 'multipart/form-data', // Set the content type header
-                         // Add any additional headers if needed
+                         Authorization: `Bearer ${getCookiesObject().jwtToken}`,
                     },
                });
                showSuccessSnackbar('Image updated successfully', enqueueSnackbar);
@@ -69,6 +69,7 @@ const ModalV = ({ open, handleClose }) => {
                setSelectedFile(null);
                handleClose();
           } catch (error) {
+               showErrorSnackbar('Error in uploading image', enqueueSnackbar);
                console.error('Error uploading file:', error);
           }
      };
@@ -79,6 +80,7 @@ const ModalV = ({ open, handleClose }) => {
 
      const handleCancel = event => {
           setSelectedFile(null);
+          setLoader(false);
      };
 
      return (

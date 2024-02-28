@@ -15,6 +15,7 @@ import SilverBadge from '../../component/badges/SilverBadge';
 import { getAlCategoriesPagesById } from '../../utils/apis/itemCategoryApiRequest';
 import { articleCategoryEndpoints } from '../../utils/endpoints/articleCategoryEndpoints';
 import { articleCategoryValidationSchema } from '../../validation/articleCategory';
+import ButtonLoader from '../../component/loaders/ButtonLoader';
 
 const ArticleCategory = () => {
      const columns = ['Sr No', 'Category name', 'Metal'];
@@ -25,6 +26,7 @@ const ArticleCategory = () => {
      const [rows, setRows] = useState([]);
      const [totalRows, setTotalRows] = useState(1);
      const [page, setPage] = useState(1);
+     const [buttonLoader, setButtonLoader] = useState(false);
      const [isEditing, setIsEditing] = useState(false);
      const [metals, setMetals] = useState([]);
      const [refresh, setRefresh] = useState(false);
@@ -38,7 +40,7 @@ const ArticleCategory = () => {
                setLoader(true);
                const data = await getRequest(getAlCategoriesPagesById(page), navigate, enqueueSnackbar);
                setLoader(false);
-              // console.log(data);
+               // console.log(data);
                responseToRows(data.content);
                setTotalRows(data.totalElements);
           } catch (e) {
@@ -61,6 +63,7 @@ const ArticleCategory = () => {
 
      const submitHandeler = async values => {
           try {
+               setButtonLoader(true);
                const dto = {
                     ...values,
                     brandId: cookies.brandId,
@@ -71,7 +74,9 @@ const ArticleCategory = () => {
                // const data = await postRequest();
                setIsEditing(false);
                setRefresh(!refresh);
+               setButtonLoader(false);
           } catch (e) {
+               setButtonLoader(false);
                console.error(e);
           }
      };
@@ -187,16 +192,19 @@ const ArticleCategory = () => {
                               </Form>
                          )}
                     </Formik>
-                    {!isEditing && (
-                         <button
-                              className="submit-button"
-                              onClick={() => {
-                                   setIsEditing(true);
-                              }}
-                         >
-                              + Add Entry
-                         </button>
-                    )}
+                    {!isEditing &&
+                         (buttonLoader ? (
+                              <ButtonLoader />
+                         ) : (
+                              <button
+                                   className="submit-button"
+                                   onClick={() => {
+                                        setIsEditing(true);
+                                   }}
+                              >
+                                   + Add Entry
+                              </button>
+                         ))}
                </div>
 
                {loader ? (

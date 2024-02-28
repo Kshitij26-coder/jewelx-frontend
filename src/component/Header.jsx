@@ -23,7 +23,6 @@ export default function Header() {
                          </Link>
                          {''}.
                     </div>
-
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                          <ul className="nav navbar-nav navbar-right">
                               <li>
@@ -44,7 +43,7 @@ export default function Header() {
                               <>
                                    <Link to="/profile">
                                         <img
-                                             src={getCookiesObject().brand.imageUrl == null ? profile : getCookiesObject().brand.imageUrl}
+                                             src={getCookiesObject()?.brand?.imageUrl == null ? profile : getCookiesObject().brand.imageUrl}
                                              alt="Profile"
                                              style={{ height: '5rem', width: '5rem', borderRadius: '50%', marginBottom: '0rem' }}
                                         />

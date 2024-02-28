@@ -15,6 +15,7 @@ import { showSuccessSnackbar } from '../../utils/snackBar';
 import { getCustomerByBrandId } from '../../utils/apis/customerApiRequest';
 import { getCookiesObject } from '../../utils/getCookiesObject';
 import { saleEndPoints } from '../../utils/endpoints/saleEndPoints';
+import ButtonLoader from '../../component/loaders/ButtonLoader';
 const Billing = () => {
      const columns = [
           'Article Name',
@@ -805,8 +806,8 @@ const Billing = () => {
                                              <div>
                                                   <div className="form-group col-lg-4">
                                                        <div className="button-submit" style={{ marginTop: '20px', textAlign: 'center' }}>
-                                                            <button type="submit" className="btn btn-block submit-button" disabled={false}>
-                                                                 Generate
+                                                            <button type="submit" className="btn btn-block submit-button" disabled={buttonLoader}>
+                                                                 {buttonLoader ? <ButtonLoader /> : 'Generate'}
                                                             </button>
                                                        </div>
                                                   </div>
