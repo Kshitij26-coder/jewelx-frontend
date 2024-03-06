@@ -1,6 +1,13 @@
 const snackbarStyle = {
      backgroundColor: 'green', // Set the background color to green
-     color: 'white', // Set the text color to white or another contrasting color
+     color: 'white', // Set the text color to white or another contrasting color,
+     fontSize: '16px',
+};
+
+const errorSnackbarStyle = {
+     backgroundColor: 'red', // Set the background color to green
+     color: 'white', // Set the text color to white or another contrasting color,
+     fontSize: '16px',
 };
 
 /**
@@ -31,6 +38,7 @@ export const showErrorSnackbar = (message, enqueueSnackbar) => {
      enqueueSnackbar(message, {
           variant: 'error',
           autoHideDuration: 1500,
+          style: errorSnackbarStyle,
           anchorOrigin: {
                vertical: 'top',
                horizontal: 'right',

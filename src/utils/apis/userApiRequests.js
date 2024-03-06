@@ -1,14 +1,19 @@
+import Cookies from 'js-cookie';
+
 //used to return a string which can later on concatinated with base url
 
 /**
  *
  * @param {string} endpoint
  * @param {Number} page
- * @param {string} role
  * @returns {string}
  */
-export const getUsersPaginatedEndpoint = (endpoint, page, role) => {
-     return `${endpoint}?page=${page}&size=${import.meta.env.VITE_PAGE_SIZE}&role=${role}`;
+export const getUsersPaginatedEndpoint = (endpoint, page) => {
+     const userCookie = JSON.parse(Cookies.get('user'));
+     //for owner subsidiaryID is not requred but for admin it is required
+     return `${endpoint}?page=${page}&size=${import.meta.env.VITE_PAGE_SIZE}&role=${userCookie.role}&brand=${userCookie.brandId}&subsidiary=${
+          userCookie.role == 'O' ? 0 : userCookie.subsidiaryId
+     }`;
 };
 
 /**
