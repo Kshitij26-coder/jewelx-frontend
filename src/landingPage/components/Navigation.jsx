@@ -70,7 +70,7 @@ export const Navigation = props => {
                                         <>
                                              <Link to="/profile">
                                                   <img
-                                                       src={getCookiesObject().brand.imageUrl == null ? profile : getCookiesObject().brand.imageUrl}
+                                                       src={getCookiesObject()?.brand.imageUrl == null ? profile : getCookiesObject()?.brand.imageUrl}
                                                        alt="Profile"
                                                        style={{ height: '5rem', width: '5rem', borderRadius: '50%', marginBottom: '0rem' }}
                                                   />
